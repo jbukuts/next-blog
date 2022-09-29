@@ -1,0 +1,17 @@
+.home__tag-container {
+    display: flex;
+    margin: 15px 0;
+
+    & > button {
+        margin-right: 5px;
+        padding: 5px 10px;
+        border-radius: 10px;
+        user-select: none;
+        border: none;
+        font-size: 16px;
+
+        &:hover {
+        cursor: pointer;
+        }
+    }
+}
