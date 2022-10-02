@@ -13,6 +13,7 @@ const nextConfig = {
   swcMinify: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
+    prependData: `@use "styles/mixins" as *;`,
   }
 }
 

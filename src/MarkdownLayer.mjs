@@ -26,7 +26,7 @@ async function buildHTML(stringContent, remarkPlugins = [], rehypePlugins = []) 
 async function getRepoData(apiKey) {
     console.log('get repo data');
     return await Promise.all(
-        (await fetch(' https://api.github.com/repos/jbukuts/blog-cms/contents/articles', {
+        (await fetch(' https://api.github.com/repos/jbukuts/blog-cms/contents/test', {
             headers: {
                 authorization: `Bearer ${apiKey}`,
                 contentType: 'application/vnd.github.v3+json'

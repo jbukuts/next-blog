@@ -1,17 +1,16 @@
 .home__tag-container {
     display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
     margin: 15px 0;
 
     & > button {
-        margin-right: 5px;
-        padding: 5px 10px;
-        border-radius: 10px;
-        user-select: none;
-        border: none;
         font-size: 16px;
+        border: 2px solid transparent;
+        @include tag-button;
 
         &:hover {
-        cursor: pointer;
+            cursor: pointer;
         }
     }
 }

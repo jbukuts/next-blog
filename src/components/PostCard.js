@@ -6,7 +6,7 @@ import { withRouter } from 'next/router';
 const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric' };
 
 const PostCard = (props) => {
-    const { slug, excerpt, tags, time_to_read, router, date } = props;
+    const { slug, excerpt, tags, time_to_read, router, date, style } = props;
     const cardRef = useRef(null);
     const [angleX, setAngleX] = useState(0);
     const [angleY, setAngleY] = useState(0);
@@ -45,7 +45,7 @@ const PostCard = (props) => {
         }
     }, []);
 
-    return (<div className={styles['post-card__wrapper']}>
+    return (<div className={styles['post-card__wrapper']} style={style}>
         <section 
             style={{ transform: `rotateY(${angleX}deg) rotateX(${angleY}deg)` }}
             ref={cardRef}

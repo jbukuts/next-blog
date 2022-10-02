@@ -7,7 +7,9 @@ function MyApp({ Component, pageProps, router  }) {
   return <>
     <header>
       <Link href='/'>
-        <Image width='2000' height='836' alt='Bukut Blog' src='/name-chrome.png'/>
+        <a>
+          <Image width={2000} height={836} alt='Bukut Blog' src='/name-chrome.png'/>
+        </a>
       </Link>
     </header>
     <main>

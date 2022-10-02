@@ -3,27 +3,30 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.scss';
 import PostCard from '../src/components/PostCard';
 import { withRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import VirtualScroll from '../src/components/VirtualScroll';
+import helpers from '../src/helpers';
 
 function Home(props) {
     const { posts, tags = [], router } = props;
-    const [postList, setPostList] = useState([]);
+    const [postList, setPostList] = useState(posts);
     const [tagsList, setTagsList] = useState([]);
+    const [isPending, startTransition] = useTransition();
 
     useEffect(() => {
         if (!router.isReady) return;
         const { tags: tagsQuery } = router.query;
-        const queryRegex = /^(\w+,?)+\w+$/g;
 
         let updateList = [];
-        if (tagsQuery && queryRegex.test(tagsQuery)) {
+        if (tagsQuery) {
             const tagsArr = tagsQuery.split(',');
             setTagsList(tagsArr);
             updateList = posts.filter(({tags}) => tagsArr.some(t => tags.includes(t)))
         }
 
-        setPostList(() => updateList.length === 0 ? posts : updateList);
+        startTransition(() => {
+            setPostList(() => updateList.length === 0 ? posts : updateList);
+        });
     }, [router, posts]);
 
     const updateQuery = (tag) => {
@@ -56,18 +59,19 @@ function Home(props) {
             <div className={styles['home__tag-container']}>
                 {tags.map((tag,i) => {
                     const isActive = tagsList.includes(tag);
+                    const background = helpers.hashAColor(tag);
+                    const borderColor = (isActive && 'black') || 'transparent';
                     return  <button 
-                        style={{ background: isActive ? 'red' : ''}} 
+                        style={{ borderColor, background, color: helpers.getAccentColor(background)}} 
                         onClick={() => isActive ? removeFromQuery(tag) : updateQuery(tag)} key={i}>
-                            {tag}
+                            <small>{tag}</small>
                     </button>
                 })}
             </div>
-            <VirtualScroll rowHeight={180} nodePadding={2}>
-                {postList.map((post, i) => (
-                    <PostCard key={i} {...post}/>
-                ))}
-            </VirtualScroll>
+
+            {postList.map((post, i) => (
+                <PostCard key={i} {...post}/>
+            ))}
         </>
     )
 }

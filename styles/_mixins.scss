@@ -1,0 +1,25 @@
+@mixin button-gradient {
+    position: relative;
+
+    &::before {
+        content:'';
+        width:100%;
+        height:100%;    
+        position:absolute;
+        left:0;
+        top:0;
+        background:linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.125));
+    }
+}
+
+@mixin tag-button {
+    background-color: rgb(192, 192, 192);
+    padding: 5px 10px;
+    border-radius: 10px;
+    box-sizing: content-box;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+
+    @include button-gradient;   
+}
