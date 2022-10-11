@@ -1,7 +1,7 @@
 import React from 'react';
 import getConfig from 'next/config';
 import Head from 'next/head';
-import styles from '../../styles/BlogPost.module.scss';
+import styles from '../../styles/pages/BlogPost.module.scss';
 
 const BlogPost = (props) => {
     const { content, previousPost, nextPost, slug } = props;
@@ -10,11 +10,11 @@ const BlogPost = (props) => {
         <Head>
             <title>Jake Bukuts Blog</title>
         </Head>
-        <p className={styles['blog-post__links']}>
+        {/*<p className={styles['blog-post__links']}>
             <small>home</small>
             <small>docker</small>
             <small>{slug}.md</small>
-        </p>
+        </p>*/}
         <article className={styles['blog-post__article']} dangerouslySetInnerHTML={{__html: content}}/>
     </>
 }

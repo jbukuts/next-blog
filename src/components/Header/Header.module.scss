@@ -1,0 +1,12 @@
+.blog-header {
+    margin: 15px 0;
+  
+    & img {
+      height: 100px !important;
+      aspect-ratio: 2000 / 836;
+    }
+  
+    &:hover {
+      cursor: pointer;
+    }
+  }

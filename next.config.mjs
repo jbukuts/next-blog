@@ -14,6 +14,9 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@use "styles/mixins" as *;`,
+  },
+  images: {
+    domains: ['i.cdn.co', 'i.scdn.co']
   }
 }
 
