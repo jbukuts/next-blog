@@ -1,5 +1,7 @@
 .blog-header {
-    margin: 15px 0;
+    margin: 15px auto;
+    width: min(700px, 100vw);
+    padding: 0 25px;
   
     & img {
       height: 100px !important;

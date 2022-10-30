@@ -11,6 +11,9 @@ const { GIST_API_KEY } = process.env;
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  eslint: {
+    dirs: ['pages', 'src']
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@use "styles/mixins" as *;`,

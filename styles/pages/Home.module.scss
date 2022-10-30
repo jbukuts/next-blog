@@ -1,22 +1,26 @@
 .home__tag-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin: 15px 0;
-
-    & .home__tag-button__active {
-        outline: 2px solid black;
+    & > h2 {
+        margin-top: 0;
     }
+    & > div {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin: 15px 0;
 
-    & > button {
-        font-size: 16px;
-        @include tag-button;
-        border: none;
-        outline: 2px solid transparent;
-        
+        & .home__tag-button__active {
+            outline: 2px solid black;
+        }
 
-        &:hover {
-            cursor: pointer;
+        & > button {
+            font-size: 16px;
+            @include tag-button;
+            border: none;
+            outline: 2px solid transparent;
+            
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 }

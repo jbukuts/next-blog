@@ -21,7 +21,7 @@ const AnimationWrapper = withRouter(({children, router}) => {
 })
 
 const Main = ({children}) => {
-    return (<main>
+    return (<main style={{width: 'min(700px, 100vw)', padding: '0 25px', margin: '0 auto'}}>
         {children}
     </main>) 
 }

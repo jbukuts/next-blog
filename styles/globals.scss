@@ -15,17 +15,12 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: white;
-  height: 100%;
-}
-
-body {
-  // scroll shift fix
-  margin-left: calc(100vw - 100%);
+  min-height: 100%;
+  overflow: overlay;
 }
 
 #__next {
-  width: min(700px, 100vw);
-  padding: 0 25px;
+  width: inherit;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

@@ -1,15 +1,12 @@
-import matter from 'gray-matter';
 import {unified} from 'unified'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeFormat from 'rehype-format'
 import rehypeStringify from 'rehype-stringify'
-import rehypeSlug from 'rehype-slug';
-import remarkBreaks from 'remark-breaks'
 
 const CHARS_PER_MINUTE = 1150;
 
-async function buildHTML(stringContent, remarkPlugins = [], rehypePlugins = []) {
+export async function buildHTML(stringContent, remarkPlugins = [], rehypePlugins = []) {
     return String(await unified()
         .use([
             remarkParse,
@@ -37,19 +34,14 @@ async function getRepoData(apiKey) {
             const { download_url, sha, name, size } = article;
             if (!download_url) return undefined;
 
-            const rawText = await fetch(download_url).then(r => r.text());
-
-            const data = matter(rawText, { excerpt: true, excerpt_separator: '<!--- end preview -->' });
-            const { data: frontmatter, excerpt, content } = data;
-            
+            // on store the URL in the data
+            // can be parsed as HTML during props phase
             return {
-                content: await buildHTML(content, [remarkBreaks], [rehypeSlug]),
-                excerpt: await buildHTML(excerpt, [remarkBreaks]),
                 slug: name.replace('.md', ''),
+                download_url,
                 sha,
                 time_to_read: Math.ceil(size / CHARS_PER_MINUTE),
-                date: new Date('Sept 9, 2022').toUTCString(),
-                ...frontmatter
+                date: new Date('Sept 9, 2022').toUTCString()
             }
         })
         .filter(gist => gist !== undefined)
