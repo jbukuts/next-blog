@@ -1,6 +1,7 @@
 import React from "react";
 import { LazyMotion, domAnimation, AnimatePresence, m } from 'framer-motion';
 import { withRouter } from "next/router";
+import styles from './Main.module.scss';
 
 const ANIMATIONS = {
     className: 'animation-wrapper',
@@ -21,7 +22,7 @@ const AnimationWrapper = withRouter(({children, router}) => {
 })
 
 const Main = ({children}) => {
-    return (<main style={{width: 'min(700px, 100vw)', padding: '0 25px', margin: '0 auto'}}>
+    return (<main className={styles['blog-main']}>
         {children}
     </main>) 
 }

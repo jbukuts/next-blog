@@ -13,7 +13,7 @@ const Footer = () => {
     };
 
     return <footer className={styles['blog-footer']}>
-      
+      <h2>Thanks for reading</h2>
     </footer>
 }
 

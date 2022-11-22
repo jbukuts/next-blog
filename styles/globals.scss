@@ -14,9 +14,17 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: white;
+  background: rgb(255, 255, 255);
   min-height: 100%;
+}
+
+html {
   overflow: overlay;
+}
+
+body {
+  width: min(700px, 100%);
+  padding: 0 25px,
 }
 
 #__next {
@@ -30,3 +38,9 @@ body {
 main {
   margin-bottom: 30px;
 }
+
+// @include large-width {
+//   body {
+//     width: 1000px;
+//   }
+// }

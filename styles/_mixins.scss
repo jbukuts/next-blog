@@ -13,12 +13,14 @@
 }
 
 @mixin tag-button {
+    min-width: 35px;
     background-color: rgb(192, 192, 192);
     padding: 5px 10px;
     border-radius: 10px;
     position: relative;
     overflow: hidden;
     user-select: none;
+    text-align: center;
 
     @include button-gradient;   
 }
@@ -45,4 +47,8 @@
       border-width: 1px;
       border-radius: 10px;
     }
+}
+
+@mixin large-width {
+  @media (min-width: 1500px) { @content; }
 }

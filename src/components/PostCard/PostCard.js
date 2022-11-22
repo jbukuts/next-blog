@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styles from './PostCard.module.scss';
 import helpers from '../../helpers';
 import Link from 'next/link';
@@ -29,7 +29,7 @@ const PostCard = (props) => {
             setAngleY( Math.ceil(( (height / 2) - y ) * .1));
         }
 
-        const throttleHelper = helpers.throttle(mouseOver, 25);
+        const throttleHelper = helpers.throttle(mouseOver, 100);
         element.addEventListener('mousemove', throttleHelper);
         element.addEventListener('mouseleave', mouseLeave);
 

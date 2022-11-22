@@ -1,22 +1,21 @@
 .post-card__wrapper {
-  perspective: 1500px
+  perspective: 1000px
 }
 
 .post-card__container {
-  height: 180px;
+  height: 220px;
   border: 1px solid rgb(194, 194, 194);
-  margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 10px;
+  padding: 20px;
+  border-radius: 25px;
   background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(235, 235, 235));
   overflow: hidden;
   user-select: none;
   position: relative;
   transform-style: preserve-3d;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 100ms ease-in-out, filter .1s linear;
-  
-  & * {
+  transition: transform 150ms ease-in-out, filter .1s linear, scale 100ms ease-in-out;
+
+  & > * {
     pointer-events: none;
   }
 
@@ -44,19 +43,21 @@
 
   &:hover {
     cursor: pointer;
-    filter: invert(1) grayscale(1);
+    // filter: invert(0) grayscale(1);
+    scale: 1.015;
   }
 
   
   &:active {
-      transform: scale(1.05) !important;
+      transform: scale(1.025) !important;
   }
 }
 
+// tags in the post card
 .post-card__tags {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    bottom: 15px;
+    right: 15px;
     height: fit-content;
     display: flex;
     gap: 5px;
@@ -81,5 +82,10 @@
     }
 }
 
+@include large-width {
+  .post-card__container {
+    height: auto;
+  }
+}
 
   

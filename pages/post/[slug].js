@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import getConfig from 'next/config';
 import Head from 'next/head';
 import styles from '../../styles/pages/BlogPost.module.scss';
@@ -6,9 +6,20 @@ import matter from 'gray-matter';
 import rehypeSlug from 'rehype-slug';
 import remarkBreaks from 'remark-breaks';
 import { buildHTML } from '../../src/MarkdownLayer.mjs';
+import { HeaderContext } from '../_app';
 
 const BlogPost = (props) => {
-    const { content, previousPost, nextPost } = props;
+    const { content, previousPost, nextPost, tags, title } = props;
+
+    const [_,setHeaderState] = useContext(HeaderContext);
+
+    useEffect(() => {
+        setHeaderState(old => ({
+            ...old,
+            tags,
+            title
+        }));
+    }, [tags]);
 
     return <>
         <Head>
@@ -53,7 +64,8 @@ export async function getStaticProps(context) {
             slug: params.slug,
             content: await buildHTML(content, [remarkBreaks], [rehypeSlug]),
             ...(postIndex - 1 > -1 && { previousPost: allGists[postIndex-1]}),
-            ...(postIndex + 1 < allGists.length && { nextPost: allGists[postIndex+1]})
+            ...(postIndex + 1 < allGists.length && { nextPost: allGists[postIndex+1]}),
+            ...frontmatter
         }
     }
 }

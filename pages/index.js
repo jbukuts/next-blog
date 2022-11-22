@@ -3,16 +3,28 @@ import Head from 'next/head';
 import styles from '../styles/pages/Home.module.scss';
 import PostCard from '../src/components/PostCard/PostCard';
 import { withRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import helpers from '../src/helpers';
 import { buildHTML } from '../src/MarkdownLayer.mjs';
 import matter from 'gray-matter';
 import remarkBreaks from 'remark-breaks'
+import { HeaderContext } from './_app';
+import TagButton from '../src/components/TagButton/TagButton';
 
 function Home(props) {
     const { posts, tags = [], router } = props;
     const [postList, setPostList] = useState([]);
     const [tagsList, setTagsList] = useState([]);
+
+    const [_,setHeaderState] = useContext(HeaderContext);
+
+    useEffect(() => {
+        setHeaderState(old => ({
+            ...old,
+            tags: [],
+            title: undefined
+        }));
+    }, []);
 
     useEffect(() => {
         if (!router.isReady) return;
@@ -59,26 +71,21 @@ function Home(props) {
                 <div>
                     {tags.map((tag,i) => {
                         const isActive = tagsList.includes(tag);
-                        const background = helpers.hashAColor(tag);
-                        const color = helpers.getAccentColor(background);
                         const tagProps = [
                             {onClick: () => updateQuery(tag)},
-                            {className: styles['home__tag-button__active'], onClick: () => removeFromQuery(tag)}
+                            {isActive: true, onClick: () => removeFromQuery(tag)}
                         ];
 
-                        return <button 
-                            {...tagProps[+isActive]}
-                            style={{ background, color }} 
-                            key={i}>
-                                <small>{tag}</small>
-                        </button>
+                        return <TagButton key={i} text={tag} {...tagProps[+isActive]}/>
                     })}
                 </div>
             </div>
 
-            {postList.map((post, i) => (
-                <PostCard key={i} {...post}/>
-            ))}
+            <div className={styles['home__post-container']}>
+                {postList.map((post, i) => (
+                    <PostCard key={i} {...post}/>
+                ))}
+            </div>
         </>
     )
 }
@@ -87,8 +94,8 @@ export default withRouter(Home);
 
 export async function getStaticProps() {
     const { serverRuntimeConfig } = getConfig();
-    const { mdLayer } = serverRuntimeConfig;
-    const allGists = await Promise.all(JSON.parse(JSON.stringify(mdLayer.allGistData)).map(async (post) => {
+    const { mdLayer: { allGistData } } = serverRuntimeConfig;
+    const allGists = await Promise.all(allGistData.map(async (post) => {
         const { download_url } = post;
         
         const rawText = await fetch(download_url).then(r => r.text());
