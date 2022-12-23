@@ -1,32 +1,58 @@
-@use 'wrapper.scss';
-@use 'fonts.scss';
+@import "fonts";
+@import "wrapper";
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: San Francisco, -apple-system, sans-serif;
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+body {
+  // overflow: overlay;
+  background-color: rgb(250, 250, 250);
+}
+
+#__next {
+  margin: auto;
+  width: min($max-content-width, 100%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
 * {
   box-sizing: border-box;
 }
 
-html,
-body {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: white;
-  min-height: 100%;
-  overflow: overlay;
+@include apply-greater-than("sm") {
+  html {
+    font-size: calc(1.15 * 16px);
+  }
 }
 
-#__next {
-  width: inherit;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  height: inherit;
+@include apply-greater-than("lg") {
+  html {
+    font-size: calc(1.25 * 16px);
+  }
 }
 
-main {
-  margin-bottom: 30px;
+@include apply-greater-than("xl") {
+  html {
+    font-size: calc(1.5 * 16px);
+  }
 }
+
+// @media (prefers-color-scheme: dark) {
+//   html {
+//     color-scheme: dark;
+//   }
+//   body {
+//     color: white;
+//     background: black;
+//   }
+// }

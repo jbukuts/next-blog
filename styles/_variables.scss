@@ -1,0 +1,27 @@
+$max-content-width: 42rem;
+
+$grid-box-size: 2px;
+$corner-padding: 1.5rem;
+$border-rounding: 0.25rem;
+$border-color: rgb(149, 149, 149);
+
+// screen sizes
+$breakpoint-sm: 30rem;
+$breakpoint-md: 62rem;
+$breakpoint-lg: 110rem;
+$breakpoint-xl: 160rem;
+
+$breakpoints: (
+  "sm": (
+    min-width: $breakpoint-sm,
+  ),
+  "md": (
+    min-width: $breakpoint-md,
+  ),
+  "lg": (
+    min-width: $breakpoint-lg,
+  ),
+  "xl": (
+    min-width: $breakpoint-xl,
+  ),
+) !default;
