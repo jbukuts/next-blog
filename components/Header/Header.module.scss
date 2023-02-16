@@ -1,11 +1,12 @@
 .header {
-  text-align: center;
+  text-align: left;
   margin: 1rem 0;
+  grid-column: middle / right-side;
+  grid-row: header / content;
 }
 
 @include apply-greater-than("md") {
   .header {
-    text-align: left;
     margin: 2rem 0;
   }
 }

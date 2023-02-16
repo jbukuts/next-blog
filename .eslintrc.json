@@ -1,12 +1,12 @@
 {
-  "extends": ["plugin:@next/next/recommended", "next/core-web-vitals", "airbnb", "prettier"],
-  "plugins": ["jest", "prettier"],
-  "rules": {
-    "indent": ["error", 2],
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".tsx"] }],
-    "react/function-component-definition": ["warn", { "namedComponents": "arrow-function"}],
-    "react/forbid-prop-types": "off",
+    "extends": ["plugin:@next/next/recommended", "next/core-web-vitals", "airbnb", "prettier"],
+    "plugins": ["jest", "prettier"],
+    "rules": {
+        "indent": ["error", 2],
+        "prettier/prettier": ["error", { "endOfLine": "auto" }],
+        "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".tsx"] }],
+        "react/function-component-definition": ["warn", { "namedComponents": "arrow-function"}],
+        "react/forbid-prop-types": "off",
         "react/jsx-props-no-spreading": "off",
         "react/no-array-index-key": "off",
         "sort-imports": [

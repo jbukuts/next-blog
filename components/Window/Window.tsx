@@ -1,6 +1,6 @@
-import cx from "classnames";
-import React from "react";
-import styles from "./Window.module.scss";
+import cx from 'classnames';
+import React from 'react';
+import styles from './Window.module.scss';
 
 interface WindowProps {
   title?: string;
@@ -11,14 +11,14 @@ interface WindowProps {
   children: React.ReactNode;
 }
 
-const Window = (props: WindowProps) => {
+const Window = React.forwardRef((props: WindowProps, ref: any) => {
   const {
     title,
-    wrapper = "div",
+    wrapper = 'div',
     wrapperOptions,
     hoverable,
     children,
-    className,
+    className
   } = props;
 
   return React.createElement(
@@ -29,7 +29,8 @@ const Window = (props: WindowProps) => {
         className,
         hoverable && styles.containerHover
       ),
-      ...wrapperOptions,
+      ref,
+      ...wrapperOptions
     },
     <>
       <div className={styles.topBar}>
@@ -43,14 +44,14 @@ const Window = (props: WindowProps) => {
       {children}
     </>
   );
-};
+});
 
 Window.defaultProps = {
   title: undefined,
-  wrapper: "div",
+  wrapper: 'div',
   wrapperOptions: {},
   hoverable: false,
-  className: undefined,
+  className: undefined
 };
 
 export default Window;
