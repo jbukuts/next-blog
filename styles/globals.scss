@@ -1,57 +1,46 @@
-@import 'fonts';
-
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: San Francisco, -apple-system, sans-serif;
-  scroll-behavior: smooth;
-  width: 100%;
+// San Francisco fonts
+@font-face {
+  font-family: 'San Francisco';
+  src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Light.woff2) format('woff2');
+  font-display: swap;
+  font-weight: 300;
 }
 
-#__next {
-  margin: auto;
-  width: 100%;
-  display: grid;
-  grid-template-rows: [header] auto [content] auto [footer] auto;
-  grid-template-columns:
-    [left-side] $side-bar [middle] min(100%, $max-content)
-    [right-side] $side-bar;
-  column-gap: 1.5rem;
-  justify-content: center;
-  padding: 0 0.75rem;
+@font-face {
+  font-family: 'San Francisco';
+  src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Regular.woff2)
+    format('woff2');
+  font-display: swap;
+  font-weight: 400;
 }
 
-main {
-  grid-row: content / footer;
-  grid-column: middle / right-side;
+// @font-face {
+//   font-family: 'San Francisco';
+//   src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Medium.woff2)
+//     format('woff2');
+//   font-display: swap;
+//   font-weight: 500;
+// }
+
+// @font-face {
+//   font-family: 'San Francisco';
+//   src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Semibold.woff2)
+//     format('woff2');
+//   font-display: swap;
+//   font-weight: 600;
+// }
+
+@font-face {
+  font-family: 'San Francisco';
+  src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Bold.woff2) format('woff2');
+  font-display: swap;
+  font-weight: bold;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-  color: $main-color;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-p {
-  margin-top: 0;
-  line-height: 1.65rem;
-}
-
-li {
-  margin-bottom: 0.25rem;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-@include apply-greater-than('lg') {
-  #__next {
-    padding: 0 10rem;
-  }
+// Apple Color Emojis
+@font-face {
+  font-family: 'Apple Color Emoji';
+  src: url(/fonts/AppleColorEmoji.ttf) format('truetype');
+  font-display: swap;
+  size-adjust: 85%;
 }
