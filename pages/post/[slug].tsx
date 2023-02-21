@@ -1,3 +1,11 @@
+import {
+  GridItem,
+  Link,
+  ListItem,
+  Text,
+  UnorderedList
+} from '@chakra-ui/react';
+import Head from 'next/head';
 import { MDXRemote } from 'next-mdx-remote';
 import React, { useMemo, useState } from 'react';
 import {
@@ -7,17 +15,17 @@ import {
   RelatedArticles,
   TableOfContents,
   Window
-} from '../../components/index';
-import { RelatedPost } from '../../components/RelatedArticles/RelatedArticles';
-import { SectionHead } from '../../helpers/mdast-compile-toc';
+} from '../../src/components';
+import { RelatedPost } from '../../src/components/RelatedArticles';
+import { SharedHeader } from '../../src/components/SEO';
 import {
   ProcessedContent,
   getPostContent,
   getPostList,
   getProcessedPostList
-} from '../../helpers/pull-blog-data';
+} from '../../src/data-layer/pull-blog-data';
+import { SectionHead } from '../../src/helpers/mdast-compile-toc';
 import HeadingContext from '../../state/HeadingContext';
-import styles from '../../styles/pages/Article.module.scss';
 
 interface PageContext {
   params: {
@@ -25,7 +33,7 @@ interface PageContext {
   };
 }
 
-interface BlogPostProps extends Omit<ProcessedContent, 'name'> {
+interface BlogPostProps extends ProcessedContent {
   relatedPosts: RelatedPost[];
   tableOfContents: SectionHead[];
 }
@@ -33,9 +41,13 @@ interface BlogPostProps extends Omit<ProcessedContent, 'name'> {
 const components = {
   ArticleTags,
   PrettyCode,
+  a: ({ children, href }: any) => <Link href={href}>{children}</Link>,
   h1: Heading.H1,
   h2: Heading.H2,
-  h3: Heading.H3
+  h3: Heading.H3,
+  p: ({ children }: any) => <Text mb={4}>{children}</Text>,
+  ul: ({ children }: any) => <UnorderedList mb={4}>{children}</UnorderedList>,
+  li: ListItem
 } as any;
 
 const Article = (props: BlogPostProps) => {
@@ -46,7 +58,9 @@ const Article = (props: BlogPostProps) => {
     timeToRead,
     tags,
     date,
-    tableOfContents
+    tableOfContents,
+    title,
+    desc
   } = props;
 
   const [currentSection, setCurrentSection] = useState('');
@@ -56,24 +70,55 @@ const Article = (props: BlogPostProps) => {
   );
 
   return (
-    <HeadingContext.Provider value={memoSection}>
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta name='description' content={desc} />
+        <meta property='og:title' content={title} />
+        <meta property='og:type' content='article' />
+        <meta property='og:url' content={`https://jbukuts.com/post/${slug}`} />
+        <meta property='og:description' content={desc} />
+        <meta name='twitter:card' content='summary' />
+        <meta name='twitter:title' content={title} />
+        <meta name='twitter:description' content={desc} />
+        <meta
+          property='article:published_time'
+          content={new Date(date).toLocaleDateString()}
+        />
+      </Head>
+      <SharedHeader />
       {tableOfContents.length > 0 && (
         <TableOfContents
           tableOfContents={tableOfContents}
           currentSection={currentSection}
         />
       )}
-      <Window className={styles.wrapper} title={`${slug}.md`} wrapper='main'>
-        <article className={styles.content}>
-          <MDXRemote
-            {...content}
-            components={components}
-            scope={{ timeToRead, tags, date }}
-          />
-        </article>
-      </Window>
+      <GridItem gridRow='content' gridColumn='middle'>
+        <HeadingContext.Provider value={memoSection}>
+          <Window title={`${slug}.md`} as='main'>
+            <article itemScope itemType='https://schema.org/Article'>
+              <meta
+                itemProp='datePublished'
+                content={new Date(date).toLocaleDateString()}
+              />
+              <meta itemProp='author' content='Jake Bukuts' />
+              <meta itemProp='publisher' content='jbukuts.com' />
+              {useMemo(
+                () => (
+                  <MDXRemote
+                    {...content}
+                    components={components}
+                    scope={{ timeToRead, tags, date }}
+                  />
+                ),
+                [content, timeToRead, tags, date]
+              )}
+            </article>
+          </Window>
+        </HeadingContext.Provider>
+      </GridItem>
       <RelatedArticles postList={relatedPosts} currentSlug={slug} />
-    </HeadingContext.Provider>
+    </>
   );
 };
 
@@ -104,12 +149,12 @@ export async function getStaticProps(context: PageContext) {
   } = context;
 
   // get post list for related articles
-  const relatedPosts: RelatedPost[] = (await getProcessedPostList({})).map(
-    ({ title, slug, date, tags }) => ({ title, slug, date, tags })
-  );
+  const relatedPosts: RelatedPost[] = (await getProcessedPostList({}))
+    .map(({ title, slug, date, tags }) => ({ title, slug, date, tags }))
+    .filter(({ slug }) => slug !== currentSlug);
 
   // get the html and frontmatter data for given slug
-  const { tags, content, timeToRead, date, tableOfContents } =
+  const { tags, content, timeToRead, date, tableOfContents, title, desc } =
     await getPostContent({
       slug: currentSlug
     });
@@ -122,7 +167,9 @@ export async function getStaticProps(context: PageContext) {
       tableOfContents,
       content,
       timeToRead,
-      date
+      date,
+      title,
+      desc
     } as BlogPostProps
   };
 }
