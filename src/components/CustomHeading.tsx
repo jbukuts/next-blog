@@ -9,9 +9,9 @@ interface CustomHeadingProps {
 }
 
 const propsByTag: Record<string, HeadingProps> = {
-  h1: { size: '2xl', mb: 6 },
-  h2: { size: 'xl', mb: 4 },
-  h3: { size: 'lg', mb: 3 }
+  h1: { size: '2xl' },
+  h2: { size: 'lg', my: 4 },
+  h3: { size: 'md', my: 4 }
 };
 
 function createHeadingProxy() {

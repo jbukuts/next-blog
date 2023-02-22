@@ -20,13 +20,13 @@ const PrettyCode: React.FC<PrettyCodeProps> = (props) => {
   };
 
   return (
-    <Box ref={codeRef} pos='relative' mb={6}>
+    <Box ref={codeRef} pos='relative' my={6}>
       {children}
       {copyButton && (
         <Button
           colorScheme='whiteAlpha'
-          size='sm'
-          m={4}
+          size='xs'
+          m={3}
           position='absolute'
           bottom={0}
           right={0}

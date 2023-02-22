@@ -42,8 +42,8 @@ const components = {
   h1: Heading.H1,
   h2: Heading.H2,
   h3: Heading.H3,
-  p: ({ children }: any) => <Text mb={4}>{children}</Text>,
-  ul: ({ children }: any) => <UnorderedList mb={4}>{children}</UnorderedList>,
+  p: ({ children }: any) => <Text my={4}>{children}</Text>,
+  ul: ({ children }: any) => <UnorderedList my={4}>{children}</UnorderedList>,
   li: ListItem
 } as any;
 
@@ -90,7 +90,10 @@ const Article = (props: BlogPostProps) => {
       )}
       <GridItem gridRow='content' gridColumn='middle'>
         <HeadingContext.Provider value={memoSection}>
-          <Window title={`${slug}.md`} as='main'>
+          <Window
+            title={`${slug}.md`}
+            as='main'
+            asProps={{ lineHeight: '1.75' }}>
             <article itemScope itemType='https://schema.org/Article'>
               <meta
                 itemProp='datePublished'
@@ -98,11 +101,15 @@ const Article = (props: BlogPostProps) => {
               />
               <meta itemProp='author' content='Jake Bukuts' />
               <meta itemProp='publisher' content='jbukuts.com' />
-              {(() => {
-                const test = decompressData(compressedContent);
-
-                return <MDXRemote {...test} components={components} />;
-              })()}
+              {useMemo(
+                () => (
+                  <MDXRemote
+                    {...decompressData(compressedContent)}
+                    components={components}
+                  />
+                ),
+                [compressedContent]
+              )}
             </article>
           </Window>
         </HeadingContext.Provider>
