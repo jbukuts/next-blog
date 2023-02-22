@@ -10,7 +10,6 @@ const { Button, Heading, Link, List, Tag } = chakraTheme.components;
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(tagAnatomy.keys);
 
-// 'linear-gradient(0deg, rgb(189, 189, 189) 0%, rgb(234, 234, 234) 100%)'
 const brand = {
   barColor: 'rgb(235, 235, 235)',
   gradientOverlay:
@@ -18,7 +17,8 @@ const brand = {
   outline: 'rgb(149, 149, 149)',
   close: 'rgb(248, 92, 90)',
   minimize: 'rgb(247, 193, 51)',
-  maximize: 'rgb(25, 205, 68)'
+  maximize: 'rgb(25, 205, 68)',
+  codeBg: '#1E1E1E'
 };
 
 const gray = {
@@ -26,7 +26,7 @@ const gray = {
   500: '#8c8c8c',
   400: '#c7c7c7',
   300: '#b0b0b0',
-  200: '#d6d6d6',
+  200: '#ebebeb',
   100: '#f2f2f2'
 };
 
@@ -58,10 +58,9 @@ const theme = extendBaseTheme({
     global: () => ({
       body: {
         margin: '0',
-        padding: '0 1rem',
+        padding: '0 .5rem',
         scrollBehavior: 'smooth',
         width: '100%'
-        // overflow: 'overlay'
       },
       html: {
         margin: '0',
@@ -72,22 +71,20 @@ const theme = extendBaseTheme({
         width: '100%'
       },
       code: {
-        fontStyle: 'italic',
-        px: 1.5,
         py: 0.5,
+        px: 1,
         borderRadius: 'md',
         color: 'gray.900',
-        bg: 'gray.100',
-        borderWidth: '1px',
-        fontSize: '.85rem'
+        bg: 'gray.200',
+        fontSize: '.875rem'
       },
       pre: {
         code: {
           fontStyle: 'normal',
           overflowX: 'auto',
-          p: 4,
+          p: 3,
           display: 'grid',
-          bg: '#1e1e1e',
+          bg: 'brand.codeBg',
           borderColor: 'brand.outline'
         }
       }

@@ -40,7 +40,7 @@ const PostCard = (props: PostCardProps) => {
         </div>
         <div className={styles.horizontalStack}>
           {date && (
-            <TagBadge emoji='🗓'>
+            <TagBadge emoji='📅'>
               {new Date(date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',
