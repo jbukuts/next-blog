@@ -6,7 +6,8 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   sassOptions: {
-    includePaths: [path.join(__dirname, 'styles')]
+    includePaths: [path.join(__dirname, 'styles')],
+    prependData: `@use "styles/resources" as *;`
   },
   webpack: (config) => {
     // Important: return the modified config

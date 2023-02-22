@@ -4,6 +4,12 @@
 
   display: flex;
   justify-content: left;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin: 1rem 0;
+}
+
+@include apply-lesser-than('sm') {
+  .header {
+    justify-content: center;
+    margin: 0.5rem 0;
+  }
 }

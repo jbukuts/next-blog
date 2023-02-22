@@ -13,8 +13,8 @@ const ArticleTags: React.FC<ArticleTagsProps> = (props) => {
       {tags.map((tag, index) => (
         <TagBadge key={index}>{tag}</TagBadge>
       ))}
-      <TagBadge emoji='⏰'>{timeToRead} min</TagBadge>
-      <TagBadge emoji='📅'>
+      <TagBadge>{timeToRead} min</TagBadge>
+      <TagBadge>
         Posted on{' '}
         {new Date(date).toLocaleDateString('en-US', {
           year: 'numeric',

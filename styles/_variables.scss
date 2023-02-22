@@ -1,0 +1,25 @@
+// breakpoints
+$breakpoints: (
+  'sm': 600px,
+  'md': 1300px,
+  'lg': 2000px
+) !default;
+
+// color tokens
+$color-background: white;
+$color-outline: rgb(149, 149, 149);
+$color-close: rgb(248, 92, 90);
+$color-minimize: rgb(247, 193, 51);
+$color-maximize: rgb(25, 205, 68);
+$color-bar: rgb(235, 235, 235);
+$color-code-bg: #1e1e1e;
+$color-shadow: rgba(0, 0, 0, 0.35);
+
+// sizing tokens
+$spacing-1: 0.25rem;
+$spacing-2: 0.5rem;
+$spacing-3: 0.75rem;
+$spacing-4: 0.875rem;
+$spacing-5: 1rem;
+$spacing-6: 1.5rem;
+$spacing-7: 1.875rem;

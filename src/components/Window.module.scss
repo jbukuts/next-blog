@@ -1,13 +1,9 @@
-$close: rgb(248, 92, 90);
-$minimize: rgb(247, 193, 51);
-$maximize: rgb(25, 205, 68);
-
 .windowWrapper {
-  border: 1px solid rgb(149, 149, 149);
+  border: 1px solid $color-outline;
   overflow: hidden;
   border-radius: 8px;
-  background-color: white;
-  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.25);
+  background-color: $color-background;
+  box-shadow: 0px 10px 15px $color-shadow;
 }
 
 .windowContent {
@@ -22,12 +18,12 @@ $maximize: rgb(25, 205, 68);
   justify-content: center;
   text-align: center;
   text-align: center;
-  background-color: rgb(235, 235, 235);
+  background-color: $color-bar;
   font-size: 0.85rem;
   width: inherit;
   padding: 0.475rem;
   height: auto;
-  border-bottom: 1px solid rgb(149, 149, 149);
+  border-bottom: 1px solid $color-outline;
 
   &::after {
     content: '';
@@ -39,7 +35,7 @@ $maximize: rgb(25, 205, 68);
     top: 0;
     background: linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.125) 0%,
       rgba(0, 0, 0, 0.05) 100%
     );
   }
@@ -48,24 +44,24 @@ $maximize: rgb(25, 205, 68);
     display: flex;
     position: absolute;
     left: 0.5rem;
-    gap: 0.25rem;
+    gap: 0.275rem;
 
     & > div {
-      width: 10px;
-      height: 10px;
+      width: 11px;
+      height: 11px;
       border-radius: 100%;
       border: 1px solid rgba(0, 0, 0, 0.25);
 
       &:first-child {
-        background-color: $close;
+        background-color: $color-close;
       }
 
       &:nth-child(2) {
-        background-color: $minimize;
+        background-color: $color-minimize;
       }
 
       &:nth-child(3) {
-        background-color: $maximize;
+        background-color: $color-maximize;
       }
     }
   }

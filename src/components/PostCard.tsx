@@ -40,7 +40,7 @@ const PostCard = (props: PostCardProps) => {
         </div>
         <div className={styles.horizontalStack}>
           {date && (
-            <TagBadge emoji='📅'>
+            <TagBadge>
               {new Date(date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',
@@ -48,7 +48,7 @@ const PostCard = (props: PostCardProps) => {
               })}
             </TagBadge>
           )}
-          {timeToRead && <TagBadge emoji='⏰'>{timeToRead} min</TagBadge>}
+          {timeToRead && <TagBadge>{timeToRead} min</TagBadge>}
         </div>
       </div>
     </Window>

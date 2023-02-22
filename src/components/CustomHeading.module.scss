@@ -1,11 +1,12 @@
 .standard {
   font-weight: bold;
-  margin: 0.5rem 0;
+  margin: 0.75rem 0;
 
   &:hover {
     &::after {
       content: '🔗';
       margin-left: 0.5rem;
+      font-size: 0.85em;
     }
   }
 }
@@ -18,9 +19,9 @@
 }
 
 .H2 {
-  font-size: 1.875rem;
+  font-size: 2.25rem;
 }
 
 .H3 {
-  font-size: 1.65rem;
+  font-size: 1.75rem;
 }

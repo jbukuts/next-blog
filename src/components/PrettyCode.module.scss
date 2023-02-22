@@ -13,8 +13,14 @@
   margin-right: 1rem;
   margin-bottom: 1rem;
   padding: 0.25rem 0.5rem;
-  color: white;
-  border: 1px solid white;
-  background-color: rgba(255, 255, 255, 0.333);
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(165, 165, 165);
+  background-color: rgba(255, 255, 255, 0.25);
   border-radius: 5px;
+  transition: background-color 75ms linear;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.35);
+  }
 }

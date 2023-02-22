@@ -5,18 +5,11 @@ import styles from './Footer.module.scss';
 const Footer = () => (
   <Window topBar={false} as='footer' className={styles.footer}>
     <video
+      className={styles.footerVideo}
       onContextMenu={(event) => event.preventDefault()}
       autoPlay
       loop
-      muted
-      style={{
-        userSelect: 'none',
-        objectFit: 'cover',
-        position: 'absolute',
-        width: '100%',
-        left: '0',
-        top: '0'
-      }}>
+      muted>
       <source src='/images/gits.mp4' type='video/mp4' />
     </video>
     <div className={styles.footerContent}>

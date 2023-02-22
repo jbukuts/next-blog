@@ -4,7 +4,7 @@
   border-radius: 5px;
   position: relative;
   overflow: hidden;
-  background-color: rgb(235, 235, 235);
+  background-color: $color-bar;
   font-weight: 500;
   height: fit-content;
 
@@ -18,7 +18,7 @@
     top: 0;
     background: linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.125) 0%,
       rgba(0, 0, 0, 0.05) 100%
     );
     mix-blend-mode: multiply;
