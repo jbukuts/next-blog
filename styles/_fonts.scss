@@ -1,0 +1,46 @@
+// San Francisco fonts
+@font-face {
+  font-family: 'San Francisco';
+  src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Light.woff2) format('woff2');
+  font-display: swap;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'San Francisco';
+  src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Regular.woff2)
+    format('woff2');
+  font-display: swap;
+  font-weight: 400;
+}
+
+// @font-face {
+//   font-family: 'San Francisco';
+//   src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Medium.woff2)
+//     format('woff2');
+//   font-display: swap;
+//   font-weight: 500;
+// }
+
+// @font-face {
+//   font-family: 'San Francisco';
+//   src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Semibold.woff2)
+//     format('woff2');
+//   font-display: swap;
+//   font-weight: 600;
+// }
+
+@font-face {
+  font-family: 'San Francisco';
+  src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Bold.woff2) format('woff2');
+  font-display: swap;
+  font-weight: bold;
+}
+
+// Apple Color Emojis
+// @font-face {
+//   font-family: 'Apple Color Emoji';
+//   src: url(/fonts/AppleColorEmoji.ttf) format('truetype');
+//   font-display: swap;
+//   size-adjust: 85%;
+// }

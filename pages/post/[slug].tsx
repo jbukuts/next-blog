@@ -1,11 +1,3 @@
-import {
-  GridItem,
-  Link,
-  ListItem,
-  Text,
-  UnorderedList
-} from '@chakra-ui/layout';
-
 import Head from 'next/head';
 import { MDXRemote } from 'next-mdx-remote';
 import React, { useMemo, useState } from 'react';
@@ -29,6 +21,8 @@ import { compressData, decompressData } from '../../src/helpers/compression';
 import { SectionHead } from '../../src/helpers/mdast-compile-toc';
 import HeadingContext from '../../state/HeadingContext';
 
+import styles from '../../styles/pages/post/[slug].module.scss';
+
 interface BlogPostProps extends ProcessedContent {
   relatedPosts: RelatedPost[];
   tableOfContents: SectionHead[];
@@ -38,13 +32,9 @@ interface BlogPostProps extends ProcessedContent {
 const components = {
   ArticleTags,
   PrettyCode,
-  a: ({ children, href }: any) => <Link href={href}>{children}</Link>,
   h1: Heading.H1,
   h2: Heading.H2,
-  h3: Heading.H3,
-  p: ({ children }: any) => <Text my={4}>{children}</Text>,
-  ul: ({ children }: any) => <UnorderedList my={4}>{children}</UnorderedList>,
-  li: ListItem
+  h3: Heading.H3
 } as any;
 
 const Article = (props: BlogPostProps) => {
@@ -88,32 +78,30 @@ const Article = (props: BlogPostProps) => {
           currentSection={currentSection}
         />
       )}
-      <GridItem gridRow='content' gridColumn='middle'>
-        <HeadingContext.Provider value={memoSection}>
-          <Window
-            title={`${slug}.md`}
-            as='main'
-            asProps={{ lineHeight: '1.75' }}>
-            <article itemScope itemType='https://schema.org/Article'>
-              <meta
-                itemProp='datePublished'
-                content={new Date(date).toLocaleDateString()}
-              />
-              <meta itemProp='author' content='Jake Bukuts' />
-              <meta itemProp='publisher' content='jbukuts.com' />
-              {useMemo(
-                () => (
-                  <MDXRemote
-                    {...decompressData(compressedContent)}
-                    components={components}
-                  />
-                ),
-                [compressedContent]
-              )}
-            </article>
-          </Window>
-        </HeadingContext.Provider>
-      </GridItem>
+      <HeadingContext.Provider value={memoSection}>
+        <Window title={`${slug}.md`} as='main' className={styles.postWrapper}>
+          <article
+            itemScope
+            itemType='https://schema.org/Article'
+            className={styles.postContent}>
+            <meta
+              itemProp='datePublished'
+              content={new Date(date).toLocaleDateString()}
+            />
+            <meta itemProp='author' content='Jake Bukuts' />
+            <meta itemProp='publisher' content='jbukuts.com' />
+            {useMemo(
+              () => (
+                <MDXRemote
+                  {...decompressData(compressedContent)}
+                  components={components}
+                />
+              ),
+              [compressedContent]
+            )}
+          </article>
+        </Window>
+      </HeadingContext.Provider>
       <RelatedArticles postList={relatedPosts} currentSlug={slug} />
     </>
   );

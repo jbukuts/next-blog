@@ -1,6 +1,6 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
+import styles from './ArticleTags.module.scss';
 import TagBadge from './Badge';
 
 type ArticleTagsProps = Pick<ProcessedContent, 'tags' | 'timeToRead' | 'date'>;
@@ -9,12 +9,12 @@ const ArticleTags: React.FC<ArticleTagsProps> = (props) => {
   const { tags, timeToRead, date } = props;
 
   return (
-    <HStack spacing={1.5} my={4}>
+    <div className={styles.articleTags}>
       {tags.map((tag, index) => (
         <TagBadge key={index}>{tag}</TagBadge>
       ))}
-      <TagBadge emoji='⏰'>{timeToRead} min</TagBadge>
-      <TagBadge emoji='📅'>
+      <TagBadge>{timeToRead} min</TagBadge>
+      <TagBadge>
         Posted on{' '}
         {new Date(date).toLocaleDateString('en-US', {
           year: 'numeric',
@@ -22,7 +22,7 @@ const ArticleTags: React.FC<ArticleTagsProps> = (props) => {
           day: 'numeric'
         })}
       </TagBadge>
-    </HStack>
+    </div>
   );
 };
 

@@ -1,47 +1,36 @@
-import {
-  Box,
-  GridItem,
-  Heading,
-  ListItem,
-  OrderedList,
-  Text,
-  UnorderedList,
-  VStack
-} from '@chakra-ui/layout';
-
 import Head from 'next/head';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 import React from 'react';
 import { PostCard } from '../src/components';
 import { SharedHeader } from '../src/components/SEO';
-import { ProcessedContent } from '../src/data-layer/pull-blog-data';
+import {
+  ProcessedContent,
+  getProcessedPostList
+} from '../src/data-layer/pull-blog-data';
+
+import styles from '../styles/pages/index.module.scss';
 
 interface HomeProps {
   postList: ProcessedContent[];
 }
 
-const components = {
-  h1: ({ children }: any) => (
-    <Heading as='h1' size='xl' mb={3}>
-      {children}
-    </Heading>
-  ),
-  h2: ({ children }: any) => (
-    <Heading as='h2' size='lg' mb={2}>
-      {children}
-    </Heading>
-  ),
-  h3: ({ children }: any) => (
-    <Heading as='h3' size='md' mb={1}>
-      {children}
-    </Heading>
-  ),
-  p: ({ children }: any) => <Text mb={4}>{children}</Text>,
-  ul: UnorderedList,
-  ol: OrderedList,
-  li: ListItem
-} as any;
+const AboutMeCard = () => (
+  <div className={styles.aboutMe}>
+    <div className={styles.imageWrapper}>
+      <Image src='/images/me.webp' alt='This is me' fill />
+    </div>
+    <div style={{ flexShrink: 2 }}>
+      <h1>Hello ✌</h1>
+      <p>Hi, I&apos;m Jake Bukuts.</p>
+      <p>
+        I graduated from the University of South Carolina with a Bachelor&apos;s
+        Degree in Computer Science. Most of my day to day work revolves around
+        front-end and back-end web development.
+      </p>
+    </div>
+  </div>
+);
 
 const Home = (props: HomeProps) => {
   const { postList } = props;
@@ -56,58 +45,19 @@ const Home = (props: HomeProps) => {
         <meta property='og:title' content='Home' />
       </Head>
       <SharedHeader />
-      <GridItem gridRow='content' gridColumn='middle' as='main'>
-        <VStack spacing={8} align='stretch'>
-          <Box
-            display='flex'
-            flexDirection={['column', 'row']}
-            width='100%'
-            alignItems='center'
-            gap={6}>
-            <Box
-              flexShrink={0}
-              position='relative'
-              borderRadius='lg'
-              overflow='hidden'
-              borderWidth='2px'
-              height='200px'
-              width='200px'
-              borderColor='black'>
-              <Image
-                src='/images/me.webp'
-                alt='This is me'
-                fill
-                style={{ objectFit: 'cover', imageRendering: 'pixelated' }}
-              />
-            </Box>
-            <Box flexShrink='2'>
-              <components.h1>Hello ✌</components.h1>
-              <components.p>Hi, I&apos;m Jake Bukuts.</components.p>
-              <components.p>
-                I graduated from the University of South Carolina with a
-                Bachelor&apos;s Degree in Computer Science. Most of my day to
-                day work revolves around front-end and back-end web development.
-              </components.p>
-            </Box>
-          </Box>
-
-          <Heading size='2xl'>Recent Posts</Heading>
-          {postList.map((postItem: ProcessedContent, i: number) => (
-            <PostCard key={i} {...postItem}>
-              <MDXRemote components={components} {...postItem.content} lazy />
-            </PostCard>
-          ))}
-        </VStack>
-      </GridItem>
+      <main className={styles.homePage}>
+        <AboutMeCard />
+        {postList.map((postItem: ProcessedContent, i: number) => (
+          <PostCard key={i} {...postItem}>
+            <MDXRemote {...postItem.content} lazy />
+          </PostCard>
+        ))}
+      </main>
     </>
   );
 };
 
 export async function getStaticProps() {
-  const { getProcessedPostList } = await import(
-    '../src/data-layer/pull-blog-data'
-  );
-
   const testPostList: ProcessedContent[] = await getProcessedPostList({});
 
   return {

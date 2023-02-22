@@ -1,0 +1,27 @@
+.standard {
+  font-weight: bold;
+  margin: 0.75rem 0;
+
+  &:hover {
+    &::after {
+      content: '🔗';
+      margin-left: 0.5rem;
+      font-size: 0.85em;
+    }
+  }
+}
+
+// TODO: add breakpoint sizings
+.H1 {
+  font-size: 2.75rem;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.H2 {
+  font-size: 2.25rem;
+}
+
+.H3 {
+  font-size: 1.75rem;
+}

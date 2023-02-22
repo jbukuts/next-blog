@@ -1,0 +1,34 @@
+.badge {
+  background-color: red;
+  padding: 0.175rem 0.45rem;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  background-color: $color-bar;
+  font-weight: 500;
+  height: fit-content;
+
+  &::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.125) 0%,
+      rgba(0, 0, 0, 0.05) 100%
+    );
+    mix-blend-mode: multiply;
+  }
+}
+
+.sm {
+  font-size: 0.75rem;
+}
+
+.md {
+  font-size: 0.875rem;
+}

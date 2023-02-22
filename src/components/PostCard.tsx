@@ -1,14 +1,10 @@
-import { Box, HStack, VStack } from '@chakra-ui/react';
+import cx from 'classnames';
 import NextLink from 'next/link';
 import React from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
 import TagBadge from './Badge';
+import styles from './PostCard.module.scss';
 import Window from './Window';
-
-const MASK_GRADIENT =
-  'linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 1) 100%)';
-
-const CARD_SPACING = 1.5;
 
 interface PostCardProps
   extends Partial<
@@ -27,31 +23,24 @@ const PostCard = (props: PostCardProps) => {
     <Window
       title={`${slug}.md`}
       as={NextLink}
-      asProps={{
-        transition: 'all .15s linear',
-        _hover: {
-          textDecoration: 'none',
-          boxShadow: '0px 10px 15px rgba(0, 0, 0, 0.5)'
-        },
-        href: `/post/${slug}`,
-        position: 'relative'
-      }}>
-      <Box
-        {...(restrictHeight && {
-          height: '10rem',
-          style: { WebkitMaskImage: MASK_GRADIENT, maskImage: MASK_GRADIENT }
-        })}>
+      className={styles.postCard}
+      asProps={{ href: `/post/${slug}` }}>
+      <div
+        className={cx(
+          restrictHeight && styles.restrictHeight,
+          styles.postCardContent
+        )}>
         {children}
-      </Box>
+      </div>
 
-      <VStack position='absolute' bottom={4} right={4} spacing={CARD_SPACING}>
-        <HStack spacing={CARD_SPACING} justifyContent='flex-end' width='100%'>
+      <div className={cx(styles.tagList, styles.verticalStack)}>
+        <div className={styles.horizontalStack}>
           {tagLine && <TagBadge>{tagLine}</TagBadge>}
           {tags && tags.map((t, index) => <TagBadge key={index}>{t}</TagBadge>)}
-        </HStack>
-        <HStack spacing={CARD_SPACING} justifyContent='flex-end' width='100%'>
+        </div>
+        <div className={styles.horizontalStack}>
           {date && (
-            <TagBadge emoji='📅'>
+            <TagBadge>
               {new Date(date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',
@@ -59,9 +48,9 @@ const PostCard = (props: PostCardProps) => {
               })}
             </TagBadge>
           )}
-          {timeToRead && <TagBadge emoji='⏰'>{timeToRead} min</TagBadge>}
-        </HStack>
-      </VStack>
+          {timeToRead && <TagBadge>{timeToRead} min</TagBadge>}
+        </div>
+      </div>
     </Window>
   );
 };

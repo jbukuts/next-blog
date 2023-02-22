@@ -1,14 +1,8 @@
-import {
-  GridItem,
-  Heading,
-  ListItem,
-  Text,
-  UnorderedList
-} from '@chakra-ui/react';
 import Head from 'next/head';
 import React from 'react';
 import { Window } from '../../src/components';
 import { SharedHeader } from '../../src/components/SEO';
+import styles from '../../styles/pages/post/about-me.module.scss';
 
 const employment = [
   {
@@ -40,36 +34,19 @@ const skills = [
   'General OS knowledge'
 ];
 
-const SectionHeading = (props: any) => {
-  const { children } = props;
-
-  return (
-    <Heading
-      as='h2'
-      size='xl'
-      mt={4}
-      mb={2}
-      borderBottom='1px solid'
-      borderColor='gray.500'
-      pb={2}>
-      {children}
-    </Heading>
-  );
-};
-
 const EmploymentSection = (props: any) => {
   const { name, date, desc } = props;
 
   return (
-    <>
-      <Heading as='h3' size='md'>
+    <div className={styles.employment}>
+      <h3>
         <i>{name}</i>
-      </Heading>
-      <Text color='gray.500' mb={2}>
+      </h3>
+      <p>
         <i>{date}</i>
-      </Text>
-      <Text mb={4}>{desc}</Text>
-    </>
+      </p>
+      <p>{desc}</p>
+    </div>
   );
 };
 
@@ -81,15 +58,15 @@ const NestedList = (props: NestedListProps) => {
   const { listItems } = props;
 
   return (
-    <UnorderedList>
+    <ul>
       {listItems.map((s, i) =>
         typeof s === 'string' ? (
-          <ListItem key={i}>{s}</ListItem>
+          <li key={i}>{s}</li>
         ) : (
           <NestedList key={i} listItems={s} />
         )
       )}
-    </UnorderedList>
+    </ul>
   );
 };
 
@@ -108,33 +85,35 @@ const ResumePage = () => (
       <meta name='twitter:card' content='summary' />
       <meta name='twitter:title' content={TITLE} />
       <meta name='twitter:description' content={DESC} />
-      <SharedHeader />
     </Head>
-    <GridItem gridRow='content' gridColumn='middle'>
-      <Window title='resume.md' as='main'>
-        <article>
-          <Heading as='h1' size='2xl' mb={6}>
-            My Resume
-          </Heading>
+    <SharedHeader />
+    <Window
+      title='resume.md'
+      as='main'
+      className={styles.aboutMeWrapper}
+      contentClassName={styles.aboutMeContent}>
+      <article>
+        <h2>Education</h2>
 
-          <SectionHeading>Education 🎓</SectionHeading>
+        <p>
+          Bachelor of Computer Science
+          <br />
+          Columbia, SC
+          <br />
+          August 2017 - May 2021
+          <br />
+          GPA: 3.89
+        </p>
 
-          <Text>Bachelor of Computer Science</Text>
-          <Text>Columbia, SC</Text>
-          <Text>August 2017 - May 2021</Text>
-          <Text>GPA: 3.89</Text>
+        <h2>Employment</h2>
+        {employment.map((e, i) => (
+          <EmploymentSection key={i} {...e} />
+        ))}
 
-          <SectionHeading>Employment ✍</SectionHeading>
-          {employment.map((e, i) => (
-            <EmploymentSection key={i} {...e} />
-          ))}
-
-          <SectionHeading>Skills 🧠</SectionHeading>
-
-          <NestedList listItems={skills} />
-        </article>
-      </Window>
-    </GridItem>
+        <h2>Skills</h2>
+        <NestedList listItems={skills} />
+      </article>
+    </Window>
   </>
 );
 

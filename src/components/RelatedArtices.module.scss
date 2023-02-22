@@ -1,0 +1,58 @@
+$spacing: 0.5rem;
+
+.relatedArticles {
+  flex-direction: column;
+  grid-row: content;
+  grid-column: left-side;
+  height: fit-content;
+  position: sticky;
+  top: 1.25rem;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: rgb(144, 144, 144);
+  }
+}
+
+.relatedArticle {
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid $color-outline;
+
+  & p {
+    margin: 0;
+  }
+
+  & h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.175;
+    margin-bottom: 0.25rem;
+  }
+}
+
+.verticalStack {
+  display: flex;
+  gap: $spacing;
+  flex-direction: column;
+}
+
+.horizontalStack {
+  display: flex;
+  gap: $spacing;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+@include apply-lesser-than('md') {
+  .relatedArticles {
+    display: none;
+  }
+}
