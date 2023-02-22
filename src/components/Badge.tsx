@@ -1,40 +1,26 @@
-import { Tag, TagProps } from '@chakra-ui/react';
+import cx from 'classnames';
 import React from 'react';
-import { colorsMemo } from '../helpers/colors';
+import styles from './Badge.module.scss';
 
 interface TagBadgeProps {
   children: React.ReactNode;
   emoji?: string;
-  addColor?: boolean;
-  size?: TagProps['size'];
+  size?: 'sm' | 'md';
 }
 
 const TagBadge = (props: TagBadgeProps) => {
-  const { children, size, emoji, addColor } = props;
+  const { children, size, emoji } = props;
 
   return (
-    <Tag
-      bg='brand.barColor'
-      {...(addColor &&
-        (() => {
-          const { color, compliment } = colorsMemo[children as string];
-
-          return {
-            bg: color,
-            color: compliment
-          };
-        })())}
-      size={size}
-      whiteSpace='nowrap'>
+    <div className={cx(styles.badge, styles[size as string])}>
       {children}
       {emoji && ` ${emoji}`}
-    </Tag>
+    </div>
   );
 };
 
 TagBadge.defaultProps = {
   emoji: undefined,
-  addColor: false,
   size: 'md'
 };
 

@@ -1,18 +1,13 @@
-import { Heading, HeadingProps } from '@chakra-ui/react';
+import cx from 'classnames';
 import React, { useContext, useEffect } from 'react';
 import HeadingContext from '../../state/HeadingContext';
 import { useElementOnScreen } from '../hooks';
+import styles from './CustomHeading.module.scss';
 
 interface CustomHeadingProps {
   id: string;
   children: React.ReactNode;
 }
-
-const propsByTag: Record<string, HeadingProps> = {
-  h1: { size: '2xl', mb: 6 },
-  h2: { size: 'xl', mb: 4 },
-  h3: { size: 'lg', mb: 3 }
-};
 
 function createHeadingProxy() {
   const customHead = (key: string) =>
@@ -29,17 +24,10 @@ function createHeadingProxy() {
         if (visible && id && headingRef?.current) setCurrentSection(id);
       }, [visible, id, setCurrentSection, headingRef]);
 
-      return (
-        <Heading
-          {...(key === 'H1' && { itemProp: 'name headline' })}
-          _hover={{ _after: { content: '"🔗"', ml: 2 } }}
-          scrollMarginTop={2}
-          as={key.toLowerCase() as any}
-          ref={headingRef}
-          id={id}
-          {...propsByTag[key.toLowerCase()]}>
-          {children}
-        </Heading>
+      return React.createElement(
+        key.toLowerCase(),
+        { className: cx(styles.standard, styles[key]), ref: headingRef, id },
+        children
       );
     };
 

@@ -1,0 +1,35 @@
+.tableOfContents {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+
+  grid-row: content;
+  grid-column: right-side;
+  position: sticky;
+  height: fit-content;
+  top: 1.25rem;
+  line-height: 1.35;
+
+  & h1 {
+    font-size: 1rem;
+    color: black;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  & ul {
+    list-style-position: inside;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  & li {
+    color: #8c8c8c;
+  }
+}
+
+.currentSection {
+  text-decoration: underline;
+  color: rgb(31, 31, 31) !important;
+}

@@ -1,18 +1,10 @@
-import { GridItem } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import styles from './Header.module.scss';
 
 const Header = () => (
-  <GridItem
-    as='header'
-    gridRow='header'
-    gridColumn='middle'
-    display='flex'
-    justifyContent={['center', 'left']}
-    mt={8}
-    mb={6}
-    title='Back to home'>
+  <header className={styles.header} title='Back to home'>
     <Link href='/'>
       <Image
         style={{ imageRendering: 'crisp-edges' }}
@@ -23,7 +15,7 @@ const Header = () => (
         src='/name-chrome.webp'
       />
     </Link>
-  </GridItem>
+  </header>
 );
 
 export default Header;

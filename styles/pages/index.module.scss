@@ -1,0 +1,44 @@
+.homePage {
+  grid-row: content;
+  grid-column: middle;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+// TODO responsive change
+
+.aboutMe {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  gap: 1.5rem;
+
+  & h1 {
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  & p {
+    margin-bottom: 1rem;
+    line-height: 1.475;
+  }
+}
+
+.imageWrapper {
+  flex-shrink: 0;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 2px solid black;
+  height: 200px !important;
+  width: 200px !important;
+  position: relative;
+
+  & > img {
+    object-fit: cover;
+    image-rendering: pixelated;
+  }
+}

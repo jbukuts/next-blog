@@ -1,5 +1,4 @@
-import ColumnWrapper from './ColumnWrapper';
+import Footer from './Footer';
 import Header from './Header';
 
-// eslint-disable-next-line import/prefer-default-export
-export { ColumnWrapper, Header };
+export { Header, Footer };

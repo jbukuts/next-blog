@@ -1,5 +1,5 @@
-import { Box, Button } from '@chakra-ui/react';
 import React, { useRef, useState } from 'react';
+import styles from './PrettyCode.module.scss';
 
 interface PrettyCodeProps {
   copyButton?: boolean;
@@ -20,22 +20,17 @@ const PrettyCode: React.FC<PrettyCodeProps> = (props) => {
   };
 
   return (
-    <Box ref={codeRef} pos='relative' mb={6}>
+    <div ref={codeRef} className={styles.prettyCode}>
       {children}
       {copyButton && (
-        <Button
-          colorScheme='whiteAlpha'
-          size='sm'
-          m={4}
-          position='absolute'
-          bottom={0}
-          right={0}
+        <button
+          type='button'
           onClick={onCopyClick}
-          variant={(clicked && 'solid') || 'outline'}>
+          className={styles.copyButton}>
           {clicked ? 'Copied' : 'Copy'}
-        </Button>
+        </button>
       )}
-    </Box>
+    </div>
   );
 };
 

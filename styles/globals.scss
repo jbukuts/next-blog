@@ -1,46 +1,56 @@
-// San Francisco fonts
-@font-face {
-  font-family: 'San Francisco';
-  src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Light.woff2) format('woff2');
-  font-display: swap;
-  font-weight: 300;
+@use 'fonts';
+
+html {
+  margin: 0;
+  padding: 0;
+  font-family: San Francisco, Apple Color Emoji, -apple-system, sans-serif;
+  scroll-behavior: smooth;
+  width: 100%;
 }
 
-@font-face {
-  font-family: 'San Francisco';
-  src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Regular.woff2)
-    format('woff2');
-  font-display: swap;
-  font-weight: 400;
+body {
+  margin: auto;
+  scroll-behavior: smooth;
 }
 
-// @font-face {
-//   font-family: 'San Francisco';
-//   src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Medium.woff2)
-//     format('woff2');
-//   font-display: swap;
-//   font-weight: 500;
-// }
-
-// @font-face {
-//   font-family: 'San Francisco';
-//   src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Semibold.woff2)
-//     format('woff2');
-//   font-display: swap;
-//   font-weight: 600;
-// }
-
-@font-face {
-  font-family: 'San Francisco';
-  src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Bold.woff2) format('woff2');
-  font-display: swap;
-  font-weight: bold;
+#__next {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-rows: [header] auto [content] auto [footer] auto;
+  grid-template-columns:
+    [left-side] 250px [middle] min(100%, 725px)
+    [right-side] 250px;
+  justify-content: center;
 }
 
-// Apple Color Emojis
-@font-face {
-  font-family: 'Apple Color Emoji';
-  src: url(/fonts/AppleColorEmoji.ttf) format('truetype');
-  font-display: swap;
-  size-adjust: 85%;
+code {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+}
+
+pre {
+  line-height: 1.5;
+  & code {
+    overflow-x: auto;
+    padding: 1rem;
+    display: grid;
+    background-color: #1e1e1e;
+    border-color: black;
+  }
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

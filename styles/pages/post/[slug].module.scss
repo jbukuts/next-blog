@@ -1,0 +1,16 @@
+.postWrapper {
+  grid-row: content;
+  grid-column: middle;
+}
+
+.postContent {
+  & p {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  & ul {
+    margin-bottom: 1rem;
+    list-style-position: inside;
+  }
+}

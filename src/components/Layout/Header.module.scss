@@ -1,0 +1,9 @@
+.header {
+  grid-column: middle;
+  grid-row: header;
+
+  display: flex;
+  justify-content: left;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}

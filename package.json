@@ -15,6 +15,7 @@
     "@types/node": "18.11.13",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.9",
+    "classnames": "^2.3.2",
     "eslint": "8.29.0",
     "framer-motion": "^9.0.3",
     "gray-matter": "^4.0.3",
