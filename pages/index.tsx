@@ -7,7 +7,8 @@ import {
   Text,
   UnorderedList,
   VStack
-} from '@chakra-ui/react';
+} from '@chakra-ui/layout';
+
 import Head from 'next/head';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
@@ -73,10 +74,10 @@ const Home = (props: HomeProps) => {
               width='200px'
               borderColor='black'>
               <Image
-                src='/me.png'
+                src='/images/me.webp'
                 alt='This is me'
                 fill
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'cover', imageRendering: 'pixelated' }}
               />
             </Box>
             <Box flexShrink='2'>
