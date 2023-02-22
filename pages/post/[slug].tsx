@@ -93,12 +93,11 @@ const Article = (props: BlogPostProps) => {
             {useMemo(
               () => (
                 <MDXRemote
-                  {...content}
+                  {...decompressData(compressedContent)}
                   components={components}
-                  scope={{ timeToRead, tags, date }}
                 />
               ),
-              [content, timeToRead, tags, date]
+              [compressedContent]
             )}
           </article>
         </Window>

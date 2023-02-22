@@ -18,7 +18,7 @@ interface HomeProps {
 const AboutMeCard = () => (
   <div className={styles.aboutMe}>
     <div className={styles.imageWrapper}>
-      <Image src='/me.png' alt='This is me' fill />
+      <Image src='/images/me.webp' alt='This is me' fill />
     </div>
     <div style={{ flexShrink: 2 }}>
       <h1>Hello ✌</h1>
