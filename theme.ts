@@ -18,7 +18,8 @@ const brand = {
   outline: 'rgb(149, 149, 149)',
   close: 'rgb(248, 92, 90)',
   minimize: 'rgb(247, 193, 51)',
-  maximize: 'rgb(25, 205, 68)'
+  maximize: 'rgb(25, 205, 68)',
+  codeBg: '#1E1E1E'
 };
 
 const gray = {
@@ -61,7 +62,6 @@ const theme = extendBaseTheme({
         padding: '0 1rem',
         scrollBehavior: 'smooth',
         width: '100%'
-        // overflow: 'overlay'
       },
       html: {
         margin: '0',
@@ -72,12 +72,12 @@ const theme = extendBaseTheme({
         width: '100%'
       },
       code: {
-        fontStyle: 'italic',
         px: 1.5,
         py: 0.5,
         borderRadius: 'md',
         color: 'gray.900',
         bg: 'gray.100',
+        borderColor: 'brand.outline',
         borderWidth: '1px',
         fontSize: '.85rem'
       },
@@ -87,7 +87,7 @@ const theme = extendBaseTheme({
           overflowX: 'auto',
           p: 4,
           display: 'grid',
-          bg: '#1e1e1e',
+          bg: 'brand.codeBg',
           borderColor: 'brand.outline'
         }
       }

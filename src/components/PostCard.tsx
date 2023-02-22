@@ -51,7 +51,7 @@ const PostCard = (props: PostCardProps) => {
         </HStack>
         <HStack spacing={CARD_SPACING} justifyContent='flex-end' width='100%'>
           {date && (
-            <TagBadge emoji='🗓'>
+            <TagBadge emoji='📅'>
               {new Date(date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',

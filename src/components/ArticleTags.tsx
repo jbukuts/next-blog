@@ -14,7 +14,7 @@ const ArticleTags: React.FC<ArticleTagsProps> = (props) => {
         <TagBadge key={index}>{tag}</TagBadge>
       ))}
       <TagBadge emoji='⏰'>{timeToRead} min</TagBadge>
-      <TagBadge emoji='🗓'>
+      <TagBadge emoji='📅'>
         Published on{' '}
         {new Date(date).toLocaleDateString('en-US', {
           year: 'numeric',

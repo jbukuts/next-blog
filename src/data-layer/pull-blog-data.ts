@@ -85,31 +85,33 @@ async function processContent(
       ? await nodeFetch(downloadURL).then((r) => r.text())
       : Buffer.from(encodedContent, 'base64').toString();
 
-  const { data: frontmatter } = matter(rawContent);
+  const { data: frontmatter, content: matterContent } = matter(rawContent);
   const { tags, desc, date } = frontmatter as any;
+  const timeToRead = Math.ceil(size / CHARS_PER_MINUTE);
 
   const tableOfContents = JSON.parse(
     String(
       await unified()
         .use(remarkParse)
         .use(remarkStringifyMdast as Preset)
-        .process(matter(rawContent).content)
+        .process(matterContent)
     )
   ) as SectionHead[];
 
-  const content = await serialize(rawContent, {
+  const content = await serialize(matterContent, {
     mdxOptions: {
       remarkPlugins: [...remarkPlugins, remarkBreaks],
       rehypePlugins,
       format: 'mdx'
     },
-    parseFrontmatter: true
+    scope: { timeToRead, tags, date },
+    parseFrontmatter: false
   });
 
   return {
     title: tableOfContents[0].title,
     slug: name.substring(0, name.indexOf('.')),
-    timeToRead: Math.ceil(size / CHARS_PER_MINUTE),
+    timeToRead,
     tags,
     content,
     date: new Date(date).toISOString(),

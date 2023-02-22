@@ -4,7 +4,8 @@ import {
   ListItem,
   Text,
   UnorderedList
-} from '@chakra-ui/react';
+} from '@chakra-ui/layout';
+
 import Head from 'next/head';
 import { MDXRemote } from 'next-mdx-remote';
 import React, { useMemo, useState } from 'react';
@@ -24,18 +25,14 @@ import {
   getPostList,
   getProcessedPostList
 } from '../../src/data-layer/pull-blog-data';
+import { compressData, decompressData } from '../../src/helpers/compression';
 import { SectionHead } from '../../src/helpers/mdast-compile-toc';
 import HeadingContext from '../../state/HeadingContext';
-
-interface PageContext {
-  params: {
-    slug: string;
-  };
-}
 
 interface BlogPostProps extends ProcessedContent {
   relatedPosts: RelatedPost[];
   tableOfContents: SectionHead[];
+  compressedContent: any;
 }
 
 const components = {
@@ -54,13 +51,11 @@ const Article = (props: BlogPostProps) => {
   const {
     slug,
     relatedPosts,
-    content,
-    timeToRead,
-    tags,
     date,
     tableOfContents,
     title,
-    desc
+    desc,
+    compressedContent
   } = props;
 
   const [currentSection, setCurrentSection] = useState('');
@@ -103,16 +98,11 @@ const Article = (props: BlogPostProps) => {
               />
               <meta itemProp='author' content='Jake Bukuts' />
               <meta itemProp='publisher' content='jbukuts.com' />
-              {useMemo(
-                () => (
-                  <MDXRemote
-                    {...content}
-                    components={components}
-                    scope={{ timeToRead, tags, date }}
-                  />
-                ),
-                [content, timeToRead, tags, date]
-              )}
+              {(() => {
+                const test = decompressData(compressedContent);
+
+                return <MDXRemote {...test} components={components} />;
+              })()}
             </article>
           </Window>
         </HeadingContext.Provider>
@@ -143,7 +133,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: PageContext) {
+export async function getStaticProps(context: { params: { slug: string } }) {
   const {
     params: { slug: currentSlug }
   } = context;
@@ -159,18 +149,34 @@ export async function getStaticProps(context: PageContext) {
       slug: currentSlug
     });
 
+  // compress content
+  const compressedContent = compressData(content);
+
+  const props = {
+    slug: currentSlug,
+    relatedPosts,
+    tags,
+    tableOfContents,
+    timeToRead,
+    date,
+    title,
+    desc,
+    compressedContent
+  };
+
+  Object.keys(props).forEach((key: string) => {
+    const sizeOf =
+      Buffer.from(JSON.stringify((props as any)[key])).byteLength / 1000;
+    console.log(`Size of prop [${key}] is ${sizeOf} kilobytes`);
+  });
+  console.log(
+    `\nTOTAL PROPS SIZE: ${
+      Buffer.from(JSON.stringify(props as any)).byteLength / 1000
+    }`
+  );
+
   return {
-    props: {
-      slug: currentSlug,
-      relatedPosts,
-      tags,
-      tableOfContents,
-      content,
-      timeToRead,
-      date,
-      title,
-      desc
-    } as BlogPostProps
+    props
   };
 }
 

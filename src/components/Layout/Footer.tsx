@@ -1,5 +1,4 @@
 import { Heading, Link, VStack } from '@chakra-ui/react';
-import Image from 'next/image';
 import React from 'react';
 import Window from '../Window';
 
@@ -21,21 +20,21 @@ const Footer = () => (
       alignItems: 'center',
       height: '100%'
     }}>
-    <Image
+    <video
+      onContextMenu={(event) => event.preventDefault()}
+      autoPlay
+      loop
+      muted
       style={{
-        imageRendering: 'pixelated',
-        position: 'absolute',
-        top: '0',
-        left: '0',
         userSelect: 'none',
-        aspectRatio: '500 / 332',
-        objectFit: 'cover'
-      }}
-      src='/gits.gif'
-      alt='Footer image'
-      loading='lazy'
-      fill
-    />
+        objectFit: 'cover',
+        position: 'absolute',
+        width: '100%',
+        left: '0',
+        top: '0'
+      }}>
+      <source src='/images/gits.mp4' type='video/mp4' />
+    </video>
     <VStack zIndex={1} padding={4} borderRadius='lg' color='white'>
       <Heading as='h1' size={['lg', 'xl']}>
         🤩 Thanks for reading 🤩

@@ -1,6 +1,6 @@
 import '../styles/globals.scss';
+import { Grid } from '@chakra-ui/layout';
 import { ChakraProvider } from '@chakra-ui/provider';
-import { Grid } from '@chakra-ui/react';
 
 import type { AppProps } from 'next/app';
 import React from 'react';
