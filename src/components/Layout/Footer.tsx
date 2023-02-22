@@ -20,7 +20,7 @@ const Footer = () => (
       <source src='/images/gits.mp4' type='video/mp4' />
     </video>
     <div className={styles.footerContent}>
-      <h1>🤩 Thanks for reading 🤩</h1>
+      <h1>Thanks for reading</h1>
       <h2>
         Site code available{' '}
         <a
