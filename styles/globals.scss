@@ -6,13 +6,15 @@ html {
   font-family: San Francisco, Apple Color Emoji, -apple-system, sans-serif;
   scroll-behavior: smooth;
   width: 100%;
-  font-size: 17px;
+  font-size: 16px;
 }
 
 body {
   margin: auto;
   scroll-behavior: smooth;
   padding: 0 0.875rem;
+  margin-left: calc(100vw - 100%);
+  margin-right: 0;
 }
 
 #__next {
@@ -20,7 +22,7 @@ body {
   gap: $spacing-6;
   grid-template-rows: [header] auto [content] auto [footer] auto;
   grid-template-columns:
-    [left-side] 250px [middle] min(100%, 725px)
+    [left-side] 250px [middle] min(100%, $content-width)
     [right-side] 250px;
   justify-content: center;
 }
@@ -30,10 +32,10 @@ body {
 }
 
 code {
-  padding: 0.125rem 0.2rem;
+  padding: 0.175rem 0.25rem;
   border-radius: 5px;
   font-size: 0.875rem;
-  background-color: rgb(230, 230, 230);
+  background-color: rgba(0, 0, 0, 0.0675);
 }
 
 pre {

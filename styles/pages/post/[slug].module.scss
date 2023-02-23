@@ -12,5 +12,25 @@
   & ul {
     margin-bottom: 1rem;
     list-style-position: inside;
+    padding: 0 0.75rem;
+
+    & > li {
+      margin: 0.5rem 0;
+    }
+  }
+}
+
+// remove window styling on small screens
+@include apply-lesser-than('sm') {
+  .postWrapper {
+    border: 0;
+
+    & > div:first-child {
+      display: none;
+    }
+
+    & > div:last-child {
+      padding: 0 !important;
+    }
   }
 }

@@ -13,15 +13,29 @@
 
 // TODO: add breakpoint sizings
 .H1 {
-  font-size: 2.75rem;
+  font-size: 2.875rem;
   margin-bottom: 1rem;
   margin-top: 0;
 }
 
 .H2 {
-  font-size: 2.25rem;
+  font-size: 2.275rem;
 }
 
 .H3 {
-  font-size: 1.75rem;
+  font-size: 1.875rem;
+}
+
+@include apply-lesser-than('sm') {
+  .H1 {
+    font-size: 2.25rem;
+  }
+
+  .H2 {
+    font-size: 2rem;
+  }
+
+  .H3 {
+    font-size: 1.75rem;
+  }
 }

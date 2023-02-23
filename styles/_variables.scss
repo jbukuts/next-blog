@@ -1,7 +1,7 @@
 // breakpoints
 $breakpoints: (
   'sm': 600px,
-  'md': 1300px,
+  'md': 1400px,
   'lg': 2000px
 ) !default;
 
@@ -13,7 +13,9 @@ $color-minimize: rgb(247, 193, 51);
 $color-maximize: rgb(25, 205, 68);
 $color-bar: rgb(235, 235, 235);
 $color-code-bg: #1e1e1e;
-$color-shadow: rgba(0, 0, 0, 0.35);
+$color-shadow: rgba(0, 0, 0, 0.275);
+
+$content-width: 800px;
 
 // sizing tokens
 $spacing-1: 0.25rem;
