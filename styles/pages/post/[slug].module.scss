@@ -14,3 +14,18 @@
     list-style-position: inside;
   }
 }
+
+// remove window styling on small screens
+@include apply-lesser-than('sm') {
+  .postWrapper {
+    border: 0;
+
+    & > div:first-child {
+      display: none;
+    }
+
+    & > div:last-child {
+      padding: 0 !important;
+    }
+  }
+}
