@@ -33,7 +33,7 @@ const PostCard = (props: PostCardProps) => {
         {children}
       </div>
 
-      <div className={cx(styles.tagList, styles.verticalStack)}>
+      <div className={styles.tagStack}>
         <div className={styles.horizontalStack}>
           {tagLine && <TagBadge>{tagLine}</TagBadge>}
           {tags && tags.map((t, index) => <TagBadge key={index}>{t}</TagBadge>)}

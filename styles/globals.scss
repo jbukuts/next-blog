@@ -19,7 +19,7 @@ body {
 
 #__next {
   display: grid;
-  gap: $spacing-6;
+  gap: $grid-spacing;
   grid-template-rows: [header] auto [content] auto [footer] auto;
   grid-template-columns:
     [left-side] 250px [middle] min(100%, $content-width)
@@ -75,7 +75,7 @@ ul {
 
 @include apply-lesser-than('sm') {
   #__next {
-    gap: $spacing-4;
+    gap: $spacing-5;
   }
 
   html {
