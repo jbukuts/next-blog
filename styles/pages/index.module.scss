@@ -8,47 +8,7 @@
   align-items: stretch;
 }
 
-.aboutMe {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-items: center;
-  gap: $spacing-6;
-
-  & h1 {
-    font-weight: bold;
-    font-size: 2rem;
-  }
-
-  & p {
-    margin-bottom: 1rem;
-    line-height: 1.475;
-    margin: 0;
-    margin-top: 1rem;
-  }
-}
-
-.imageWrapper {
-  flex-shrink: 0;
-  border-radius: 15px;
-  overflow: hidden;
-  border: 2px solid black;
-  height: 200px;
-  width: 200px;
-  position: relative;
-
-  & > img {
-    object-fit: cover;
-    image-rendering: pixelated;
-  }
-}
-
 @include apply-lesser-than('sm') {
-  .aboutMe {
-    flex-direction: column;
-    text-align: center;
-  }
-
   .homePage {
     gap: $spacing-5;
   }

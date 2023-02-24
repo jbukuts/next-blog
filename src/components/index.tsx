@@ -1,6 +1,7 @@
 import ArticleTags from './ArticleTags';
 import TagBadge from './Badge';
 import Heading from './CustomHeading';
+import Hello from './Hello';
 import PostCard from './PostCard';
 import PrettyCode from './PrettyCode';
 import RelatedArticles from './RelatedArticles';
@@ -15,5 +16,6 @@ export {
   RelatedArticles,
   PrettyCode,
   Window,
-  PostCard
+  PostCard,
+  Hello
 };

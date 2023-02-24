@@ -1,21 +1,20 @@
-.left {
+.left,
+.right {
   grid-row: content;
-  grid-column: left-side;
   height: min-content;
+}
+
+.left {
+  grid-column: left-side;
 }
 
 .right {
-  grid-row: content;
   grid-column: right-side;
-  height: min-content;
 }
 
 @include apply-lesser-than('md') {
+  .left,
   .right {
-    display: none !important;
-  }
-
-  .left {
     display: none !important;
   }
 }

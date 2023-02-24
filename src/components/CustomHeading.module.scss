@@ -4,7 +4,14 @@
   scroll-margin: $spacing-5;
 
   & a {
-    text-decoration-color: $color-outline !important;
+    color: black !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
+
+    &:hover {
+      text-decoration: underline !important;
+      text-decoration-color: $color-outline !important;
+    }
   }
 
   &:hover {

@@ -1,8 +1,7 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 import React from 'react';
-import { PostCard } from '../src/components';
+import { Hello, PostCard } from '../src/components';
 import {
   ProcessedContent,
   getProcessedPostList
@@ -13,23 +12,6 @@ import styles from '../styles/pages/index.module.scss';
 interface HomeProps {
   postList: ProcessedContent[];
 }
-
-const AboutMeCard = () => (
-  <div className={styles.aboutMe}>
-    <div className={styles.imageWrapper}>
-      <Image src='/images/me.webp' alt='This is me' fill />
-    </div>
-    <div style={{ flexShrink: 2 }}>
-      <h1>Hello ✌</h1>
-      <p>Hi, I&apos;m Jake Bukuts.</p>
-      <p>
-        I graduated from the University of South Carolina with a Bachelor&apos;s
-        Degree in Computer Science. Most of my day to day work revolves around
-        front-end and back-end web development.
-      </p>
-    </div>
-  </div>
-);
 
 const Home = (props: HomeProps) => {
   const { postList } = props;
@@ -44,7 +26,7 @@ const Home = (props: HomeProps) => {
         <meta property='og:title' content='Home' />
       </Head>
       <main className={styles.homePage}>
-        <AboutMeCard />
+        <Hello />
         {postList.map((postItem: ProcessedContent, i: number) => (
           <PostCard key={i} {...postItem}>
             <MDXRemote {...postItem.content} lazy />
