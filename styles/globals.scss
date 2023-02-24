@@ -31,10 +31,12 @@ body {
 }
 
 code {
+  -webkit-text-size-adjust: none;
   padding: 0.175rem 0.25rem;
   border-radius: 5px;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   background-color: rgba(0, 0, 0, 0.0675);
+  font-family: 'JetBrains Mono', monospace;
 }
 
 pre {
