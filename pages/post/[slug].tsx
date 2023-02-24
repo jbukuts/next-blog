@@ -87,7 +87,6 @@ const Article = (props: BlogPostProps) => {
               <MDXRemote
                 {...decompressData(compressedContent)}
                 components={components}
-                lazy
               />
             ),
             [compressedContent]

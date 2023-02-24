@@ -153,7 +153,10 @@ async function getPostContent(
       ],
       rehypePrettyCodeWrapper,
       rehypeSlug,
-      [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+      [
+        rehypeAutolinkHeadings,
+        { behavior: 'wrap', test: ['h2', 'h3', 'h4', 'h5', 'h6'] }
+      ],
       ...rehypePlugins,
       remarkSectionWrapper
     ]
