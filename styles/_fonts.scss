@@ -14,22 +14,6 @@
   font-weight: 400;
 }
 
-// @font-face {
-//   font-family: 'San Francisco';
-//   src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Medium.woff2)
-//     format('woff2');
-//   font-display: swap;
-//   font-weight: 500;
-// }
-
-// @font-face {
-//   font-family: 'San Francisco';
-//   src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Semibold.woff2)
-//     format('woff2');
-//   font-display: swap;
-//   font-weight: 600;
-// }
-
 @font-face {
   font-family: 'San Francisco';
   src: url(/fonts/SanFrancisco/woff2/SF-Pro-Display-Bold.woff2) format('woff2');
@@ -44,3 +28,6 @@
 //   font-display: swap;
 //   size-adjust: 85%;
 // }
+
+// JetBrains Monospace
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');

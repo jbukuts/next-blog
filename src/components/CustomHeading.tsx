@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import React, { useContext, useEffect } from 'react';
-import HeadingContext from '../../state/HeadingContext';
 import { useElementOnScreen } from '../hooks';
+import HeadingContext from '../state/HeadingContext';
 import styles from './CustomHeading.module.scss';
 
 interface CustomHeadingProps {

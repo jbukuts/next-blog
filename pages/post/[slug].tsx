@@ -1,5 +1,4 @@
 import cx from 'classnames';
-import Head from 'next/head';
 import { MDXRemote } from 'next-mdx-remote';
 import React, { useMemo, useState } from 'react';
 import {
@@ -10,6 +9,7 @@ import {
   TableOfContents
 } from '../../src/components';
 import { RelatedPost } from '../../src/components/RelatedArticles';
+import StructuredBlogData from '../../src/components/SEO/StructuredBlogData';
 import {
   ProcessedContent,
   getPostContent,
@@ -18,7 +18,7 @@ import {
 } from '../../src/data-layer/pull-blog-data';
 import { compressData, decompressData } from '../../src/helpers/compression';
 import { SectionHead } from '../../src/helpers/mdast-compile-toc';
-import HeadingContext from '../../state/HeadingContext';
+import HeadingContext from '../../src/state/HeadingContext';
 
 import styles from '../../styles/pages/post/[slug].module.scss';
 
@@ -44,7 +44,8 @@ const Article = (props: BlogPostProps) => {
     tableOfContents,
     title,
     desc,
-    compressedContent
+    compressedContent,
+    timeToRead
   } = props;
 
   const [currentSection, setCurrentSection] = useState('');
@@ -53,35 +54,33 @@ const Article = (props: BlogPostProps) => {
     [currentSection]
   );
 
+  const structuredData = {
+    headline: title,
+    name: title,
+    description: desc,
+    image: 'https://jbukuts.com/name-chrome.webp',
+    url: `https://jbukuts.com/post/${slug}`,
+    datePublished: new Date(date).toLocaleDateString(),
+    timeRequired: `${timeToRead} min`,
+    publisher: 'jbukuts.com',
+    author: {
+      '@type': 'Person',
+      name: 'Jake Bukuts',
+      givenName: 'Jake',
+      familyName: 'Bukuts',
+      gender: 'male',
+      alumniOf: 'University of South Carolina',
+      jobTitle: 'Software Developer',
+      url: 'https://www.linkedin.com/in/jake-bukuts'
+    }
+  };
+
   return (
     <>
-      <Head key='blog-post'>
-        <title>{title}</title>
-        <meta name='description' content={desc} />
-        <meta property='og:title' content={title} />
-        <meta property='og:type' content='article' />
-        <meta property='og:url' content={`https://jbukuts.com/post/${slug}`} />
-        <meta property='og:description' content={desc} />
-        <meta name='twitter:card' content='summary' />
-        <meta name='twitter:title' content={title} />
-        <meta name='twitter:description' content={desc} />
-        <meta
-          property='article:published_time'
-          content={new Date(date).toLocaleDateString()}
-        />
-      </Head>
+      <StructuredBlogData {...structuredData} />
       <RelatedArticles postList={relatedPosts} currentSlug={slug} />
       <HeadingContext.Provider value={memoSection}>
-        <article
-          itemScope
-          itemType='https://schema.org/Article'
-          className={cx(styles.postContent, styles.postWrapper)}>
-          <meta
-            itemProp='datePublished'
-            content={new Date(date).toLocaleDateString()}
-          />
-          <meta itemProp='author' content='Jake Bukuts' />
-          <meta itemProp='publisher' content='jbukuts.com' />
+        <article className={cx(styles.postContent, styles.postWrapper)}>
           {useMemo(
             () => (
               <MDXRemote

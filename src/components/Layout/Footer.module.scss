@@ -4,6 +4,7 @@
   grid-column: middle;
   height: 10rem;
   margin-bottom: 1rem;
+  isolation: isolate;
 
   & div:last-child {
     padding: 0;
