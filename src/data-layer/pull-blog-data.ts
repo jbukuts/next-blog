@@ -184,6 +184,9 @@ async function getProcessedPostList(
     )
   );
 
+  // descending dates
+  processedList.sort((a, b) => -1 * a.date.localeCompare(b.date));
+
   return processedList;
 }
 
