@@ -11,7 +11,6 @@ html {
 
 body {
   margin: auto;
-  scroll-behavior: smooth;
   padding: 0 0.875rem;
   margin-left: calc(100vw - 100%);
   margin-right: 0;
@@ -19,7 +18,7 @@ body {
 
 #__next {
   display: grid;
-  gap: $spacing-6;
+  gap: $grid-spacing;
   grid-template-rows: [header] auto [content] auto [footer] auto;
   grid-template-columns:
     [left-side] 250px [middle] min(100%, $content-width)
@@ -75,7 +74,7 @@ ul {
 
 @include apply-lesser-than('sm') {
   #__next {
-    gap: $spacing-4;
+    gap: $spacing-5;
   }
 
   html {

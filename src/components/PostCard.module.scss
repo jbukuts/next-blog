@@ -1,5 +1,3 @@
-$spacing: 0.475rem;
-
 .postCard {
   position: relative;
   transition: all 0.15s linear;
@@ -40,29 +38,32 @@ $spacing: 0.475rem;
   );
 }
 
-.tagList {
+.tagStack {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  width: fit-content;
-}
-
-.verticalStack {
   display: flex;
-  gap: $spacing;
-  flex-direction: column;
+  gap: $spacing-2;
+  flex-direction: row;
 }
 
 .horizontalStack {
   display: flex;
-  gap: $spacing;
+  gap: $spacing-2;
   flex-direction: row;
   justify-content: flex-end;
-  flex-wrap: wrap;
-  width: 100%;
+  flex-wrap: nowrap;
+
+  & > div {
+    flex-shrink: 0;
+  }
 }
 
 @include apply-lesser-than('sm') {
+  .tagStack {
+    flex-direction: column;
+  }
+
   .postCardContent {
     & h1 {
       font-size: 2rem;

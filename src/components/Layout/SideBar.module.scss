@@ -1,0 +1,21 @@
+.left {
+  grid-row: content;
+  grid-column: left-side;
+  height: min-content;
+}
+
+.right {
+  grid-row: content;
+  grid-column: right-side;
+  height: min-content;
+}
+
+@include apply-lesser-than('md') {
+  .right {
+    display: none !important;
+  }
+
+  .left {
+    display: none !important;
+  }
+}

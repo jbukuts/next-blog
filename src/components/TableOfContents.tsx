@@ -3,6 +3,7 @@
 import cx from 'classnames';
 import React from 'react';
 import { SectionHead } from '../helpers/mdast-compile-toc';
+import { SideBar } from './Layout';
 import styles from './TableOfContents.module.scss';
 
 interface TableOfContentsProps {
@@ -10,33 +11,29 @@ interface TableOfContentsProps {
   currentSection: string;
 }
 
-const DEPTH_STYLES = [
-  {},
-  { marginLeft: '.5rem', fontSize: '.875rem' },
-  { marginLeft: '.75rem', fontSize: '.75rem' }
-];
-
 const TableOfContents = (props: TableOfContentsProps) => {
   const { tableOfContents, currentSection } = props;
 
   return (
-    <div className={styles.tableOfContents}>
+    <SideBar side='right' className={styles.tableOfContents}>
       <a href='#' title='Back to Top'>
         <h1>Table of Contents</h1>
       </a>
       <ul>
         {tableOfContents
           .filter(({ tagName }) => tagName !== 'h1')
-          .map(({ title, id, depth }, index) => (
+          .map(({ title, id, tagName }, index) => (
             <li
-              style={DEPTH_STYLES[depth - 2]}
               key={index}
-              className={cx(id === currentSection && styles.currentSection)}>
+              className={cx(
+                styles[tagName],
+                id === currentSection && styles.currentSection
+              )}>
               <a href={`#${id}`}>{title}</a>
             </li>
           ))}
       </ul>
-    </div>
+    </SideBar>
   );
 };
 

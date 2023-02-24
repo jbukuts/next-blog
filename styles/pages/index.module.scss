@@ -13,7 +13,7 @@
   flex-direction: row;
   width: 100%;
   align-items: center;
-  gap: 1.5rem;
+  gap: $spacing-6;
 
   & h1 {
     font-weight: bold;
@@ -50,6 +50,6 @@
   }
 
   .homePage {
-    gap: $spacing-4;
+    gap: $spacing-5;
   }
 }

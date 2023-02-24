@@ -1,7 +1,7 @@
 .articleTags {
   display: flex;
-  gap: 0.5rem;
+  gap: $spacing-2;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
+  margin-bottom: $spacing-7;
 }

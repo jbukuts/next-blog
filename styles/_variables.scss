@@ -15,7 +15,7 @@ $color-bar: rgb(235, 235, 235);
 $color-code-bg: #1e1e1e;
 $color-shadow: rgba(0, 0, 0, 0.275);
 
-$content-width: 800px;
+$content-width: 750px;
 
 // sizing tokens
 $spacing-1: 0.25rem;
@@ -25,3 +25,5 @@ $spacing-4: 0.875rem;
 $spacing-5: 1rem;
 $spacing-6: 1.5rem;
 $spacing-7: 1.875rem;
+
+$grid-spacing: $spacing-7;

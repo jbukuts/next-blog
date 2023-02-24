@@ -26,7 +26,11 @@ function createHeadingProxy() {
 
       return React.createElement(
         key.toLowerCase(),
-        { className: cx(styles.standard, styles[key]), ref: headingRef, id },
+        {
+          className: cx(key !== 'H1' && styles.standard, styles[key]),
+          ref: headingRef,
+          id
+        },
         children
       );
     };

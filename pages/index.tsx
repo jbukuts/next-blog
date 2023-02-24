@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 import React from 'react';
 import { PostCard } from '../src/components';
-import { SharedHeader } from '../src/components/SEO';
 import {
   ProcessedContent,
   getProcessedPostList
@@ -37,14 +36,13 @@ const Home = (props: HomeProps) => {
 
   return (
     <>
-      <Head>
+      <Head key='landing-page'>
         <title>Blog @ jbukuts</title>
         <meta name='description' content="Jake Bukuts' Blog" />
         <link rel='icon' href='/favicon.ico' />
         <meta property='og:url' content='https://jbukuts.com' />
         <meta property='og:title' content='Home' />
       </Head>
-      <SharedHeader />
       <main className={styles.homePage}>
         <AboutMeCard />
         {postList.map((postItem: ProcessedContent, i: number) => (

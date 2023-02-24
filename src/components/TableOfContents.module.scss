@@ -1,14 +1,9 @@
 .tableOfContents {
   display: flex;
   flex-direction: column;
-  gap: 0rem;
-
-  grid-row: content;
-  grid-column: right-side;
   position: sticky;
-  height: fit-content;
-  top: 1.25rem;
-  line-height: 1.35;
+  top: $grid-spacing;
+  line-height: 1.475;
 
   & h1 {
     font-size: 1rem;
@@ -28,6 +23,20 @@
     color: #8c8c8c;
     transition: color 100ms ease-in-out;
   }
+}
+
+.h2 {
+  font-size: 1em;
+}
+
+.h3 {
+  margin-left: 0.5rem;
+  font-size: 0.875em;
+}
+
+.h4 {
+  margin-left: 0.75rem;
+  font-size: 0.75em;
 }
 
 .currentSection {

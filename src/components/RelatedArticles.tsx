@@ -3,6 +3,7 @@ import NextLink from 'next/link';
 import React from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
 import TagBadge from './Badge';
+import { SideBar } from './Layout';
 import styles from './RelatedArtices.module.scss';
 
 export type RelatedPost = Pick<
@@ -46,12 +47,14 @@ const RelatedArticles = (props: RelatedArticlesProps) => {
   const { postList } = props;
 
   return (
-    <div className={cx(styles.relatedArticles, styles.verticalStack)}>
+    <SideBar
+      side='left'
+      className={cx(styles.relatedArticles, styles.verticalStack)}>
       <h1>Recent Articles</h1>
       {postList.map((post, index) => (
         <RelatedPostItem key={index} {...post} />
       ))}
-    </div>
+    </SideBar>
   );
 };
 
