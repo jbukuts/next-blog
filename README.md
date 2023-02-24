@@ -1,34 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# blog @ me
 
-## Getting Started
+Personal blog written in Next.js
 
-First, run the development server:
+## Design
+
+The blog is written using Next.js 13 and React 18. For styling, Sass and CSS modules were using to keep the theming sizes to a minumim on client load.
+
+All blog pages are created as static pages at build time. Each blog post is pulled from a Github repo as a Markdown file using the Github contents REST API.
+
+The raw Markdown is then converted and transformed into JSX through the use of `remark`, `rehype`, and `next-mdx-remote`. In order to add extra functionailty various custom plugins for `remark` and `rehype` were written (take a look at `src/helpers/*`).
+
+## Getting started locally
+
+A couple of environment variables are needed in a `.env.local` file:
+
+- `GIT_API_KEY`: Personal access token generated via Github
+- `GIT_USER_NAME`: Github usename of owner of CMS repository
+- `GIT_REPO`: Repo name of CMS repository
+- `GIT_FOLDER`: Folder within repository for Markdown files to be sourced
+- `SKIP_BUILD_STATIC_GENERATION` (optional): Will cause static blog pages to be built on-demand and cached during runtime rather than at build
+
+Then install dependences via:
+
+```bash
+npm ci
+```
+
+After that you can run this start the dev server locally:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Server is now running locally at [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Creating a local build
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Simply run this to create a local production build:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+npm run build
+```
 
-## Learn More
+Then to start run:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Local prod build is then ready at [http://localhost:3000](http://localhost:3000).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Deployment of the site is automated via Vercel
