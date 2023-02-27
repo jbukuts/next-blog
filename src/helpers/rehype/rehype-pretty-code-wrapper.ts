@@ -4,7 +4,7 @@ import { mdxjs } from 'micromark-extension-mdxjs';
 import { visit } from 'unist-util-visit';
 
 /*
- * Replaces the default rehype-pretty-code wrapper div with React element
+ * Parses AST to replace the default rehype-pretty-code wrapper div with React element
  */
 function rehypePrettyCodeWrapper() {
   return (tree: any) => {

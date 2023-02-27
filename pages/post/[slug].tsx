@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import dynamic from 'next/dynamic';
 import { MDXRemote } from 'next-mdx-remote';
 import React, { useMemo, useState } from 'react';
 import {
@@ -9,7 +10,7 @@ import {
   TableOfContents
 } from '../../src/components';
 import { RelatedPost } from '../../src/components/RelatedArticles';
-import StructuredBlogData from '../../src/components/SEO/StructuredBlogData';
+import { StructuredBlogData } from '../../src/components/SEO';
 import {
   ProcessedContent,
   getPostContent,
@@ -22,6 +23,16 @@ import HeadingContext from '../../src/state/HeadingContext';
 
 import styles from '../../styles/pages/post/[slug].module.scss';
 
+const FlexContainer = dynamic(
+  () =>
+    import('../../src/components/ArticleHelpers').then(
+      (mod) => mod.FlexContainer
+    ),
+  {
+    ssr: false
+  }
+);
+
 interface BlogPostProps extends ProcessedContent {
   relatedPosts: RelatedPost[];
   tableOfContents: SectionHead[];
@@ -29,6 +40,7 @@ interface BlogPostProps extends ProcessedContent {
 }
 
 const components = {
+  FlexContainer,
   ArticleTags,
   PrettyCode,
   h1: Heading.H1,

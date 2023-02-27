@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaSoundcloud, FaTwitter } from 'react-icons/fa';
 import styles from './Hello.module.scss';
 
 const { aboutMe, imageWrapper, socials, socialLink } = styles;
@@ -48,6 +48,10 @@ const Hello = () => (
 
         <SocialLink href='https://www.linkedin.com/in/jake-bukuts'>
           <FaLinkedin title='My LinkedIn' />
+        </SocialLink>
+
+        <SocialLink href='https://soundcloud.com/jbukuts'>
+          <FaSoundcloud title='My SoundCloud' />
         </SocialLink>
       </div>
     </div>

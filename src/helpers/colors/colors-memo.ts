@@ -68,7 +68,7 @@ const colorFromString = (input: string): ColorsMapItem => {
   };
 };
 
-export default ((santCheck: boolean) => {
+export default ((santaCheck: boolean) => {
   const colorsMap = new Map<string, ColorsMapItem>();
   const colorKeys = Object.keys(fullAquaList);
   const doesExist = (searchColor: string) =>
@@ -82,7 +82,7 @@ export default ((santCheck: boolean) => {
 
         // exhaust all colors before repeats
         if (
-          santCheck &&
+          santaCheck &&
           colorsMap.size < colorKeys.length &&
           doesExist(colorItem.color)
         ) {

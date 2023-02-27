@@ -5,6 +5,8 @@ const SharedHeader = () => (
   <Head key='shared'>
     <meta name='author' content='Jake Bukuts' />,
     <meta property='og:site_name' content='jbukuts.com' />,
+    <meta property='og:locale' content='en_US' />
+    <meta property='og:image' content='/name_chrome.webp' />
     <meta property='profile:first_name' content='Jake' />,
     <meta property='profile:last_name' content='Bukuts' />,
     <meta property='profile:gender' content='male' />,

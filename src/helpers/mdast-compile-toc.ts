@@ -7,6 +7,7 @@ export interface SectionHead {
   depth: number;
 }
 
+// parses AST into a table of contents
 // eslint-disable-next-line no-unused-vars
 export default function mdastCompileToc(this: any) {
   /** @type {import('unified').CompilerFunction<Node, string>} */
