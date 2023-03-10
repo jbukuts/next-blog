@@ -2,6 +2,7 @@ import cx from 'classnames';
 import dynamic from 'next/dynamic';
 import { MDXRemote } from 'next-mdx-remote';
 import React, { useMemo, useState } from 'react';
+import profile from '../../profile';
 import {
   ArticleTags,
   Heading,
@@ -32,6 +33,9 @@ const FlexContainer = dynamic(
     ssr: false
   }
 );
+
+const { firstName, lastName, almaMater, gender, jobTitle, linkedInProfile } =
+  profile;
 
 interface BlogPostProps extends ProcessedContent {
   relatedPosts: RelatedPost[];
@@ -73,17 +77,17 @@ const Article = (props: BlogPostProps) => {
     image: 'https://jbukuts.com/name-chrome.webp',
     url: `https://jbukuts.com/post/${slug}`,
     datePublished: new Date(date).toLocaleDateString(),
-    timeRequired: `${timeToRead} min`,
+    timeRequired: `${timeToRead} minutes`,
     publisher: 'jbukuts.com',
     author: {
       '@type': 'Person',
-      name: 'Jake Bukuts',
-      givenName: 'Jake',
-      familyName: 'Bukuts',
-      gender: 'male',
-      alumniOf: 'University of South Carolina',
-      jobTitle: 'Software Developer',
-      url: 'https://www.linkedin.com/in/jake-bukuts'
+      name: `${firstName} ${lastName}`,
+      givenName: firstName,
+      familyName: lastName,
+      gender,
+      alumniOf: almaMater,
+      jobTitle,
+      url: linkedInProfile
     }
   };
 
