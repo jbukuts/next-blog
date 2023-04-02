@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
+import profile from '../../../profile';
 
 interface StructuredBlogSchema {
   headline: string;
@@ -22,6 +23,8 @@ interface StructuredBlogSchema {
   };
 }
 
+const { siteURI } = profile;
+
 const StructuredBlogData = (data: StructuredBlogSchema) => {
   const { name, description, url, image } = data;
 
@@ -39,7 +42,7 @@ const StructuredBlogData = (data: StructuredBlogSchema) => {
       <meta name='twitter:title' content={name} />
       <meta name='twitter:description' content={description} />
       <meta name='twitter:image' content={image} />
-      <meta name='twitter:site' content='https://www.jbukuts.com' />
+      <meta name='twitter:site' content={`https://${siteURI}`} />
       <meta name='twitter:creator' content='@jbukuts' />
 
       <script

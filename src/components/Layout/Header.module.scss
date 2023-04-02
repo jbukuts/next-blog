@@ -1,17 +1,19 @@
 .header {
   grid-column: middle;
   grid-row: header;
-
   display: flex;
-  justify-content: left;
-  margin-top: $spacing-6;
-  margin-bottom: $spacing-1;
+}
+
+.bar {
+  padding-top: $spacing-7;
 }
 
 @include apply-lesser-than('sm') {
   .header {
     justify-content: center;
-    margin-top: $spacing-4;
-    margin-bottom: $spacing-1;
+  }
+
+  .bar {
+    padding: $spacing-4 0;
   }
 }

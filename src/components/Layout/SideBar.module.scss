@@ -2,10 +2,13 @@
 .right {
   grid-row: content;
   height: min-content;
+  width: $sidebar-width;
 }
 
 .left {
   grid-column: left-side;
+  margin-right: 0;
+  margin-left: auto;
 }
 
 .right {

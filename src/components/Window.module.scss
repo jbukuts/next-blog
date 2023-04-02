@@ -1,12 +1,8 @@
 .windowWrapper {
   border: 1px solid $color-outline;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 5px;
   background-color: $color-background;
-}
-
-.windowContent {
-  padding: 1.275rem;
 }
 
 .topBar {

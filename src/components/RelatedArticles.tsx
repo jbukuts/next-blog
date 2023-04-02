@@ -8,7 +8,7 @@ import styles from './RelatedArtices.module.scss';
 
 export type RelatedPost = Pick<
   ProcessedContent,
-  'title' | 'slug' | 'date' | 'tags'
+  'title' | 'slug' | 'date' | 'tags' | 'timeToRead'
 >;
 
 interface RelatedArticlesProps {
@@ -17,7 +17,7 @@ interface RelatedArticlesProps {
 }
 
 const RelatedPostItem = (props: RelatedPost) => {
-  const { title, slug, tags, date } = props;
+  const { title, slug, tags, date, timeToRead } = props;
   return (
     <div className={cx(styles.relatedArticle, styles.verticalStack)}>
       <NextLink href={`/post/${slug}`}>
@@ -30,6 +30,8 @@ const RelatedPostItem = (props: RelatedPost) => {
             month: 'numeric',
             day: 'numeric'
           })}
+          {' • '}
+          {timeToRead} min
         </p>
         <div className={cx(styles.horizontalStack)}>
           {tags.map((t, index) => (

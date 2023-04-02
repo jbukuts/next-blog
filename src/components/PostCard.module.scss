@@ -10,6 +10,15 @@
 
 .postCardContent {
   line-height: 1.5;
+  position: relative;
+  padding: 1.275rem;
+  box-sizing: content-box;
+  height: 10rem;
+  mask-image: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 15%,
+    rgba(255, 255, 255, 1) 100%
+  );
 
   & h1 {
     font-weight: bold;
@@ -27,15 +36,6 @@
     font-weight: bold;
     font-size: 1.5rem;
   }
-}
-
-.restrictHeight {
-  height: 10rem;
-  mask-image: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0) 15%,
-    rgba(255, 255, 255, 1) 100%
-  );
 }
 
 .tagStack {

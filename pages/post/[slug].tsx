@@ -34,8 +34,15 @@ const FlexContainer = dynamic(
   }
 );
 
-const { firstName, lastName, almaMater, gender, jobTitle, linkedInProfile } =
-  profile;
+const {
+  firstName,
+  lastName,
+  almaMater,
+  gender,
+  jobTitle,
+  linkedInProfile,
+  siteURI
+} = profile;
 
 interface BlogPostProps extends ProcessedContent {
   relatedPosts: RelatedPost[];
@@ -74,11 +81,11 @@ const Article = (props: BlogPostProps) => {
     headline: title,
     name: title,
     description: desc,
-    image: 'https://jbukuts.com/name-chrome.webp',
-    url: `https://jbukuts.com/post/${slug}`,
+    image: `https://${siteURI}/name-chrome.webp`,
+    url: `https://${siteURI}/post/${slug}`,
     datePublished: new Date(date).toLocaleDateString(),
     timeRequired: `${timeToRead} minutes`,
-    publisher: 'jbukuts.com',
+    publisher: siteURI,
     author: {
       '@type': 'Person',
       name: `${firstName} ${lastName}`,
@@ -146,7 +153,13 @@ export async function getStaticProps(context: { params: { slug: string } }) {
 
   // get post list for related articles
   const relatedPosts: RelatedPost[] = (await getProcessedPostList({}))
-    .map(({ title, slug, date, tags }) => ({ title, slug, date, tags }))
+    .map(({ title, slug, date, tags, timeToRead }) => ({
+      title,
+      slug,
+      date,
+      tags,
+      timeToRead
+    }))
     .filter(({ slug }) => slug !== currentSlug);
 
   // get the html and frontmatter data for given slug

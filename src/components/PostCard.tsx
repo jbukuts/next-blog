@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import NextLink from 'next/link';
 import React from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
@@ -12,26 +11,18 @@ interface PostCardProps
   > {
   children: React.ReactNode;
   tagLine?: string;
-  restrictHeight?: boolean;
 }
 
 const PostCard = (props: PostCardProps) => {
-  const { slug, tags, timeToRead, date, children, tagLine, restrictHeight } =
-    props;
+  const { slug, tags, timeToRead, date, children, tagLine } = props;
 
   return (
     <Window
       title={`${slug}.md`}
       as={NextLink}
       className={styles.postCard}
-      asProps={{ href: `/post/${slug}` }}>
-      <div
-        className={cx(
-          restrictHeight && styles.restrictHeight,
-          styles.postCardContent
-        )}>
-        {children}
-      </div>
+      asProps={{ href: `/post/${slug}`, title: 'Click to Read' }}>
+      <div className={styles.postCardContent}>{children}</div>
 
       <div className={styles.tagStack}>
         <div className={styles.horizontalStack}>
@@ -56,8 +47,7 @@ const PostCard = (props: PostCardProps) => {
 };
 
 PostCard.defaultProps = {
-  tagLine: undefined,
-  restrictHeight: true
+  tagLine: undefined
 };
 
 export default PostCard;
