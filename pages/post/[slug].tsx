@@ -1,6 +1,8 @@
 import cx from 'classnames';
+import dynamic from 'next/dynamic';
 import { MDXRemote } from 'next-mdx-remote';
 import React, { useMemo, useState } from 'react';
+import profile from '../../profile';
 import {
   ArticleTags,
   Heading,
@@ -9,7 +11,7 @@ import {
   TableOfContents
 } from '../../src/components';
 import { RelatedPost } from '../../src/components/RelatedArticles';
-import StructuredBlogData from '../../src/components/SEO/StructuredBlogData';
+import { StructuredBlogData } from '../../src/components/SEO';
 import {
   ProcessedContent,
   getPostContent,
@@ -22,6 +24,26 @@ import HeadingContext from '../../src/state/HeadingContext';
 
 import styles from '../../styles/pages/post/[slug].module.scss';
 
+const FlexContainer = dynamic(
+  () =>
+    import('../../src/components/ArticleHelpers').then(
+      (mod) => mod.FlexContainer
+    ),
+  {
+    ssr: false
+  }
+);
+
+const {
+  firstName,
+  lastName,
+  almaMater,
+  gender,
+  jobTitle,
+  linkedInProfile,
+  siteURI
+} = profile;
+
 interface BlogPostProps extends ProcessedContent {
   relatedPosts: RelatedPost[];
   tableOfContents: SectionHead[];
@@ -29,6 +51,7 @@ interface BlogPostProps extends ProcessedContent {
 }
 
 const components = {
+  FlexContainer,
   ArticleTags,
   PrettyCode,
   h1: Heading.H1,
@@ -58,20 +81,20 @@ const Article = (props: BlogPostProps) => {
     headline: title,
     name: title,
     description: desc,
-    image: 'https://jbukuts.com/name-chrome.webp',
-    url: `https://jbukuts.com/post/${slug}`,
+    image: `https://${siteURI}/name-chrome.webp`,
+    url: `https://${siteURI}/post/${slug}`,
     datePublished: new Date(date).toLocaleDateString(),
-    timeRequired: `${timeToRead} min`,
-    publisher: 'jbukuts.com',
+    timeRequired: `${timeToRead} minutes`,
+    publisher: siteURI,
     author: {
       '@type': 'Person',
-      name: 'Jake Bukuts',
-      givenName: 'Jake',
-      familyName: 'Bukuts',
-      gender: 'male',
-      alumniOf: 'University of South Carolina',
-      jobTitle: 'Software Developer',
-      url: 'https://www.linkedin.com/in/jake-bukuts'
+      name: `${firstName} ${lastName}`,
+      givenName: firstName,
+      familyName: lastName,
+      gender,
+      alumniOf: almaMater,
+      jobTitle,
+      url: linkedInProfile
     }
   };
 
@@ -130,7 +153,13 @@ export async function getStaticProps(context: { params: { slug: string } }) {
 
   // get post list for related articles
   const relatedPosts: RelatedPost[] = (await getProcessedPostList({}))
-    .map(({ title, slug, date, tags }) => ({ title, slug, date, tags }))
+    .map(({ title, slug, date, tags, timeToRead }) => ({
+      title,
+      slug,
+      date,
+      tags,
+      timeToRead
+    }))
     .filter(({ slug }) => slug !== currentSlug);
 
   // get the html and frontmatter data for given slug

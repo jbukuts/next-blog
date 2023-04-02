@@ -1,4 +1,4 @@
 import SharedHeader from './SharedHeader';
+import StructuredBlogData from './StructuredBlogData';
 
-// eslint-disable-next-line import/prefer-default-export
-export { SharedHeader };
+export { SharedHeader, StructuredBlogData };

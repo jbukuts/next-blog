@@ -1,5 +1,4 @@
 .badge {
-  background-color: red;
   padding: 0.175rem 0.45rem;
   border-radius: 5px;
   position: relative;
@@ -7,7 +6,10 @@
   background-color: $color-bar;
   font-weight: 500;
   height: auto;
-  box-shadow: 2px 2px 4px $color-shadow;
+  box-shadow: 0px 3px 4px $color-shadow;
+  border: none;
+  transition: box-shadow 100ms ease-in-out;
+  user-select: none;
 
   &::after {
     content: '';
@@ -23,6 +25,13 @@
       rgba(0, 0, 0, 0.05) 100%
     );
     mix-blend-mode: multiply;
+  }
+}
+
+.buttonBadge {
+  &:hover {
+    box-shadow: 0px 4px 5px $color-shadow;
+    cursor: pointer;
   }
 }
 

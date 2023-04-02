@@ -18,11 +18,13 @@ body {
 
 #__next {
   display: grid;
+
   gap: $grid-spacing;
+
   grid-template-rows: [header] auto [content] auto [footer] auto;
   grid-template-columns:
-    [left-side] 250px [middle] min(100%, $content-width)
-    [right-side] 250px;
+    [left-side] 1fr [middle] min(100%, $content-width)
+    [right-side] 1fr [end];
   justify-content: center;
 }
 
@@ -71,6 +73,12 @@ ul {
 
   & ul {
     padding-left: 1rem;
+  }
+}
+
+@include apply-lesser-than('md') {
+  #__next {
+    column-gap: 0;
   }
 }
 

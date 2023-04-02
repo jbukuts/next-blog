@@ -56,9 +56,14 @@ async function getPostList(filterType = '.md'): Promise<RepositoryContent[]> {
       path: `${GIT_FOLDER}`,
       apiKey: GIT_API_KEY as string
     }) as Promise<RepositoryContent[]>
-  ).then((r) =>
-    r.filter(({ name, type }) => type === 'file' && name.endsWith(filterType))
-  );
+  )
+    .then((r) =>
+      r.filter(({ name, type }) => type === 'file' && name.endsWith(filterType))
+    )
+    .catch((e: any) => {
+      console.log(`There was an error getting the post list: ${e}`);
+      return [];
+    });
 }
 
 /**
@@ -177,6 +182,12 @@ async function getProcessedPostList(
   const { remarkPlugins = [], rehypePlugins = [] } = options;
 
   const repoContentList = await getPostList();
+
+  if (repoContentList.length === 0)
+    throw new Error(
+      'No posts pulled from Github Contents API. Invalid API Key?'
+    );
+
   const processedList: ProcessedContent[] = await Promise.all(
     repoContentList.map((repoContent) =>
       processContent({
