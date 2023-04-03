@@ -2,7 +2,7 @@ import cx from 'classnames';
 import React, { useContext, useEffect } from 'react';
 import { useElementOnScreen } from '../hooks';
 import HeadingContext from '../state/HeadingContext';
-import styles from './CustomHeading.module.scss';
+import styles from '../styles/components/CustomHeading.module.scss';
 
 interface CustomHeadingProps {
   id: string;

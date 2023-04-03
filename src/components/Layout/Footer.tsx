@@ -1,6 +1,6 @@
 import React from 'react';
+import styles from '../../styles/components/Layout/Footer.module.scss';
 import Window from '../Window';
-import styles from './Footer.module.scss';
 
 const Footer = () => (
   <Window topBar={false} as='footer' className={styles.footer}>
@@ -13,8 +13,8 @@ const Footer = () => (
       <source src='/images/gits.mp4' type='video/mp4' />
     </video>
     <div className={styles.footerContent}>
-      <h1>Thanks for reading</h1>
-      <h2>
+      <h2>Thanks for reading</h2>
+      <h3>
         Site code available{' '}
         <a
           target='_blank'
@@ -22,7 +22,7 @@ const Footer = () => (
           rel='noreferrer'>
           here
         </a>
-      </h2>
+      </h3>
     </div>
   </Window>
 );

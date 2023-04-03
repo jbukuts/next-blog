@@ -9,7 +9,11 @@ const profile = {
   twitterProfile: 'https://twitter.com/jbukuts',
   githubProfile: 'https://github.com/jbukuts',
   soundCloudProfile: 'https://soundcloud.com/jbukuts',
-  siteURI: 'www.jbukuts.com'
+  siteURI: 'www.jbukuts.com',
+  image: '/images/pc.png',
+  description:
+    'Here I write about random programming related things I encounter.',
+  siteTitle: 'Blog @ jbukuts'
 };
 
 export default profile;

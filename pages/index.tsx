@@ -1,47 +1,23 @@
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { MDXRemote } from 'next-mdx-remote';
 import React, { useEffect, useState } from 'react';
-import profile from '../profile';
 import { Hello, PostCard } from '../src/components';
+import { BasicHeadData } from '../src/components/SEO/StructuredBlogData';
 import {
   ProcessedContent,
   getProcessedPostList
 } from '../src/data-layer/pull-blog-data';
 
-import styles from '../styles/pages/index.module.scss';
+import styles from '../src/styles/pages/index.module.scss';
 
 interface HomeProps {
   postList: ProcessedContent[];
   fullTagsList: string[];
 }
 
-const DISABLED_ROUTER = false;
+const DISABLED_ROUTER = true;
 
-const { siteURI } = profile;
-
-const LandingHead = () => (
-  <Head key='landing-page'>
-    <title>Blog @ jbukuts</title>
-    <meta name='description' content="Jake Bukuts' Blog" />
-    <link rel='icon' href='/favicon.ico' />
-    <meta property='og:url' content={`https://${siteURI}`} />
-    <meta property='og:title' content='Home' />
-
-    <meta name='twitter:card' content='summary' />
-    <meta name='twitter:title' content='Jake Bukuts Tech Blog' />
-    <meta
-      name='twitter:description'
-      content='Here I write about random programming related things I encounter.'
-    />
-    <meta
-      name='twitter:image'
-      content={`https://${siteURI}/name-chrome.webp`}
-    />
-    <meta name='twitter:site' content={`https://${siteURI}`} />
-    <meta name='twitter:creator' content='@jbukuts' />
-  </Head>
-);
+const HeaderReplace = ({ children }: any) => <h2>{children}</h2>;
 
 const Home = (props: HomeProps) => {
   const { postList, fullTagsList } = props;
@@ -71,12 +47,16 @@ const Home = (props: HomeProps) => {
 
   return (
     <>
-      <LandingHead />
+      <BasicHeadData />
       <main className={styles.homePage}>
         <Hello />
         {filteredList.map((postItem: ProcessedContent, i: number) => (
           <PostCard key={i} {...postItem}>
-            <MDXRemote {...postItem.content} lazy />
+            <MDXRemote
+              components={{ h1: HeaderReplace }}
+              {...postItem.content}
+              lazy
+            />
           </PostCard>
         ))}
       </main>

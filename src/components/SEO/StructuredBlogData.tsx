@@ -23,41 +23,106 @@ interface StructuredBlogSchema {
   };
 }
 
-const { siteURI } = profile;
+interface DataProps {
+  title: string;
+  description: string;
+  datePublished: string;
+  relativeUrl: string;
+  timeRequired: string;
+}
 
-const StructuredBlogData = (data: StructuredBlogSchema) => {
-  const { name, description, url, image } = data;
+const {
+  siteURI,
+  image: defaultImage,
+  description: defaultDescription,
+  firstName,
+  lastName,
+  username,
+  gender,
+  linkedInProfile,
+  almaMater,
+  siteTitle,
+  jobTitle
+} = profile;
+
+const BasicHeadData = (
+  props: Partial<Omit<DataProps, 'timeRequired' | 'datePublished'>>
+) => {
+  const { title, description, relativeUrl } = props;
+  const fullURL = `https://${siteURI}${relativeUrl || ''}`;
+  const finalTitle = title || siteTitle;
+  const finalDesc = description || defaultDescription;
 
   return (
-    <Head key='stuctured-blog-data'>
-      <title>{name}</title>
-      <meta name='description' content={description} />
+    <Head key='basic-head-data'>
+      <title>{finalTitle}</title>
+      <link rel='icon' href='/favicon.ico' />
+      <link rel='canonical' href={fullURL} />
+      <meta name='description' content={finalDesc} />
 
-      <meta property='og:title' content={name} />
-      <meta property='og:type' content='article' />
-      <meta property='og:url' content={url} />
-      <meta property='og:description' content={description} />
+      <meta property='og:title' content={finalTitle} />
+      <meta property='og:url' content={fullURL} />
+      <meta property='og:type' content='website' />
+      <meta property='og:description' content={finalDesc} />
 
       <meta name='twitter:card' content='summary' />
-      <meta name='twitter:title' content={name} />
-      <meta name='twitter:description' content={description} />
-      <meta name='twitter:image' content={image} />
+      <meta name='twitter:title' content={finalTitle} />
+      <meta name='twitter:description' content={finalDesc} />
+      <meta name='twitter:image' content={defaultImage} />
       <meta name='twitter:site' content={`https://${siteURI}`} />
-      <meta name='twitter:creator' content='@jbukuts' />
-
-      <script
-        type='application/ld+json'
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'http://schema.org/',
-            '@type': 'Article',
-            ...data
-          })
-        }}
-      />
+      <meta name='twitter:creator' content={`@${username}`} />
     </Head>
   );
 };
 
+const StructuredBlogData = (data: DataProps) => {
+  const { title, description, datePublished, relativeUrl, timeRequired } = data;
+
+  const seoData: StructuredBlogSchema = {
+    headline: title || siteTitle,
+    name: title || siteTitle,
+    description: description || defaultDescription,
+    datePublished,
+    publisher: siteURI,
+    url: `https://${siteURI}${relativeUrl}`,
+    timeRequired,
+    image: defaultImage,
+    author: {
+      '@type': 'Person',
+      name: `${firstName} ${lastName}`,
+      url: linkedInProfile,
+      givenName: firstName,
+      familyName: lastName,
+      gender,
+      alumniOf: almaMater,
+      jobTitle
+    }
+  };
+
+  return (
+    <>
+      <BasicHeadData
+        title={seoData.name}
+        description={seoData.description}
+        relativeUrl={relativeUrl}
+      />
+      <Head key='structured-blog-data'>
+        <meta property='og:type' content='article' />
+        <script
+          type='application/ld+json'
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'http://schema.org/',
+              '@type': 'Article',
+              ...seoData
+            })
+          }}
+        />
+      </Head>
+    </>
+  );
+};
+
+export { BasicHeadData };
 export default StructuredBlogData;

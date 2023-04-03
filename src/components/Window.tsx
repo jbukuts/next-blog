@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import React from 'react';
-import styles from './Window.module.scss';
+import styles from '../styles/components/Window.module.scss';
 
 interface WindowProps {
   title?: string;

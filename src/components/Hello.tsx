@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import { FaGithub, FaLinkedin, FaSoundcloud, FaTwitter } from 'react-icons/fa';
 import profile from '../../profile';
-import styles from './Hello.module.scss';
+import styles from '../styles/components/Hello.module.scss';
 
 const { aboutMe, imageWrapper, socials, socialLink } = styles;
 const {
