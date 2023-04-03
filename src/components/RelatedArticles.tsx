@@ -2,9 +2,9 @@ import cx from 'classnames';
 import NextLink from 'next/link';
 import React from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
+import styles from '../styles/components/RelatedArticles.module.scss';
 import TagBadge from './Badge';
 import { SideBar } from './Layout';
-import styles from './RelatedArtices.module.scss';
 
 export type RelatedPost = Pick<
   ProcessedContent,
@@ -52,7 +52,7 @@ const RelatedArticles = (props: RelatedArticlesProps) => {
     <SideBar
       side='left'
       className={cx(styles.relatedArticles, styles.verticalStack)}>
-      <h1>Recent Articles</h1>
+      <h2>Recent Articles</h2>
       {postList.map((post, index) => (
         <RelatedPostItem key={index} {...post} />
       ))}

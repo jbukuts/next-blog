@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import styles from './Header.module.scss';
+import styles from '../../styles/components/Layout/Header.module.scss';
 
 const Header = () => (
   <header className={styles.header} title='Back to home'>

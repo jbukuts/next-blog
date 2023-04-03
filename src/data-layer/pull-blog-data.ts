@@ -13,9 +13,9 @@ import { PluggableList, Preset, unified } from 'unified';
 import remarkStringifyMdast, {
   SectionHead
 } from '../helpers/mdast-compile-toc';
-import rehypePrettyCodeWrapper from '../helpers/rehype/rehype-pretty-code-wrapper';
-import remarkSectionWrapper from '../helpers/rehype/rehype-section-wrapper';
-import remarkInsertJSXAfterHeader from '../helpers/remark/remark-insert-jsx';
+import rehypePrettyCodeWrapper from '../plugins/rehype/rehype-pretty-code-wrapper';
+import remarkSectionWrapper from '../plugins/rehype/rehype-section-wrapper';
+import remarkInsertJSXAfterHeader from '../plugins/rehype/remark/remark-insert-jsx';
 import { RepositoryContent, getRepositoryContent } from './git-api-calls';
 
 const { GIT_USER_NAME, GIT_REPO, GIT_FOLDER, GIT_API_KEY } = process.env;

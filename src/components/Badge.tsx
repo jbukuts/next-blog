@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import React, { MouseEventHandler } from 'react';
-import styles from './Badge.module.scss';
+import styles from '../styles/components/Badge.module.scss';
 
 interface TagBadgeProps {
   children: React.ReactNode;

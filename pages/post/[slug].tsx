@@ -2,7 +2,6 @@ import cx from 'classnames';
 import dynamic from 'next/dynamic';
 import { MDXRemote } from 'next-mdx-remote';
 import React, { useMemo, useState } from 'react';
-import profile from '../../profile';
 import {
   ArticleTags,
   Heading,
@@ -22,7 +21,7 @@ import { compressData, decompressData } from '../../src/helpers/compression';
 import { SectionHead } from '../../src/helpers/mdast-compile-toc';
 import HeadingContext from '../../src/state/HeadingContext';
 
-import styles from '../../styles/pages/post/[slug].module.scss';
+import styles from '../../src/styles/pages/post/[slug].module.scss';
 
 const FlexContainer = dynamic(
   () =>
@@ -33,16 +32,6 @@ const FlexContainer = dynamic(
     ssr: false
   }
 );
-
-const {
-  firstName,
-  lastName,
-  almaMater,
-  gender,
-  jobTitle,
-  linkedInProfile,
-  siteURI
-} = profile;
 
 interface BlogPostProps extends ProcessedContent {
   relatedPosts: RelatedPost[];
@@ -77,30 +66,17 @@ const Article = (props: BlogPostProps) => {
     [currentSection]
   );
 
-  const structuredData = {
-    headline: title,
-    name: title,
+  const seoData = {
+    title,
     description: desc,
-    image: `https://${siteURI}/name-chrome.webp`,
-    url: `https://${siteURI}/post/${slug}`,
     datePublished: new Date(date).toLocaleDateString(),
     timeRequired: `${timeToRead} minutes`,
-    publisher: siteURI,
-    author: {
-      '@type': 'Person',
-      name: `${firstName} ${lastName}`,
-      givenName: firstName,
-      familyName: lastName,
-      gender,
-      alumniOf: almaMater,
-      jobTitle,
-      url: linkedInProfile
-    }
+    relativeUrl: `/post/${slug}`
   };
 
   return (
     <>
-      <StructuredBlogData {...structuredData} />
+      <StructuredBlogData {...seoData} />
       <RelatedArticles postList={relatedPosts} currentSlug={slug} />
       <HeadingContext.Provider value={memoSection}>
         <article className={cx(styles.postContent, styles.postWrapper)}>

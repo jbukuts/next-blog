@@ -1,8 +1,8 @@
 import NextLink from 'next/link';
 import React from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
+import styles from '../styles/components/PostCard.module.scss';
 import TagBadge from './Badge';
-import styles from './PostCard.module.scss';
 import Window from './Window';
 
 interface PostCardProps

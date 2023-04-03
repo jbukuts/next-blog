@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import React from 'react';
-import styles from './SideBar.module.scss';
+import styles from '../../styles/components/Layout/SideBar.module.scss';
 
 interface SideBarProps {
   side: 'left' | 'right';

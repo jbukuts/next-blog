@@ -3,8 +3,8 @@
 import cx from 'classnames';
 import React from 'react';
 import { SectionHead } from '../helpers/mdast-compile-toc';
+import styles from '../styles/components/TableOfContents.module.scss';
 import { SideBar } from './Layout';
-import styles from './TableOfContents.module.scss';
 
 interface TableOfContentsProps {
   tableOfContents: SectionHead[];
@@ -17,7 +17,7 @@ const TableOfContents = (props: TableOfContentsProps) => {
   return (
     <SideBar side='right' className={styles.tableOfContents}>
       <a href='#' title='Back to Top'>
-        <h1>Table of Contents</h1>
+        <h2>Table of Contents</h2>
       </a>
       <ul>
         {tableOfContents

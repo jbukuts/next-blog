@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import styles from './PrettyCode.module.scss';
+import styles from '../styles/components/PrettyCode.module.scss';
 
 interface PrettyCodeProps {
   copyButton?: boolean;
