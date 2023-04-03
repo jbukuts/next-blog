@@ -32,7 +32,13 @@ const SocialLink = (props: SocialLinkProps) => {
 const Hello = () => (
   <div className={aboutMe}>
     <div className={imageWrapper}>
-      <Image src='/images/me.webp' alt='This is me' fill />
+      <Image
+        src='/images/me.webp'
+        alt='This is me'
+        fill
+        width={639}
+        height={480}
+      />
     </div>
 
     <div style={{ flexShrink: 2 }}>
