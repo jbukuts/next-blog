@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { MDXRemote } from 'next-mdx-remote';
 import React, { useEffect, useState } from 'react';
+import logger from '../logger';
 import { Hello, PostCard } from '../src/components';
 import { BasicHeadData } from '../src/components/SEO/StructuredBlogData';
 import {
@@ -65,7 +66,9 @@ const Home = (props: HomeProps) => {
 };
 
 export async function getStaticProps() {
+  logger.info('Pulling in full post-list for landing page');
   const testPostList: ProcessedContent[] = await getProcessedPostList({});
+  logger.info(`Number of articles pulled: ${testPostList.length}`);
 
   const fullTagsList: string[] = testPostList.reduce(
     (acc, { tags }) => [...acc, ...tags],

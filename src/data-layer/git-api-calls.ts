@@ -1,3 +1,8 @@
+/**
+ * git-api-calls.ts
+ * Hosts the functions meant to be used in order to actually
+ * pull the raw content from a Github repository
+ */
 import nodeFetch from 'node-fetch';
 
 const GIT_API_URL = 'https://api.github.com';
@@ -36,7 +41,7 @@ export interface RepositoryContent {
 
 /**
  * Returns object data sourced from the Github repository contents REST API.
- * Meant to be used in the case for a single file.
+ * Meant to be used in the case for a single file of folder of files.
  * @param {GetRepoContentOptions} options - Options to get content for file from Github rrepository
  * @param {string} options.owner - Owner of the Github repository, usually username.
  * @param {string} options.repo - Name of the Github repository.

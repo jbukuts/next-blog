@@ -1,3 +1,8 @@
+/**
+ * pull-blog-data.ts
+ * Helper functions meant to be used in order to parse .md/.mdx files as jsx
+ * that are sourced from a Github repository
+ */
 import fs from 'fs';
 import matter from 'gray-matter';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
