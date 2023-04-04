@@ -1,7 +1,9 @@
 import cx from 'classnames';
 import dynamic from 'next/dynamic';
 import { MDXRemote } from 'next-mdx-remote';
+
 import React, { useMemo, useState } from 'react';
+import logger from '../../logger';
 import {
   ArticleTags,
   Heading,
@@ -127,6 +129,9 @@ export async function getStaticProps(context: { params: { slug: string } }) {
     params: { slug: currentSlug }
   } = context;
 
+  logger.info(`Creating static props for slug: *${currentSlug}*`);
+
+  logger.info('Getting full post-list for related post');
   // get post list for related articles
   const relatedPosts: RelatedPost[] = (await getProcessedPostList({}))
     .map(({ title, slug, date, tags, timeToRead }) => ({
@@ -138,6 +143,7 @@ export async function getStaticProps(context: { params: { slug: string } }) {
     }))
     .filter(({ slug }) => slug !== currentSlug);
 
+  logger.info(`Getting processed content for slug: *${currentSlug}*`);
   // get the html and frontmatter data for given slug
   const { tags, content, timeToRead, date, tableOfContents, title, desc } =
     await getPostContent({
@@ -159,13 +165,15 @@ export async function getStaticProps(context: { params: { slug: string } }) {
     compressedContent
   };
 
+  logger.info(`Calculating props size of page *${currentSlug}*`);
+
   Object.keys(props).forEach((key: string) => {
     const sizeOf =
       Buffer.from(JSON.stringify((props as any)[key])).byteLength / 1000;
-    console.log(`Size of prop [${key}] is ${sizeOf} kilobytes`);
+    logger.info(`Size of prop [${key}] is ${sizeOf} kilobytes`);
   });
-  console.log(
-    `\nTOTAL PROPS SIZE: ${
+  logger.info(
+    `TOTAL PROPS SIZE: ${
       Buffer.from(JSON.stringify(props as any)).byteLength / 1000
     }`
   );

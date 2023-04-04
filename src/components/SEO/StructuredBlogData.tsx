@@ -32,7 +32,6 @@ interface DataProps {
 }
 
 const {
-  siteURI,
   image: defaultImage,
   description: defaultDescription,
   firstName,
@@ -42,14 +41,18 @@ const {
   linkedInProfile,
   almaMater,
   siteTitle,
-  jobTitle
+  jobTitle,
+  siteURI
 } = profile;
 
 const BasicHeadData = (
   props: Partial<Omit<DataProps, 'timeRequired' | 'datePublished'>>
 ) => {
   const { title, description, relativeUrl } = props;
-  const fullURL = `https://${siteURI}${relativeUrl || ''}`;
+  const { origin } = (typeof window !== 'undefined' && window?.location) || {
+    origin: `https://${siteURI}`
+  };
+  const fullURL = `${origin}${relativeUrl || ''}`;
   const finalTitle = title || siteTitle;
   const finalDesc = description || defaultDescription;
 
@@ -68,8 +71,8 @@ const BasicHeadData = (
       <meta name='twitter:card' content='summary' />
       <meta name='twitter:title' content={finalTitle} />
       <meta name='twitter:description' content={finalDesc} />
-      <meta name='twitter:image' content={defaultImage} />
-      <meta name='twitter:site' content={`https://${siteURI}`} />
+      <meta name='twitter:image' content={`${origin}${defaultImage}`} />
+      <meta name='twitter:site' content={origin} />
       <meta name='twitter:creator' content={`@${username}`} />
     </Head>
   );
@@ -77,16 +80,21 @@ const BasicHeadData = (
 
 const StructuredBlogData = (data: DataProps) => {
   const { title, description, datePublished, relativeUrl, timeRequired } = data;
+  const { protocol, host } = (typeof window !== 'undefined' &&
+    window?.location) || {
+    protocol: 'https:',
+    host: siteURI
+  };
 
   const seoData: StructuredBlogSchema = {
     headline: title || siteTitle,
     name: title || siteTitle,
     description: description || defaultDescription,
     datePublished,
-    publisher: siteURI,
-    url: `https://${siteURI}${relativeUrl}`,
+    publisher: host,
+    url: `${protocol}//${host}${relativeUrl}`,
     timeRequired,
-    image: defaultImage,
+    image: `${protocol}${host}${defaultImage}`,
     author: {
       '@type': 'Person',
       name: `${firstName} ${lastName}`,

@@ -24,6 +24,7 @@
     "next-mdx-remote": "^4.3.0",
     "node-fetch": "^3.3.0",
     "pako": "^2.1.0",
+    "pino": "^8.11.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
@@ -53,6 +54,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^26.7.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "pino-pretty": "^10.0.0",
     "prettier": "^2.7.1",
     "sass": "^1.56.2"
   }
