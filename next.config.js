@@ -1,8 +1,16 @@
 /* eslint-disable no-param-reassign */
 const path = require('path');
 
+const { ENABLE_STATIC } = process.env;
+
+const staticExport = {
+  output: 'export',
+  distDir: 'out'
+};
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  ...((ENABLE_STATIC && staticExport) || {}),
   reactStrictMode: true,
   swcMinify: false,
   sassOptions: {

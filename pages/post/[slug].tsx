@@ -76,21 +76,24 @@ const Article = (props: BlogPostProps) => {
     relativeUrl: `/post/${slug}`
   };
 
+  const MDXContent = () =>
+    useMemo(
+      () => (
+        <MDXRemote
+          {...decompressData(compressedContent)}
+          components={components}
+        />
+      ),
+      []
+    );
+
   return (
     <>
       <StructuredBlogData {...seoData} />
       <RelatedArticles postList={relatedPosts} currentSlug={slug} />
       <HeadingContext.Provider value={memoSection}>
         <article className={cx(styles.postContent, styles.postWrapper)}>
-          {useMemo(
-            () => (
-              <MDXRemote
-                {...decompressData(compressedContent)}
-                components={components}
-              />
-            ),
-            [compressedContent]
-          )}
+          <MDXContent />
         </article>
       </HeadingContext.Provider>
       {tableOfContents.length > 0 && (
