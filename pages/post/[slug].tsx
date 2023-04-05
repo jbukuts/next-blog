@@ -79,10 +79,12 @@ const Article = (props: BlogPostProps) => {
   const MDXContent = () =>
     useMemo(
       () => (
-        <MDXRemote
-          {...decompressData(compressedContent)}
-          components={components}
-        />
+        <article className={cx(styles.postContent, styles.postWrapper)}>
+          <MDXRemote
+            {...decompressData(compressedContent)}
+            components={components}
+          />
+        </article>
       ),
       []
     );
@@ -92,9 +94,7 @@ const Article = (props: BlogPostProps) => {
       <StructuredBlogData {...seoData} />
       <RelatedArticles postList={relatedPosts} currentSlug={slug} />
       <HeadingContext.Provider value={memoSection}>
-        <article className={cx(styles.postContent, styles.postWrapper)}>
-          <MDXContent />
-        </article>
+        <MDXContent />
       </HeadingContext.Provider>
       {tableOfContents.length > 0 && (
         <TableOfContents

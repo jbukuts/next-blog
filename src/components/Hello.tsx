@@ -36,8 +36,9 @@ const Hello = () => (
         src='/images/me.webp'
         alt='This is me'
         fill
-        width={639}
-        height={480}
+        width={320}
+        height={240}
+        priority
       />
     </div>
 
