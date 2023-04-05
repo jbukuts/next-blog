@@ -10,10 +10,10 @@ const staticExport = {
 
 const contentSecurityPolicy = `
   default-src 'self';
-  script-src 'self';
+  script-src 'self' cdn.vercel-insights.com 'unsafe-eval';
   child-src jbukuts.com *.jbukuts.com;
-  style-src 'self' jbukuts.com *.jbukuts.com;
-  font-src 'self';  
+  style-src 'self' jbukuts.com *.jbukuts.com fonts.googleapis.com 'unsafe-inline';
+  font-src 'self' fonts.gstatic.com;  
 `;
 
 const securityHeaders = [
