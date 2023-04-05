@@ -9,9 +9,9 @@ const staticExport = {
 };
 
 const contentSecurityPolicy = `
-  default-src 'self' vitals.vercel-insights.com;
+  default-src 'self' vitals.vercel-insights.com assets.vercel.com;
   script-src 'self' cdn.vercel-insights.com vercel.live 'unsafe-eval' 'unsafe-inline';
-  child-src jbukuts.com *.jbukuts.com;
+  child-src jbukuts.com *.jbukuts.com vercel.live;
   style-src 'self' jbukuts.com *.jbukuts.com fonts.googleapis.com 'unsafe-inline';
   font-src 'self' fonts.gstatic.com;  
 `;
