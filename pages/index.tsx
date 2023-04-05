@@ -56,7 +56,6 @@ const Home = (props: HomeProps) => {
             <MDXRemote
               components={{ h1: HeaderReplace }}
               {...postItem.content}
-              lazy
             />
           </PostCard>
         ))}

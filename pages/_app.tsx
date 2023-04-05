@@ -1,5 +1,6 @@
 import '../src/styles/globals.scss';
 
+import { Analytics } from '@vercel/analytics/react';
 import type { AppProps } from 'next/app';
 import React from 'react';
 import Footer from '../src/components/Layout/Footer';
@@ -12,6 +13,7 @@ const App = ({ Component, pageProps }: AppProps) => (
     <Header />
     <Component {...pageProps} />
     <Footer />
+    <Analytics />
   </>
 );
 
