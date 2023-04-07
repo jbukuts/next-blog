@@ -32,7 +32,7 @@ const PostCard = (props: PostCardProps) => {
         <div className={styles.horizontalStack}>
           {date && (
             <TagBadge>
-              <Suspense>
+              <Suspense fallback={null}>
                 {new Date(date).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'short',

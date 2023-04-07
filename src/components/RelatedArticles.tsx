@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import NextLink from 'next/link';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
 import styles from '../styles/components/RelatedArticles.module.scss';
 import TagBadge from './Badge';
@@ -25,11 +25,13 @@ const RelatedPostItem = (props: RelatedPost) => {
       </NextLink>
       <div className={cx(styles.horizontalStack)}>
         <p>
-          {new Date(date).toLocaleDateString('en-US', {
-            year: '2-digit',
-            month: 'numeric',
-            day: 'numeric'
-          })}
+          <Suspense fallback={null}>
+            {new Date(date).toLocaleDateString('en-US', {
+              year: '2-digit',
+              month: 'numeric',
+              day: 'numeric'
+            })}
+          </Suspense>
           {' • '}
           {timeToRead} min
         </p>
