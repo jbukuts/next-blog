@@ -5,7 +5,7 @@ import { MDXRemote } from 'next-mdx-remote';
 import React, { useMemo, useState } from 'react';
 import logger from '../../logger';
 import {
-  // ArticleTags,
+  ArticleTags,
   Heading,
   PrettyCode,
   RelatedArticles,
@@ -43,7 +43,7 @@ interface BlogPostProps extends ProcessedContent {
 
 const components = {
   FlexContainer,
-  ArticleTags: null,
+  ArticleTags,
   PrettyCode,
   h1: Heading.H1,
   h2: Heading.H2,
