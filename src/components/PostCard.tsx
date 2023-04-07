@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
 import styles from '../styles/components/PostCard.module.scss';
 import TagBadge from './Badge';
@@ -32,11 +32,13 @@ const PostCard = (props: PostCardProps) => {
         <div className={styles.horizontalStack}>
           {date && (
             <TagBadge>
-              {new Date(date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-              })}
+              <Suspense fallback={null}>
+                {new Date(date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </Suspense>
             </TagBadge>
           )}
           {timeToRead && <TagBadge>{timeToRead} min</TagBadge>}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
 import styles from '../styles/components/ArticleTags.module.scss';
 import TagBadge from './Badge';
@@ -17,12 +17,14 @@ const ArticleTags: React.FC<ArticleTagsProps> = (props) => {
       ))}
       <TagBadge>{timeToRead} min</TagBadge>
       <TagBadge>
-        Posted on{' '}
-        {new Date(date).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        })}
+        <Suspense fallback={null}>
+          Posted on{' '}
+          {new Date(date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          })}
+        </Suspense>
       </TagBadge>
     </div>
   );
