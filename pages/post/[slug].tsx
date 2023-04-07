@@ -5,7 +5,7 @@ import { MDXRemote } from 'next-mdx-remote';
 import React, { useMemo, useState } from 'react';
 import logger from '../../logger';
 import {
-  ArticleTags,
+  // ArticleTags,
   Heading,
   PrettyCode,
   RelatedArticles,
