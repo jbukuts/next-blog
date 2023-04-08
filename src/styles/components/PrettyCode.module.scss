@@ -1,26 +1,57 @@
-.prettyCode {
-  position: relative;
+$border-style: 1px solid rgb(82, 82, 82);
+
+.code {
+  -webkit-text-size-adjust: none;
+  padding: 0.15rem 0.25rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  background-color: rgba(157, 157, 157, 0.095);
+  font-family: 'JetBrains Mono', monospace !important;
 }
 
-// TODO add hover effects
+.prettyCodeContainer {
+  background-color: $color-code-bg;
+  padding: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  border: $border-style;
+}
+
+.codeWrapper {
+  position: relative;
+  line-height: 1.5;
+  border-radius: 0;
+  background-color: unset;
+  display: grid;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.infoBar {
+  border-top: $border-style;
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 0.8rem;
+  color: white;
+
+  & p {
+    margin: 0 !important;
+  }
+
+  & > * {
+    padding: 0.475rem;
+    border-left: $border-style !important;
+  }
+}
 
 .copyButton {
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
-  right: 0;
-  font-size: 0.875rem;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  padding: 0.25rem 0.5rem;
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(165, 165, 165);
-  background-color: rgba(255, 255, 255, 0.25);
-  border-radius: 5px;
+  border: none;
+  background-color: unset;
+  color: white;
   transition: background-color 75ms linear;
 
   &:hover {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.35);
+    background-color: rgba(255, 255, 255, 0.075);
   }
 }
