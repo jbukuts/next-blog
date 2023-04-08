@@ -160,7 +160,6 @@ async function getPostContent(
           )
         }
       ],
-      // rehypePrettyCodeWrapper,
       rehypeSlug,
       [
         rehypeAutolinkHeadings,
