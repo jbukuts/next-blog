@@ -16,25 +16,19 @@ export default function remarkInsertJSXAfterHeader() {
       }
     );
 
-    const headerPosition: number | undefined = (() => {
-      let position;
-      visit(
-        root,
-        (node) => {
-          const { type, depth } = node as any;
-          return type === 'heading' && depth === 1;
-        },
-        (_, index) => {
-          if (index === null) return EXIT;
-          position = index + 1;
-          return EXIT;
-        }
-      );
+    visit(
+      root,
+      (node) => {
+        const { type, depth } = node as any;
+        return type === 'heading' && depth === 1;
+      },
+      (_, index) => {
+        if (index === null) return EXIT;
+        root.children.splice(index + 1, 0, ...children);
+        return EXIT;
+      }
+    );
 
-      return position;
-    })();
-
-    if (headerPosition) root.children.splice(headerPosition, 0, ...children);
     return root;
   };
 }
