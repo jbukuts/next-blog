@@ -22,12 +22,12 @@
 }
 
 // Apple Color Emojis
-// @font-face {
-//   font-family: 'Apple Color Emoji';
-//   src: url(/fonts/AppleColorEmoji.ttf) format('truetype');
-//   font-display: swap;
-//   size-adjust: 85%;
-// }
+@font-face {
+  font-family: 'Apple Color Emoji';
+  src: url(/fonts/AppleColorEmoji/AppleColorEmoji.mini.ttf) format('truetype');
+  font-display: swap;
+  size-adjust: 85%;
+}
 
 // JetBrains Monospace
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
