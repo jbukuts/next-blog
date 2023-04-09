@@ -19,6 +19,12 @@ interface HomeProps {
 const DISABLED_ROUTER = true;
 
 const HeaderReplace = ({ children }: any) => <h2>{children}</h2>;
+const LinkReplace = ({ children }: any) => <u>{children}</u>;
+
+const components = {
+  h1: HeaderReplace,
+  a: LinkReplace
+};
 
 const Home = (props: HomeProps) => {
   const { postList, fullTagsList } = props;
@@ -53,10 +59,7 @@ const Home = (props: HomeProps) => {
         <Hello />
         {filteredList.map((postItem: ProcessedContent, i: number) => (
           <PostCard key={i} {...postItem}>
-            <MDXRemote
-              components={{ h1: HeaderReplace }}
-              {...postItem.content}
-            />
+            <MDXRemote components={components} {...postItem.content} />
           </PostCard>
         ))}
       </main>
