@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/jsx-no-comment-textnodes */
 import cx from 'classnames';
+import NextLink from 'next/link';
 import React from 'react';
 import { SectionHead } from '../helpers/mdast-compile-toc';
 import styles from '../styles/components/TableOfContents.module.scss';
@@ -16,9 +16,9 @@ const TableOfContents = (props: TableOfContentsProps) => {
 
   return (
     <SideBar side='right' className={styles.tableOfContents}>
-      <a href='#' title='Back to Top'>
+      <NextLink href='#' title='Back to Top' replace>
         <h2>Table of Contents</h2>
-      </a>
+      </NextLink>
       <ul>
         {tableOfContents
           .filter(({ tagName }) => tagName !== 'h1')
@@ -29,7 +29,9 @@ const TableOfContents = (props: TableOfContentsProps) => {
                 styles[tagName],
                 id === currentSection && styles.currentSection
               )}>
-              <a href={`#${id}`}>{title}</a>
+              <NextLink href={`#${id}`} replace>
+                {title}
+              </NextLink>
             </li>
           ))}
       </ul>

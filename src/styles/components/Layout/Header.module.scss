@@ -8,6 +8,27 @@
   padding-top: $spacing-7;
 }
 
+.stickyBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(1em);
+  width: 100%;
+  z-index: 100;
+  padding: 1rem;
+  border-bottom: 1px solid $color-outline;
+  animation: slide-in 70ms linear;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+
+  & h5 {
+    margin: 0;
+  }
+}
+
 @include apply-lesser-than('sm') {
   .header {
     justify-content: center;
@@ -15,5 +36,14 @@
 
   .bar {
     padding: $spacing-4 0;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    top: calc(0px - $sticky-header-height);
+  }
+  to {
+    top: 0px;
   }
 }

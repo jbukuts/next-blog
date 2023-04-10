@@ -1,7 +1,7 @@
 .relatedArticles {
   flex-direction: column;
   position: sticky;
-  top: $grid-spacing;
+  top: calc($grid-spacing + $sticky-header-height);
 
   h2 {
     font-size: 1.5rem;

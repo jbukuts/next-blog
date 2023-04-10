@@ -1,4 +1,4 @@
 import FlexContainer from './FlexContainer';
+import SmartLink from './SmartLink';
 
-// eslint-disable-next-line import/prefer-default-export
-export { FlexContainer };
+export { FlexContainer, SmartLink };
