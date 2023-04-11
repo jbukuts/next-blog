@@ -2,7 +2,7 @@ import cx from 'classnames';
 import dynamic from 'next/dynamic';
 import { MDXRemote } from 'next-mdx-remote';
 
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import logger from '../../logger';
 import {
   ArticleTags,
@@ -11,6 +11,7 @@ import {
   RelatedArticles,
   TableOfContents
 } from '../../src/components';
+import { SmartLink } from '../../src/components/ArticleHelpers';
 import { RelatedPost } from '../../src/components/RelatedArticles';
 import { StructuredBlogData } from '../../src/components/SEO';
 import {
@@ -23,6 +24,7 @@ import { compressData, decompressData } from '../../src/helpers/compression';
 import { SectionHead } from '../../src/helpers/mdast-compile-toc';
 import HeadingContext from '../../src/state/HeadingContext';
 
+import TitleContext from '../../src/state/TitleContext';
 import styles from '../../src/styles/pages/post/[slug].module.scss';
 
 const FlexContainer = dynamic(
@@ -47,8 +49,15 @@ const components = {
   code: PrettyCode,
   h1: Heading.H1,
   h2: Heading.H2,
-  h3: Heading.H3
+  h3: Heading.H3,
+  a: SmartLink
 } as any;
+
+const MDXContent = React.memo(({ content }: any) => (
+  <article className={cx(styles.postContent, styles.postWrapper)}>
+    <MDXRemote {...content} components={components} />
+  </article>
+));
 
 const Article = (props: BlogPostProps) => {
   const {
@@ -62,11 +71,17 @@ const Article = (props: BlogPostProps) => {
     timeToRead
   } = props;
 
-  const [currentSection, setCurrentSection] = useState('');
+  const [currentSection, setCurrentSection] = useState({ id: '', text: '' });
   const memoSection = useMemo(
     () => ({ currentSection, setCurrentSection }),
     [currentSection]
   );
+
+  const { setCurrentTitle } = useContext(TitleContext);
+
+  useEffect(() => {
+    setCurrentTitle(title);
+  }, [title, setCurrentTitle]);
 
   const seoData = {
     title,
@@ -76,30 +91,17 @@ const Article = (props: BlogPostProps) => {
     relativeUrl: `/post/${slug}`
   };
 
-  const MDXContent = () =>
-    useMemo(
-      () => (
-        <article className={cx(styles.postContent, styles.postWrapper)}>
-          <MDXRemote
-            {...decompressData(compressedContent)}
-            components={components}
-          />
-        </article>
-      ),
-      []
-    );
-
   return (
     <>
       <StructuredBlogData {...seoData} />
       <RelatedArticles postList={relatedPosts} currentSlug={slug} />
       <HeadingContext.Provider value={memoSection}>
-        <MDXContent />
+        <MDXContent content={decompressData(compressedContent)} />
       </HeadingContext.Provider>
       {tableOfContents.length > 0 && (
         <TableOfContents
           tableOfContents={tableOfContents}
-          currentSection={currentSection}
+          currentSection={currentSection.id}
         />
       )}
     </>

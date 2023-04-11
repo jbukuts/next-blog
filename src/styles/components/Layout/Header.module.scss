@@ -8,6 +8,29 @@
   padding-top: $spacing-7;
 }
 
+.stickyBar {
+  position: fixed;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(1em);
+  width: 100%;
+  z-index: 100;
+  padding: $spacing-5;
+  border-bottom: 1px solid $color-outline;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  white-space: nowrap;
+  gap: $spacing-5;
+
+  & h5 {
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
 @include apply-lesser-than('sm') {
   .header {
     justify-content: center;

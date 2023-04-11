@@ -21,6 +21,7 @@ const SharedHeader = () => {
 
   return (
     <Head key='shared'>
+      <meta name='viewport' content='width=device-width, initial-scale=1' />
       <meta name='author' content={`${firstName} ${lastName}`} />,
       <meta property='og:site_name' content={host} />,
       <meta property='og:locale' content='en_US' />

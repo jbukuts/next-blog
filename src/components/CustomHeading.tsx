@@ -15,14 +15,19 @@ function createHeadingProxy() {
       const { children, id } = props;
 
       const [headingRef, visible] = useElementOnScreen({
-        rootMargin: '0px 0px -98% 0px'
+        rootMargin: '0px 0px -90% 0px'
       });
 
-      const { setCurrentSection } = useContext(HeadingContext);
+      const { currentSection, setCurrentSection } = useContext(HeadingContext);
 
       useEffect(() => {
-        if (visible && id && headingRef?.current) setCurrentSection(id);
-      }, [visible, id, setCurrentSection, headingRef]);
+        if (visible && id && headingRef?.current && currentSection.id !== id) {
+          setCurrentSection({
+            id,
+            text: (headingRef.current as HTMLElement)?.innerText || ''
+          });
+        }
+      }, [visible, id, setCurrentSection, headingRef, currentSection]);
 
       return React.createElement(
         key.toLowerCase(),

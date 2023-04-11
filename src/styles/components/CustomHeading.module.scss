@@ -1,7 +1,7 @@
 .standard {
   font-weight: bold;
   margin: 0.75rem 0;
-  scroll-margin: $spacing-5;
+  scroll-margin: calc($spacing-5 + $sticky-header-height);
 
   & a {
     color: black !important;
