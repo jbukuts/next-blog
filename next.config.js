@@ -39,13 +39,12 @@ const securityHeaders = [
 const nextConfig = {
   ...((ENABLE_STATIC && staticExport) || {}),
   reactStrictMode: true,
-  swcMinify: false,
+  swcMinify: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@use "src/styles/resources" as *;`
   },
   webpack: (config) => {
-    // Important: return the modified config
     config.mode = 'production';
     return config;
   },

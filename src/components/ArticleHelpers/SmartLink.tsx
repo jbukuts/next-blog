@@ -9,17 +9,20 @@ interface SmartLinkProps {
 const SmartLink = (props: SmartLinkProps) => {
   const { href, children } = props;
 
-  const isExternal = href.startsWith('http') || href.startsWith('//');
-  if (isExternal) return <a href={href}>{children}</a>;
-
+  const isExternal =
+    href.startsWith('http') ||
+    href.startsWith('//') ||
+    href.startsWith('mailto:');
   const isHash = href.startsWith('#');
 
-  const nextLinkProps = {
+  const linkProps = {
     href,
-    ...((isHash && { replace: true }) || {})
+    ...((isExternal && { target: '_blank', rel: 'noreferrer' }) || {
+      ...((isHash && { replace: true }) || {})
+    })
   };
 
-  return <NextLink {...nextLinkProps}>{children}</NextLink>;
+  return React.createElement(isExternal ? 'a' : NextLink, linkProps, children);
 };
 
 export default SmartLink;
