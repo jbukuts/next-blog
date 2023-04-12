@@ -24,10 +24,15 @@
 // Apple Color Emojis
 @font-face {
   font-family: 'Apple Color Emoji';
-  src: url(/fonts/AppleColorEmoji/AppleColorEmoji.ttf) format('truetype');
+  src: url(/fonts/AppleColorEmoji/AppleColorEmoji.mini.ttf) format('truetype');
   font-display: swap;
   size-adjust: 85%;
 }
 
 // JetBrains Monospace
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url(/fonts/JetBrains/JetBrainsMono.woff2);
+  font-display: swap;
+  size-adjust: 78%;
+}

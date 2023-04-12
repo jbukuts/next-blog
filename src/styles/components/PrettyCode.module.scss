@@ -1,11 +1,12 @@
-$border-style: 1px solid rgb(82, 82, 82);
+@use 'sass:color';
+
+$border-style: 1px solid $color-gray-1;
 
 .code {
   -webkit-text-size-adjust: none;
   padding: 0.15rem 0.25rem;
   border-radius: 5px;
-  font-size: 0.8rem;
-  background-color: rgba(157, 157, 157, 0.095);
+  background-color: color.adjust($color-foreground, $alpha: -0.9);
   font-family: 'JetBrains Mono', monospace !important;
 }
 
@@ -19,12 +20,11 @@ $border-style: 1px solid rgb(82, 82, 82);
 
 .codeWrapper {
   position: relative;
-  line-height: 1.5;
+  line-height: 1.25;
   border-radius: 0;
   background-color: unset;
-
   overflow-x: auto;
-  padding: 1rem;
+  padding: $spacing-4;
 }
 
 .infoBar {
@@ -32,7 +32,7 @@ $border-style: 1px solid rgb(82, 82, 82);
   display: flex;
   flex-direction: row-reverse;
   font-size: 0.8rem;
-  color: white;
+  color: $color-gray-6;
   user-select: none;
 
   & p {
@@ -48,11 +48,17 @@ $border-style: 1px solid rgb(82, 82, 82);
 .copyButton {
   border: none;
   background-color: unset;
-  color: white;
+  color: $color-gray-6;
   transition: background-color 75ms linear;
 
   &:hover {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.075);
+    background-color: color.adjust($color-gray-6, $alpha: -0.9);
+  }
+}
+
+@include apply-lesser-than('sm') {
+  .codeWrapper {
+    padding: $spacing-3;
   }
 }

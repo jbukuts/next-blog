@@ -53,11 +53,14 @@ const components = {
   a: SmartLink
 } as any;
 
-const MDXContent = React.memo(({ content }: any) => (
-  <article className={cx(styles.postContent, styles.postWrapper)}>
-    <MDXRemote {...content} components={components} />
-  </article>
-));
+const MDXContent = React.memo(
+  // eslint-disable-next-line react/prop-types
+  React.forwardRef(({ content }: any, ref: any) => (
+    <article ref={ref} className={cx(styles.postContent, styles.postWrapper)}>
+      <MDXRemote {...content} components={components} />
+    </article>
+  ))
+);
 
 const Article = (props: BlogPostProps) => {
   const {

@@ -1,7 +1,5 @@
 .relatedArticles {
   flex-direction: column;
-  position: sticky;
-  top: calc($grid-spacing + $sticky-header-height);
 
   h2 {
     font-size: 1.5rem;
@@ -10,7 +8,7 @@
 
   p {
     font-size: 0.85rem;
-    color: rgb(144, 144, 144);
+    color: $color-gray-1;
   }
 }
 

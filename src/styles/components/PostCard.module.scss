@@ -11,7 +11,7 @@
 .postCardContent {
   line-height: 1.5;
   position: relative;
-  padding: 1.275rem;
+  padding: $spacing-5;
   box-sizing: content-box;
   height: 10rem;
   mask-image: linear-gradient(
@@ -24,7 +24,11 @@
     font-weight: bold;
     font-size: 2.25rem;
     line-height: 1;
-    margin-bottom: 1rem;
+    margin-bottom: $spacing-4;
+  }
+
+  & p {
+    margin: 0;
   }
 }
 
@@ -55,16 +59,11 @@
   }
 
   .postCardContent {
-    & h1 {
-      font-size: 2rem;
-    }
+    padding: $spacing-3;
 
     & h2 {
-      font-size: 1.5rem;
-    }
-
-    & h3 {
-      font-size: 1.25rem;
+      font-size: 1.75rem;
+      margin-bottom: $spacing-2;
     }
   }
 }

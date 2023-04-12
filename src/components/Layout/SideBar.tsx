@@ -10,7 +10,6 @@ interface SideBarProps {
 
 const SideBar = (props: SideBarProps) => {
   const { side, children, className } = props;
-
   return <nav className={cx(className, styles[side])}>{children}</nav>;
 };
 

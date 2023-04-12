@@ -4,7 +4,7 @@ import { FaGithub, FaLinkedin, FaSoundcloud, FaTwitter } from 'react-icons/fa';
 import profile from '../../profile';
 import styles from '../styles/components/Hello.module.scss';
 
-const { aboutMe, imageWrapper, socials, socialLink } = styles;
+const { aboutMe, imageWrapper, socials, socialLink, helloContent } = styles;
 const {
   firstName,
   lastName,
@@ -42,7 +42,7 @@ const Hello = () => (
       />
     </div>
 
-    <div style={{ flexShrink: 2 }}>
+    <div style={{ flexShrink: 2 }} className={helloContent}>
       <h1>
         Hi, I&apos;m <b>{`${firstName} ${lastName}`}</b>.✌
       </h1>
