@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
 export interface IntersectionObserverOptions {
   root?: any;
@@ -6,9 +6,12 @@ export interface IntersectionObserverOptions {
   threshold?: number | number[];
 }
 
-const useElementOnScreen = (options: IntersectionObserverOptions | void) => {
+const useElementOnScreen = (
+  options: IntersectionObserverOptions | void,
+  defaultValue: boolean = false
+) => {
   const containerRef = useRef(null);
-  const [visible, setVisible] = useState();
+  const [visible, setVisible] = useState(defaultValue);
 
   const callbackFunction = (entries: any[]) => {
     const [entry] = entries;
@@ -30,7 +33,7 @@ const useElementOnScreen = (options: IntersectionObserverOptions | void) => {
     };
   }, [options, containerRef]);
 
-  return [containerRef, visible];
+  return [containerRef, visible] as [MutableRefObject<any>, boolean];
 };
 
 export default useElementOnScreen;

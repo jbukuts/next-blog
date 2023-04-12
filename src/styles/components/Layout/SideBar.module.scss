@@ -3,6 +3,8 @@
   grid-row: content;
   height: min-content;
   width: $sidebar-width;
+  position: sticky;
+  top: calc($grid-spacing + $sticky-header-height);
 }
 
 .left {

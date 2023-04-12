@@ -7,7 +7,7 @@ html {
   scroll-behavior: smooth !important;
 
   width: 100%;
-  font-size: 16px;
+  font-size: 17px;
   font-family: San Francisco, Apple Color Emoji, -apple-system, sans-serif;
 }
 
@@ -68,9 +68,5 @@ ul {
 @include apply-lesser-than('sm') {
   #__next {
     gap: $spacing-5;
-  }
-
-  html {
-    font-size: 16px;
   }
 }

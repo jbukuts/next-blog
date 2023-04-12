@@ -13,7 +13,8 @@ const profile = {
   description:
     'Here I write about random programming related things I encounter.',
   siteTitle: 'Blog @ jbukuts',
-  siteURI: 'www.jbukuts.com'
+  siteURI: 'www.jbukuts.com',
+  headerImage: '/name-chrome.webp'
 };
 
 export default profile;

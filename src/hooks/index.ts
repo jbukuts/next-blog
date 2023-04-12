@@ -1,4 +1,4 @@
 import useElementOnScreen from './useElementOnScreen';
+import useScrollPercentage from './useScrollPercentage';
 
-// eslint-disable-next-line import/prefer-default-export
-export { useElementOnScreen };
+export { useElementOnScreen, useScrollPercentage };

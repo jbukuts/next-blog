@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .header {
   grid-column: middle;
   grid-row: header;
@@ -6,23 +8,43 @@
 
 .bar {
   padding-top: $spacing-7;
+
+  & img {
+    image-rendering: crisp-edges;
+    height: 80px;
+    width: auto;
+    aspect-ratio: 2000 / 836;
+  }
 }
 
-.stickyBar {
+.stickyBarWrapper {
   position: fixed;
   left: 0;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: color.adjust($color-background, $alpha: -0.15);
   backdrop-filter: blur(1em);
   width: 100%;
   z-index: 100;
-  padding: $spacing-5;
   border-bottom: 1px solid $color-outline;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: $color-foreground;
+}
+
+.stickyBarScroll {
+  height: 1px;
+  background: $color-blue;
+  transition: width 50ms ease-out;
+}
+
+.stickyBarContent {
   display: flex;
   flex-direction: row;
   align-items: baseline;
   justify-content: space-between;
   white-space: nowrap;
   gap: $spacing-5;
+  padding: $spacing-5;
 
   & h5 {
     margin: 0;
@@ -38,5 +60,8 @@
 
   .bar {
     padding: $spacing-4 0;
+    & img {
+      height: 60px;
+    }
   }
 }

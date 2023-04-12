@@ -10,6 +10,6 @@
 
 @include apply-lesser-than('sm') {
   .homePage {
-    gap: $spacing-7;
+    gap: $spacing-5;
   }
 }
