@@ -187,7 +187,8 @@ export async function getStaticProps(context: { params: { slug: string } }) {
   );
 
   return {
-    props
+    props,
+    revalidate: 43200
   };
 }
 

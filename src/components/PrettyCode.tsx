@@ -27,7 +27,7 @@ const MultiLineWrapper: React.FC<MultiLineWrapperProps> = (props) => {
       <div ref={codeRef} className={cx(className, styles.codeWrapper)}>
         {children}
       </div>
-      <div className={styles.infoBar}>
+      <div className={styles.infoBar} aria-hidden='true'>
         <button
           type='button'
           onClick={onCopyClick}

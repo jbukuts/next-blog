@@ -4,51 +4,58 @@ import { AnimatePresence, LazyMotion, m } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useContext } from 'react';
+import React, { Suspense, useContext } from 'react';
 import profile from '../../../profile';
-import { useElementOnScreen, useScrollPercentage } from '../../hooks';
+import {
+  useCurrentPath,
+  useElementOnScreen,
+  useScrollPercentage
+} from '../../hooks';
 import TitleContext from '../../state/TitleContext';
 import styles from '../../styles/components/Layout/Header.module.scss';
 
 const { firstName, lastName, siteTitle, headerImage } = profile;
 
+const stickyHeaderMotions = {
+  initial: { y: '-100%' },
+  animate: { y: '0%' },
+  exit: { y: '-100%' },
+  transition: { duration: 0.1 }
+};
+
+const domAnimation = () =>
+  import('framer-motion').then((mod) => mod.domAnimation);
+
 const StickyHeader = () => {
   const scrollPercent = useScrollPercentage(50);
   const { currentTitle } = useContext(TitleContext);
-
-  const stickyHeaderMotions = {
-    initial: { y: '-100%' },
-    animate: { y: '0%' },
-    exit: { y: '-100%' },
-    transition: { duration: 0.1 }
-  };
-
-  const domAnimation = () =>
-    import('framer-motion').then((mod) => mod.domAnimation);
+  const currentPath = useCurrentPath();
 
   return (
-    <LazyMotion features={domAnimation} strict>
-      <m.div {...stickyHeaderMotions} className={cx(styles.stickyBarWrapper)}>
-        <div
-          style={{
-            width: `${(scrollPercent * 100).toPrecision(3)}%`
-          }}
-          className={styles.stickyBarScroll}
-        />
-        <div className={styles.stickyBarContent}>
-          <h3 title='Back to home'>
-            <Link href='/'>
-              <b>{`${firstName} ${lastName}`}</b>
-            </Link>
-          </h3>
-          <h5 title='Back to top'>
-            <Link href='#' replace>
-              {currentTitle || ''}
-            </Link>
-          </h5>
-        </div>
-      </m.div>
-    </LazyMotion>
+    <Suspense fallback={null}>
+      <LazyMotion features={domAnimation} strict>
+        <m.div {...stickyHeaderMotions} className={cx(styles.stickyBarWrapper)}>
+          <div
+            style={{
+              width: `${(scrollPercent * 100).toPrecision(3)}%`
+            }}
+            className={styles.stickyBarScroll}
+          />
+          <div className={styles.stickyBarContent}>
+            <h3 title='Back to home'>
+              <Link href='/'>
+                <b>{`${firstName} ${lastName}`}</b>
+              </Link>
+            </h3>
+            <h5 title='Back to top'>
+              <Link href='#' replace as={currentPath}>
+                {currentTitle || ''}
+              </Link>
+            </h5>
+          </div>
+        </m.div>
+      </LazyMotion>
+    </Suspense>
   );
 };
 

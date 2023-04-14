@@ -13,13 +13,20 @@ interface WindowProps {
 }
 
 const Window = React.forwardRef((props: WindowProps, ref: any) => {
-  const { title, children, as, asProps, topBar, className, contentClassName } =
-    props;
+  const {
+    title,
+    children,
+    as = 'div',
+    asProps = {},
+    topBar = true,
+    className,
+    contentClassName
+  } = props;
 
   const child = (
     <>
       {topBar && (
-        <div className={styles.topBar}>
+        <div className={styles.topBar} aria-hidden='true'>
           <div className={styles.buttonContainer}>
             <div />
             <div />
@@ -44,14 +51,5 @@ const Window = React.forwardRef((props: WindowProps, ref: any) => {
     child
   );
 });
-
-Window.defaultProps = {
-  title: undefined,
-  as: 'div',
-  asProps: {},
-  topBar: true,
-  className: undefined,
-  contentClassName: undefined
-};
 
 export default Window;
