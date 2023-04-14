@@ -81,7 +81,8 @@ export async function getStaticProps() {
     props: {
       postList: testPostList,
       fullTagsList: Array.from(new Set(fullTagsList))
-    } as HomeProps
+    } as HomeProps,
+    revalidate: 43200
   };
 }
 

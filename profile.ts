@@ -12,7 +12,7 @@ const profile = {
   image: '/images/pc.png',
   description:
     'Here I write about random programming related things I encounter.',
-  siteTitle: 'Blog @ jbukuts',
+  siteTitle: 'Software Developer - Jake Bukuts',
   siteURI: 'www.jbukuts.com',
   headerImage: '/name-chrome.webp'
 };

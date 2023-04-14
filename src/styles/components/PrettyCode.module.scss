@@ -1,6 +1,6 @@
 @use 'sass:color';
 
-$border-style: 1px solid $color-gray-1;
+$border-style: 1px solid color.adjust($color-gray-1, $alpha: -0.5);
 
 .code {
   -webkit-text-size-adjust: none;
