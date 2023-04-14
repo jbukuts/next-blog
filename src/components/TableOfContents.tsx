@@ -18,7 +18,7 @@ const TableOfContents = (props: TableOfContentsProps) => {
 
   return (
     <SideBar side='right' className={styles.tableOfContents}>
-      <NextLink href='#' title='Back to Top' replace as={currentPath}>
+      <NextLink href='#' title='Back to top' replace as={currentPath}>
         <h2>Table of Contents</h2>
       </NextLink>
       <ul>
