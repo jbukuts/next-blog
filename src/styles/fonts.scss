@@ -29,10 +29,8 @@
   size-adjust: 85%;
 }
 
-// JetBrains Monospace
 @font-face {
-  font-family: 'JetBrains Mono';
-  src: url(/fonts/JetBrains/JetBrainsMono.woff2);
+  font-family: 'SF Mono';
+  src: url(/fonts/SFMono/SF-Mono-Regular.woff2) format('woff2');
   font-display: swap;
-  size-adjust: 78%;
 }

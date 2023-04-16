@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import cx from 'classnames';
 import { AnimatePresence, LazyMotion, m } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,6 +12,7 @@ import {
 } from '../../hooks';
 import TitleContext from '../../state/TitleContext';
 import styles from '../../styles/components/Layout/Header.module.scss';
+import Stack from './Stack';
 
 const { firstName, lastName, siteTitle, headerImage } = profile;
 
@@ -34,14 +34,19 @@ const StickyHeader = () => {
   return (
     <Suspense fallback={null}>
       <LazyMotion features={domAnimation} strict>
-        <m.div {...stickyHeaderMotions} className={cx(styles.stickyBarWrapper)}>
+        <Stack
+          type='vertical'
+          spacing='none'
+          as={m.div}
+          {...stickyHeaderMotions}
+          className={styles.stickyBarWrapper}>
           <div
             style={{
               width: `${(scrollPercent * 100).toPrecision(3)}%`
             }}
             className={styles.stickyBarScroll}
           />
-          <div className={styles.stickyBarContent}>
+          <Stack className={styles.stickyBarContent}>
             <h3 title='Back to home'>
               <Link href='/'>
                 <b>{`${firstName} ${lastName}`}</b>
@@ -52,15 +57,15 @@ const StickyHeader = () => {
                 {currentTitle || ''}
               </Link>
             </h5>
-          </div>
-        </m.div>
+          </Stack>
+        </Stack>
       </LazyMotion>
     </Suspense>
   );
 };
 
 const StaticHeader = React.forwardRef((_, ref: any) => (
-  <div className={styles.bar} ref={ref} title='Back to home'>
+  <Stack className={styles.staticBar} ref={ref} title='Back to home'>
     <Link href='/'>
       <Image
         priority
@@ -70,7 +75,7 @@ const StaticHeader = React.forwardRef((_, ref: any) => (
         src={headerImage}
       />
     </Link>
-  </div>
+  </Stack>
 ));
 
 const CombinedHeader = () => {

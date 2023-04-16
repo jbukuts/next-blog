@@ -1,15 +1,5 @@
 .homePage {
   grid-row: content;
   grid-column: middle;
-
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-6;
   align-items: stretch;
-}
-
-@include apply-lesser-than('sm') {
-  .homePage {
-    gap: $spacing-5;
-  }
 }

@@ -10,11 +10,7 @@ interface SideBarProps {
 
 const SideBar = (props: SideBarProps) => {
   const { side, children, className } = props;
-  return (
-    <nav aria-hidden='true' className={cx(className, styles[side])}>
-      {children}
-    </nav>
-  );
+  return <nav className={cx(className, styles[side])}>{children}</nav>;
 };
 
 SideBar.defaultProps = {

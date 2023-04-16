@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
 import styles from '../styles/components/Window.module.scss';
+import Stack from './Layout/Stack';
 
 interface WindowProps {
   title?: string;
@@ -26,14 +27,14 @@ const Window = React.forwardRef((props: WindowProps, ref: any) => {
   const child = (
     <>
       {topBar && (
-        <div className={styles.topBar} aria-hidden='true'>
-          <div className={styles.buttonContainer}>
+        <Stack className={styles.topBar} aria-hidden='true'>
+          <Stack spacing='xs' className={styles.buttonContainer}>
             <div />
             <div />
             <div />
-          </div>
+          </Stack>
           {title || ''}
-        </div>
+        </Stack>
       )}
       <div className={cx(styles.windowContent, contentClassName)}>
         {children}

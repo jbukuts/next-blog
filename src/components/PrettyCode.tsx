@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import React, { useRef, useState } from 'react';
 import styles from '../styles/components/PrettyCode.module.scss';
+import { Stack } from './Layout';
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLElement> {
   'data-language'?: string;
@@ -27,7 +28,7 @@ const MultiLineWrapper: React.FC<MultiLineWrapperProps> = (props) => {
       <div ref={codeRef} className={cx(className, styles.codeWrapper)}>
         {children}
       </div>
-      <div className={styles.infoBar} aria-hidden='true'>
+      <Stack className={styles.infoBar} spacing='none' reverse>
         <button
           type='button'
           onClick={onCopyClick}
@@ -39,7 +40,7 @@ const MultiLineWrapper: React.FC<MultiLineWrapperProps> = (props) => {
             <p>{progLang}</p>
           </div>
         )}
-      </div>
+      </Stack>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../../styles/components/Layout/Footer.module.scss';
 import Window from '../Window';
+import Stack from './Stack';
 
 const Footer = () => (
   <Window topBar={false} as='footer' className={styles.footer}>
@@ -12,7 +13,7 @@ const Footer = () => (
       muted>
       <source src='/images/gits.mp4' type='video/mp4' />
     </video>
-    <div className={styles.footerContent}>
+    <Stack type='vertical' spacing='none' className={styles.footerContent}>
       <h2>Thanks for reading</h2>
       <h3>
         Site code available{' '}
@@ -23,7 +24,7 @@ const Footer = () => (
           here
         </a>
       </h3>
-    </div>
+    </Stack>
   </Window>
 );
 

@@ -1,0 +1,33 @@
+$spacings: (
+  none: 0px,
+  xs: $spacing-1,
+  sm: $spacing-2,
+  md: $spacing-3,
+  lg: $spacing-4,
+  xl: $spacing-5,
+  xxl: $spacing-6
+);
+
+.stackShare {
+  display: flex;
+}
+
+.horizontal {
+  flex-direction: row;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.reverse[class*='horizontal'] {
+  flex-direction: row-reverse;
+}
+
+.reverse[class*='vertical'] {
+  flex-direction: column-reverse;
+}
+
+.spacing {
+  @include create-utility-class($spacings, 'gap');
+}

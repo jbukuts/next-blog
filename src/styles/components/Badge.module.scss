@@ -1,6 +1,6 @@
 .badge {
   padding: 0.175rem 0.45rem;
-  border-radius: 5px;
+  border-radius: $border-radius-sm;
   position: relative;
   overflow: hidden;
   background-color: $color-bar;
@@ -41,4 +41,14 @@
 
 .md {
   font-size: 0.875rem;
+}
+
+@include apply-lesser-than('sm') {
+  .sm {
+    font-size: 0.5rem;
+  }
+
+  .md {
+    font-size: 0.75rem;
+  }
 }
