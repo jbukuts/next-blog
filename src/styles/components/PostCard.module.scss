@@ -36,15 +36,9 @@
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  display: flex;
-  gap: $spacing-2;
-  flex-direction: row;
 }
 
 .horizontalStack {
-  display: flex;
-  gap: $spacing-2;
-  flex-direction: row;
   justify-content: flex-end;
   flex-wrap: nowrap;
 
@@ -60,6 +54,7 @@
 
   .postCardContent {
     padding: $spacing-3;
+    height: 8rem;
 
     & h2 {
       font-size: 1.75rem;

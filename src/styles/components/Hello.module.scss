@@ -1,9 +1,6 @@
 .aboutMe {
-  display: flex;
-  flex-direction: row;
   width: 100%;
   align-items: center;
-  gap: $spacing-6;
 
   & h1 {
     font-weight: normal;
@@ -16,9 +13,7 @@
 }
 
 .helloContent {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-3;
+  flex-shrink: 2;
 
   & * {
     margin: 0;
@@ -27,7 +22,7 @@
 
 .imageWrapper {
   flex-shrink: 0;
-  border-radius: 15px;
+  border-radius: $border-radius-lg;
   overflow: hidden;
   border: 3px solid $color-foreground;
   height: 200px;
@@ -41,10 +36,6 @@
 }
 
 .socials {
-  display: flex;
-  flex-direction: row;
-  gap: $spacing-4;
-
   & svg {
     width: 1.75rem;
     height: 1.75rem;
@@ -63,7 +54,7 @@
 
 @include apply-lesser-than('sm') {
   .aboutMe {
-    flex-direction: column;
+    flex-direction: column !important;
     text-align: center;
     gap: $spacing-4;
   }

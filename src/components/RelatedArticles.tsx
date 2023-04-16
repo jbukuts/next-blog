@@ -1,10 +1,9 @@
-import cx from 'classnames';
 import NextLink from 'next/link';
 import React, { Suspense } from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
 import styles from '../styles/components/RelatedArticles.module.scss';
 import TagBadge from './Badge';
-import { SideBar } from './Layout';
+import { SideBar, Stack } from './Layout';
 
 export type RelatedPost = Pick<
   ProcessedContent,
@@ -19,11 +18,11 @@ interface RelatedArticlesProps {
 const RelatedPostItem = (props: RelatedPost) => {
   const { title, slug, tags, date, timeToRead } = props;
   return (
-    <div className={cx(styles.relatedArticle, styles.verticalStack)}>
+    <Stack type='vertical' className={styles.relatedArticle}>
       <NextLink href={`/post/${slug}`}>
         <h2>{title}</h2>
       </NextLink>
-      <div className={cx(styles.horizontalStack)}>
+      <Stack className={styles.horizontalStack}>
         <p>
           <Suspense fallback={null}>
             {new Date(date).toLocaleDateString('en-US', {
@@ -35,15 +34,15 @@ const RelatedPostItem = (props: RelatedPost) => {
           {' • '}
           {timeToRead} min
         </p>
-        <div className={cx(styles.horizontalStack)}>
+        <Stack className={styles.horizontalStack}>
           {tags.map((t, index) => (
             <TagBadge key={index} size='sm'>
               {t}
             </TagBadge>
           ))}
-        </div>
-      </div>
-    </div>
+        </Stack>
+      </Stack>
+    </Stack>
   );
 };
 
@@ -51,14 +50,16 @@ const RelatedArticles = (props: RelatedArticlesProps) => {
   const { postList } = props;
 
   return (
-    <SideBar
+    <Stack
+      as={SideBar}
       side='left'
-      className={cx(styles.relatedArticles, styles.verticalStack)}>
+      className={styles.relatedArticles}
+      type='vertical'>
       <h2>Recent Articles</h2>
       {postList.map((post, index) => (
         <RelatedPostItem key={index} {...post} />
       ))}
-    </SideBar>
+    </Stack>
   );
 };
 

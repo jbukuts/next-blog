@@ -8,19 +8,15 @@
 
   & div:last-child {
     padding: 0;
-    display: flex;
     position: relative;
-    justify-content: center;
-    align-items: center;
     height: 100%;
   }
 }
 
 .footerVideo {
-  width: 105%;
+  width: 100%;
   position: absolute;
   top: 0;
-  left: -2.5%;
   user-select: none;
   object-fit: cover;
   image-rendering: pixelated;
@@ -29,8 +25,6 @@
 
 .footerContent {
   backdrop-filter: blur(5px);
-  display: flex;
-  flex-direction: column;
   z-index: 1;
   color: $color-white;
   justify-content: center;

@@ -4,7 +4,7 @@
   scroll-margin: calc($spacing-5 + $sticky-header-height);
 
   & a {
-    color: black !important;
+    color: $color-foreground !important;
     text-decoration: none !important;
     text-shadow: none !important;
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../styles/components/ArticleHelpers/FlexContainer.module.scss';
+import { Stack } from '../Layout';
 
 interface FlexContainerProps {
   children: React.ReactNode;
@@ -8,7 +9,11 @@ interface FlexContainerProps {
 const FlexContainer = (props: FlexContainerProps) => {
   const { children } = props;
 
-  return <div className={styles.flexContainer}>{children}</div>;
+  return (
+    <Stack spacing='xl' className={styles.flexContainer}>
+      {children}
+    </Stack>
+  );
 };
 
 export default FlexContainer;

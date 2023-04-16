@@ -1,7 +1,4 @@
 .flexContainer {
-  display: flex;
-  flex-direction: row;
-  gap: $spacing-5;
   justify-content: space-around;
   align-items: center;
   margin: $spacing-8 0;
@@ -13,6 +10,6 @@
 
 @include apply-lesser-than('sm') {
   .flexContainer {
-    flex-direction: column;
+    flex-direction: column !important;
   }
 }

@@ -3,6 +3,7 @@ import { MDXRemote } from 'next-mdx-remote';
 import React, { useEffect, useState } from 'react';
 import logger from '../logger';
 import { Hello, PostCard } from '../src/components';
+import { Stack } from '../src/components/Layout';
 import { BasicHeadData } from '../src/components/SEO/StructuredBlogData';
 import {
   ProcessedContent,
@@ -55,14 +56,18 @@ const Home = (props: HomeProps) => {
   return (
     <>
       <BasicHeadData />
-      <main className={styles.homePage}>
+      <Stack
+        as='main'
+        type='vertical'
+        spacing='xxl'
+        className={styles.homePage}>
         <Hello />
         {filteredList.map((postItem: ProcessedContent, i: number) => (
           <PostCard key={i} {...postItem}>
             <MDXRemote components={components} {...postItem.content} />
           </PostCard>
         ))}
-      </main>
+      </Stack>
     </>
   );
 };

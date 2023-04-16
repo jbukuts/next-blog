@@ -56,7 +56,7 @@ const components = {
 const MDXContent = React.memo(
   // eslint-disable-next-line react/prop-types
   React.forwardRef(({ content }: any, ref: any) => (
-    <article ref={ref} className={cx(styles.postContent, styles.postWrapper)}>
+    <article ref={ref} className={cx(styles.postContent)}>
       <MDXRemote {...content} components={components} />
     </article>
   ))
@@ -99,7 +99,9 @@ const Article = (props: BlogPostProps) => {
       <StructuredBlogData {...seoData} />
       <RelatedArticles postList={relatedPosts} currentSlug={slug} />
       <HeadingContext.Provider value={memoSection}>
-        <MDXContent content={decompressData(compressedContent)} />
+        <main className={styles.postWrapper}>
+          <MDXContent content={decompressData(compressedContent)} />
+        </main>
       </HeadingContext.Provider>
       {tableOfContents.length > 0 && (
         <TableOfContents
@@ -175,11 +177,15 @@ export async function getStaticProps(context: { params: { slug: string } }) {
 
   logger.info(`Calculating props size of page *${currentSlug}*`);
 
+  const sizeOf = (item: any) =>
+    Buffer.from(JSON.stringify(item)).byteLength / 1000;
+
   Object.keys(props).forEach((key: string) => {
-    const sizeOf =
-      Buffer.from(JSON.stringify((props as any)[key])).byteLength / 1000;
-    logger.info(`Size of prop [${key}] is ${sizeOf} kilobytes`);
+    logger.info(
+      `Size of prop [${key}] is ${sizeOf((props as any)[key])} kilobytes`
+    );
   });
+  logger.info(`Size of prop [content] is ${sizeOf(content)} kilobytes`);
   logger.info(
     `TOTAL PROPS SIZE: ${
       Buffer.from(JSON.stringify(props as any)).byteLength / 1000

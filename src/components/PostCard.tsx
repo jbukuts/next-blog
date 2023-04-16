@@ -3,6 +3,7 @@ import React, { Suspense } from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
 import styles from '../styles/components/PostCard.module.scss';
 import TagBadge from './Badge';
+import { Stack } from './Layout';
 import Window from './Window';
 
 interface PostCardProps
@@ -24,12 +25,12 @@ const PostCard = (props: PostCardProps) => {
       asProps={{ href: `/post/${slug}`, title: 'Click to Read' }}>
       <div className={styles.postCardContent}>{children}</div>
 
-      <div className={styles.tagStack}>
-        <div className={styles.horizontalStack}>
+      <Stack className={styles.tagStack}>
+        <Stack className={styles.horizontalStack}>
           {tagLine && <TagBadge>{tagLine}</TagBadge>}
           {tags && tags.map((t, index) => <TagBadge key={index}>{t}</TagBadge>)}
-        </div>
-        <div className={styles.horizontalStack}>
+        </Stack>
+        <Stack className={styles.horizontalStack}>
           {date && (
             <TagBadge>
               <Suspense fallback={null}>
@@ -42,8 +43,8 @@ const PostCard = (props: PostCardProps) => {
             </TagBadge>
           )}
           {timeToRead && <TagBadge>{timeToRead} min</TagBadge>}
-        </div>
-      </div>
+        </Stack>
+      </Stack>
     </Window>
   );
 };

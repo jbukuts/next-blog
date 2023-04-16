@@ -19,3 +19,11 @@
         + "Available breakpoints are: #{map-keys($breakpoints)}.";
   }
 }
+
+@mixin create-utility-class($map, $property) {
+  @each $key, $value in $map {
+    &-#{$key} {
+      #{$property}: $value;
+    }
+  }
+}

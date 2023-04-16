@@ -3,6 +3,7 @@ import React from 'react';
 import { FaGithub, FaLinkedin, FaSoundcloud, FaTwitter } from 'react-icons/fa';
 import profile from '../../profile';
 import styles from '../styles/components/Hello.module.scss';
+import { Stack } from './Layout';
 
 const { aboutMe, imageWrapper, socials, socialLink, helloContent } = styles;
 const {
@@ -30,7 +31,7 @@ const SocialLink = (props: SocialLinkProps) => {
 };
 
 const Hello = () => (
-  <div className={aboutMe}>
+  <Stack className={aboutMe} spacing='xxl'>
     <div className={imageWrapper}>
       <Image
         src='/images/me.webp'
@@ -42,7 +43,7 @@ const Hello = () => (
       />
     </div>
 
-    <div style={{ flexShrink: 2 }} className={helloContent}>
+    <Stack className={helloContent} type='vertical'>
       <h1>
         Hi, I&apos;m <b>{`${firstName} ${lastName}`}</b>.✌
       </h1>
@@ -53,7 +54,7 @@ const Hello = () => (
       </p>
       <p>Here I blog about random code I&apos;ve written.</p>
 
-      <div className={socials}>
+      <Stack className={socials} spacing='lg'>
         <SocialLink href={githubProfile}>
           <FaGithub title='My Github' />
         </SocialLink>
@@ -69,9 +70,9 @@ const Hello = () => (
         <SocialLink href={soundCloudProfile}>
           <FaSoundcloud title='My SoundCloud' />
         </SocialLink>
-      </div>
-    </div>
-  </div>
+      </Stack>
+    </Stack>
+  </Stack>
 );
 
 export default Hello;

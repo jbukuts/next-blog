@@ -5,7 +5,7 @@ import React from 'react';
 import { SectionHead } from '../helpers/mdast-compile-toc';
 import { useCurrentPath } from '../hooks';
 import styles from '../styles/components/TableOfContents.module.scss';
-import { SideBar } from './Layout';
+import { SideBar, Stack } from './Layout';
 
 interface TableOfContentsProps {
   tableOfContents: SectionHead[];
@@ -17,7 +17,12 @@ const TableOfContents = (props: TableOfContentsProps) => {
   const currentPath = useCurrentPath();
 
   return (
-    <SideBar side='right' className={styles.tableOfContents}>
+    <Stack
+      type='vertical'
+      spacing='none'
+      as={SideBar}
+      side='right'
+      className={styles.tableOfContents}>
       <NextLink href='#' title='Back to top' replace as={currentPath}>
         <h2>Table of Contents</h2>
       </NextLink>
@@ -37,7 +42,7 @@ const TableOfContents = (props: TableOfContentsProps) => {
             </li>
           ))}
       </ul>
-    </SideBar>
+    </Stack>
   );
 };
 

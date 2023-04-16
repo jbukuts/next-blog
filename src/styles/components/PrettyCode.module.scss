@@ -1,26 +1,27 @@
 @use 'sass:color';
-
+$code-font-size: 0.775rem;
 $border-style: 1px solid color.adjust($color-gray-1, $alpha: -0.5);
 
 .code {
   -webkit-text-size-adjust: none;
-  padding: 0.15rem 0.25rem;
+  padding: 0.15rem $spacing-1;
   border-radius: 5px;
   background-color: color.adjust($color-foreground, $alpha: -0.9);
-  font-family: 'JetBrains Mono', monospace !important;
+  font-family: 'SF Mono', monospace !important;
+  font-size: $code-font-size;
 }
 
 .prettyCodeContainer {
   background-color: $color-code-bg;
   padding: 0;
-  border-radius: 5px;
+  border-radius: $border-radius-sm;
   overflow: hidden;
   border: $border-style;
 }
 
 .codeWrapper {
   position: relative;
-  line-height: 1.25;
+  line-height: 1.5;
   border-radius: 0;
   background-color: unset;
   overflow-x: auto;
@@ -29,9 +30,7 @@ $border-style: 1px solid color.adjust($color-gray-1, $alpha: -0.5);
 
 .infoBar {
   border-top: $border-style;
-  display: flex;
-  flex-direction: row-reverse;
-  font-size: 0.8rem;
+  font-size: $code-font-size;
   color: $color-gray-6;
   user-select: none;
 
@@ -60,5 +59,6 @@ $border-style: 1px solid color.adjust($color-gray-1, $alpha: -0.5);
 @include apply-lesser-than('sm') {
   .codeWrapper {
     padding: $spacing-3;
+    line-height: 1.75;
   }
 }

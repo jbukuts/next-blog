@@ -26,6 +26,10 @@ const { GIT_USER_NAME, GIT_REPO, GIT_FOLDER, GIT_API_KEY } = process.env;
 
 const CHARS_PER_MINUTE = 1150;
 
+const CODE_THEME = JSON.parse(
+  fs.readFileSync('./public/code-themes/vscode.json', 'utf-8')
+);
+
 export interface ProcessContentOptions {
   repoContent: RepositoryContent;
   remarkPlugins?: PluggableList;
@@ -47,6 +51,23 @@ export interface GetPostOptions {
   slug: string;
   remarkPlugins?: PluggableList;
   rehypePlugins?: PluggableList;
+}
+
+/**
+ * Helper function that create table of contents from raw markdown string
+ * @param {string} rawMarkdown - Raw Markdown content string
+ */
+async function createTableOfContents(
+  rawMarkdown: string
+): Promise<SectionHead[]> {
+  return JSON.parse(
+    String(
+      await unified()
+        .use(remarkParse)
+        .use(remarkStringifyMdast as Preset)
+        .process(rawMarkdown)
+    )
+  );
 }
 
 /*
@@ -71,7 +92,7 @@ async function getPostList(filterType = '.md'): Promise<RepositoryContent[]> {
 }
 
 /**
- * Get content by slug for file from Github repository.
+ * Process content from repo contents API using next-mdx-remote.
  * @param {ProcessContentOptions} options - Options for getting single post.
  * @param {RepositoryContent} options.repoContent - Content object return from the repository contents Github REST API.
  * @param {PluggableList} options.remarkPlugins - List of remarks plugins to apply when parsing Markdown to HTML.
@@ -98,14 +119,7 @@ async function processContent(
   const { tags, desc, date } = frontmatter as any;
   const timeToRead = Math.ceil(size / CHARS_PER_MINUTE);
 
-  const tableOfContents = JSON.parse(
-    String(
-      await unified()
-        .use(remarkParse)
-        .use(remarkStringifyMdast as Preset)
-        .process(matterContent)
-    )
-  ) as SectionHead[];
+  const tableOfContents = await createTableOfContents(matterContent);
 
   const content = await serialize(matterContent, {
     mdxOptions: {
@@ -134,7 +148,7 @@ async function processContent(
  * @param {GetPostOptions} options - Options for getting single post.
  * @param {string} options.slug - File extension to pull from the Github repository.
  * @param {PluggableList} options.remarkPlugins - List of remarks plugins to apply when parsing Markdown to HTML.
- * @param {PluggableList} options.rehypePugins - List of rehype plugins to apply when parsing Markdown to HTML.
+ * @param {PluggableList} options.rehypePlugins - List of rehype plugins to apply when parsing Markdown to HTML.
  */
 async function getPostContent(
   options: Partial<GetPostOptions>
@@ -148,18 +162,11 @@ async function getPostContent(
     apiKey: GIT_API_KEY as string
   })) as RepositoryContent;
 
-  const processedContent = await processContent({
+  return processContent({
     repoContent,
     remarkPlugins: [remarkInsertJSXAfterHeader, ...remarkPlugins],
     rehypePlugins: [
-      [
-        rehypePrettyCode,
-        {
-          theme: JSON.parse(
-            fs.readFileSync('./public/vscode-default.json', 'utf-8')
-          )
-        }
-      ],
+      [rehypePrettyCode, { theme: CODE_THEME }],
       rehypeSlug,
       [
         rehypeAutolinkHeadings,
@@ -169,8 +176,6 @@ async function getPostContent(
       remarkSectionWrapper
     ]
   });
-
-  return processedContent;
 }
 
 /**
@@ -191,7 +196,7 @@ async function getProcessedPostList(
       'No posts pulled from Github Contents API. Invalid API Key?'
     );
 
-  const processedList: ProcessedContent[] = await Promise.all(
+  return Promise.all(
     repoContentList.map((repoContent) =>
       processContent({
         repoContent,
@@ -199,12 +204,7 @@ async function getProcessedPostList(
         rehypePlugins: [[rehypeTruncate, { maxChars: 300 }], ...rehypePlugins]
       })
     )
-  );
-
-  // descending dates
-  processedList.sort((a, b) => -1 * a.date.localeCompare(b.date));
-
-  return processedList;
+  ).then((list) => list.sort((a, b) => -1 * a.date.localeCompare(b.date)));
 }
 
 export { getPostContent, getProcessedPostList, getPostList };

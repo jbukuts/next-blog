@@ -3,10 +3,9 @@
 .header {
   grid-column: middle;
   grid-row: header;
-  display: flex;
 }
 
-.bar {
+.staticBar {
   padding-top: $spacing-7;
 
   & img {
@@ -20,13 +19,11 @@
 .stickyBarWrapper {
   position: fixed;
   left: 0;
-  background-color: color.adjust($color-background, $alpha: -0.15);
+  background-color: color.adjust($color-background, $alpha: -0.275);
   backdrop-filter: blur(1em);
   width: 100%;
   z-index: 100;
   border-bottom: 1px solid $color-outline;
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
   color: $color-foreground;
 }
@@ -38,12 +35,9 @@
 }
 
 .stickyBarContent {
-  display: flex;
-  flex-direction: row;
   align-items: baseline;
   justify-content: space-between;
   white-space: nowrap;
-  gap: $spacing-5;
   padding: $spacing-5;
 
   & h5 {
@@ -54,12 +48,10 @@
 }
 
 @include apply-lesser-than('sm') {
-  .header {
+  .staticBar {
     justify-content: center;
-  }
-
-  .bar {
     padding: $spacing-4 0;
+    padding-bottom: 0;
     & img {
       height: 60px;
     }
