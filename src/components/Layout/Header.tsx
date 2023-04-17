@@ -12,6 +12,7 @@ import {
 } from '../../hooks';
 import TitleContext from '../../state/TitleContext';
 import styles from '../../styles/components/Layout/Header.module.scss';
+import ThemeToggle from '../ThemeToggle';
 import Stack from './Stack';
 
 const { firstName, lastName, siteTitle, headerImage } = profile;
@@ -75,6 +76,7 @@ const StaticHeader = React.forwardRef((_, ref: any) => (
         src={headerImage}
       />
     </Link>
+    <ThemeToggle />
   </Stack>
 ));
 

@@ -12,7 +12,7 @@ const ArticleTags: React.FC<ArticleTagsProps> = (props) => {
   const { tags, timeToRead, date } = props;
 
   return (
-    <Stack className={styles.articleTags} aria-hidden='true'>
+    <Stack className={styles.articleTags} spacing='xs' aria-hidden='true'>
       {tags.map((tag, index) => (
         <TagBadge key={index}>{tag}</TagBadge>
       ))}

@@ -1,10 +1,12 @@
+@use 'sass:color';
+
 .postCard {
   position: relative;
-  transition: all 0.15s linear;
+  transition: box-shadow 0.15s ease-out;
 
   &:hover {
     text-decoration: none;
-    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.475);
+    box-shadow: 0px 10px 15px get-color('foreground', 0.5);
   }
 }
 

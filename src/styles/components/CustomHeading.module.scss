@@ -4,20 +4,20 @@
   scroll-margin: calc($spacing-5 + $sticky-header-height);
 
   & a {
-    color: $color-foreground !important;
+    color: get-color('foreground') !important;
     text-decoration: none !important;
     text-shadow: none !important;
 
     &:hover {
       text-decoration: underline !important;
-      text-decoration-color: $color-outline !important;
+      text-decoration-color: get-color('outline') !important;
     }
   }
 
   &:hover {
     &::after {
       content: '';
-      color: $color-outline;
+      color: get-color('outline');
       margin-left: $spacing-2;
       font-size: 0.85em;
     }

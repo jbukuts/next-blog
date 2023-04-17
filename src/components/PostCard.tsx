@@ -14,6 +14,8 @@ interface PostCardProps
   tagLine?: string;
 }
 
+const BADGE_SPACING = 'xs';
+
 const PostCard = (props: PostCardProps) => {
   const { slug, tags, timeToRead, date, children, tagLine } = props;
 
@@ -25,12 +27,12 @@ const PostCard = (props: PostCardProps) => {
       asProps={{ href: `/post/${slug}`, title: 'Click to Read' }}>
       <div className={styles.postCardContent}>{children}</div>
 
-      <Stack className={styles.tagStack}>
-        <Stack className={styles.horizontalStack}>
+      <Stack spacing={BADGE_SPACING} className={styles.tagStack}>
+        <Stack spacing={BADGE_SPACING} className={styles.horizontalStack}>
           {tagLine && <TagBadge>{tagLine}</TagBadge>}
           {tags && tags.map((t, index) => <TagBadge key={index}>{t}</TagBadge>)}
         </Stack>
-        <Stack className={styles.horizontalStack}>
+        <Stack spacing={BADGE_SPACING} className={styles.horizontalStack}>
           {date && (
             <TagBadge>
               <Suspense fallback={null}>

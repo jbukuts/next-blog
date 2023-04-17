@@ -1,9 +1,10 @@
+@use 'sass:color';
+
 .tableOfContents {
   line-height: 1.475;
 
   & h2 {
     font-size: 1rem;
-    color: black;
     font-weight: bold;
     margin: 0;
   }
@@ -16,7 +17,7 @@
   }
 
   & li {
-    color: #8c8c8c;
+    color: get-color('gray-1');
     transition: color 100ms ease-in-out;
   }
 }
@@ -37,7 +38,7 @@
 
 .currentSection {
   text-decoration: underline;
-  color: rgb(31, 31, 31) !important;
+  color: get-color('gray-0') !important;
 }
 
 @include apply-lesser-than('md') {

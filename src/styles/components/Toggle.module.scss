@@ -1,0 +1,56 @@
+$size: 25px;
+
+$active-color: get-color('gray-5');
+$button-color: get-color('white');
+
+.toggle {
+  position: relative;
+  height: min-content;
+
+  & input[type='checkbox'] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+
+  & > label {
+    cursor: pointer;
+
+    width: calc($size * 1.825);
+    height: $size;
+    background: get-color('white');
+    display: block;
+    border-radius: $size;
+    position: relative;
+    box-sizing: content-box;
+    border: 2px solid get-color('gray-5');
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: $size;
+      height: $size;
+      background: $button-color;
+      border-radius: 50%;
+      transition: 250ms;
+      border: 1px solid get-color('black', 0.15);
+      box-sizing: border-box;
+      box-shadow: 0px 1px 3px get-color('background', 0.175);
+    }
+  }
+
+  & input:checked + label {
+    background: $active-color;
+    border-color: $active-color;
+
+    &::after {
+      left: 100%;
+      transform: translateX(-100%);
+    }
+  }
+}

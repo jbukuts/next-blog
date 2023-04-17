@@ -34,7 +34,7 @@ const RelatedPostItem = (props: RelatedPost) => {
           {' • '}
           {timeToRead} min
         </p>
-        <Stack className={styles.horizontalStack}>
+        <Stack spacing='xs' className={styles.horizontalStack}>
           {tags.map((t, index) => (
             <TagBadge key={index} size='sm'>
               {t}
@@ -55,7 +55,7 @@ const RelatedArticles = (props: RelatedArticlesProps) => {
       side='left'
       className={styles.relatedArticles}
       type='vertical'>
-      <h2>Recent Articles</h2>
+      <h2>Recent Posts</h2>
       {postList.map((post, index) => (
         <RelatedPostItem key={index} {...post} />
       ))}
