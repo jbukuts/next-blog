@@ -1,22 +1,22 @@
 @use 'sass:color';
 $code-font-size: 0.775rem;
-$border-style: 1px solid color.adjust($color-gray-1, $alpha: -0.5);
+$border-style: 1px solid get-color('gray-1', 0.5);
 
 .code {
-  -webkit-text-size-adjust: none;
   padding: 0.15rem $spacing-1;
   border-radius: 5px;
-  background-color: color.adjust($color-foreground, $alpha: -0.9);
+  background-color: get-color('foreground', 0.1);
   font-family: 'SF Mono', monospace !important;
   font-size: $code-font-size;
 }
 
 .prettyCodeContainer {
-  background-color: $color-code-bg;
+  background-color: get-color('code-bg');
   padding: 0;
   border-radius: $border-radius-sm;
   overflow: hidden;
   border: $border-style;
+  color-scheme: dark;
 }
 
 .codeWrapper {
@@ -31,7 +31,7 @@ $border-style: 1px solid color.adjust($color-gray-1, $alpha: -0.5);
 .infoBar {
   border-top: $border-style;
   font-size: $code-font-size;
-  color: $color-gray-6;
+  color: get-color('white');
   user-select: none;
 
   & p {
@@ -47,12 +47,12 @@ $border-style: 1px solid color.adjust($color-gray-1, $alpha: -0.5);
 .copyButton {
   border: none;
   background-color: unset;
-  color: $color-gray-6;
-  transition: background-color 75ms linear;
+  color: get-color('white');
+  transition: background-color 75ms ease-out;
 
   &:hover {
     cursor: pointer;
-    background-color: color.adjust($color-gray-6, $alpha: -0.9);
+    background-color: get-color('white', 0.1);
   }
 }
 

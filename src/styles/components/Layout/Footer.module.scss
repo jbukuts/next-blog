@@ -24,13 +24,16 @@
 }
 
 .footerContent {
-  backdrop-filter: blur(5px);
   z-index: 1;
-  color: $color-white;
+  color: get-color('white');
   justify-content: center;
   align-items: center;
   height: 100%;
   width: 100%;
+
+  @supports (backdrop-filter: blur(0.5em)) {
+    backdrop-filter: blur(0.5em);
+  }
 
   & > h2 {
     font-size: 2.25rem;

@@ -1,27 +1,30 @@
 @use 'fonts';
+@use 'reset';
+@use 'sass:meta';
 
-html {
-  margin: 0;
-  padding: 0;
-  --scroll-behavior: smooth !important;
-  scroll-behavior: smooth !important;
+@include provide-theme-tokens();
 
-  width: 100%;
-  font-size: 17px;
+html,
+body {
   font-family: San Francisco, Apple Color Emoji, -apple-system, sans-serif;
 }
 
+html {
+  --scroll-behavior: smooth !important;
+  width: 100%;
+  font-size: 17px;
+}
+
 body {
-  margin: auto;
-  padding: 0 0.875rem;
-  margin-left: calc(100vw - 100%);
-  margin-right: 0;
-  font-family: San Francisco, Apple Color Emoji, -apple-system, sans-serif;
+  --theme: 'light';
+  padding: 0 $spacing-4;
+  background-color: get-color('background');
+  color: get-color('foreground');
+  // @include scrollbar-shift;
 }
 
 #__next {
   display: grid;
-
   gap: $grid-spacing;
 
   grid-template-rows: [header] auto [content] auto [footer] auto;
@@ -29,34 +32,6 @@ body {
     [left-side] 1fr [middle] min(100%, $content-width)
     [right-side] 1fr [end];
   justify-content: center;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-h1,
-h2,
-h3 {
-  margin: 0;
-}
-
-a {
-  color: unset;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-ul {
-  list-style-position: inside;
-  padding: 0;
-
-  & ul {
-    padding-left: 1rem;
-  }
 }
 
 @include apply-lesser-than('md') {

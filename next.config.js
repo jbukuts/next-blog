@@ -13,7 +13,8 @@ const contentSecurityPolicy = `
   script-src 'self' cdn.vercel-insights.com vercel.live 'unsafe-eval' 'unsafe-inline';
   child-src jbukuts.com *.jbukuts.com vercel.live;
   style-src 'self' jbukuts.com *.jbukuts.com fonts.googleapis.com 'unsafe-inline';
-  font-src 'self' fonts.gstatic.com;  
+  font-src 'self' fonts.gstatic.com;
+  frame-ancestors 'self';
 `;
 
 const securityHeaders = [
@@ -42,7 +43,13 @@ const nextConfig = {
   swcMinify: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
-    prependData: `@use "src/styles/resources" as *;`
+    prependData: `@use "src/styles/resources" as *;`,
+    logger: {
+      debug(message) {
+        // eslint-disable-next-line no-console
+        console.log(message);
+      }
+    }
   },
   webpack: (config) => {
     config.mode = 'production';
@@ -51,7 +58,11 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/:path*',
+        source: '/post/:path*',
+        headers: securityHeaders
+      },
+      {
+        source: '/',
         headers: securityHeaders
       }
     ];

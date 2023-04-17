@@ -1,5 +1,8 @@
 @use 'sass:color';
 
+$sticky-bar-padding: $spacing-5;
+$scroll-color: get-color('blue');
+
 .header {
   grid-column: middle;
   grid-row: header;
@@ -7,9 +10,12 @@
 
 .staticBar {
   padding-top: $spacing-7;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
 
   & img {
-    image-rendering: crisp-edges;
     height: 80px;
     width: auto;
     aspect-ratio: 2000 / 836;
@@ -19,26 +25,36 @@
 .stickyBarWrapper {
   position: fixed;
   left: 0;
-  background-color: color.adjust($color-background, $alpha: -0.275);
-  backdrop-filter: blur(1em);
+  background-color: get-color('background');
   width: 100%;
   z-index: 100;
-  border-bottom: 1px solid $color-outline;
+  border-bottom: 1px solid get-color('outline');
   justify-content: space-between;
-  color: $color-foreground;
+  color: get-color('foreground');
+
+  @supports (backdrop-filter: blur(1em)) {
+    background-color: get-color('background', 0.725);
+    backdrop-filter: blur(1em);
+  }
 }
 
 .stickyBarScroll {
   height: 1px;
-  background: $color-blue;
+  background: $scroll-color;
   transition: width 50ms ease-out;
 }
 
 .stickyBarContent {
+  position: relative;
   align-items: baseline;
   justify-content: space-between;
   white-space: nowrap;
-  padding: $spacing-5;
+  padding: $sticky-bar-padding 0;
+
+  width: calc($content-width + 2 * ($sidebar-width + $grid-spacing));
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: content-box;
 
   & h5 {
     margin: 0;
@@ -47,9 +63,16 @@
   }
 }
 
+@include apply-lesser-than('md') {
+  .stickyBarContent {
+    width: min(100%, calc($content-width + 2 * $sticky-bar-padding));
+    padding: $sticky-bar-padding;
+    box-sizing: border-box;
+  }
+}
+
 @include apply-lesser-than('sm') {
   .staticBar {
-    justify-content: center;
     padding: $spacing-4 0;
     padding-bottom: 0;
     & img {

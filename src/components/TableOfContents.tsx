@@ -24,7 +24,7 @@ const TableOfContents = (props: TableOfContentsProps) => {
       side='right'
       className={styles.tableOfContents}>
       <NextLink href='#' title='Back to top' replace as={currentPath}>
-        <h2>Table of Contents</h2>
+        <h2>In This Article</h2>
       </NextLink>
       <ul>
         {tableOfContents
