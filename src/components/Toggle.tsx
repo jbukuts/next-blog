@@ -13,8 +13,9 @@ const Toggle = (props: ToggleProps) => {
   const { onClick, id: domId, defaultChecked, ariaLabel } = props;
 
   return (
-    <div className={styles.toggle} aria-label={ariaLabel}>
+    <div className={styles.toggle}>
       <input
+        aria-label={ariaLabel}
         type='checkbox'
         id={domId}
         onClick={onClick}
