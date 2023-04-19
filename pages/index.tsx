@@ -3,7 +3,7 @@ import { MDXRemote } from 'next-mdx-remote';
 import React, { useEffect, useState } from 'react';
 import logger from '../logger';
 import { Hello, PostCard } from '../src/components';
-import { Stack } from '../src/components/Layout';
+import { Main, Stack } from '../src/components/Layout';
 import { BasicHeadData } from '../src/components/SEO/StructuredBlogData';
 import {
   ProcessedContent,
@@ -57,7 +57,7 @@ const Home = (props: HomeProps) => {
     <>
       <BasicHeadData />
       <Stack
-        as='main'
+        as={Main}
         type='vertical'
         spacing='xxl'
         className={styles.homePage}>

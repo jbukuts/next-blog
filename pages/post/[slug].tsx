@@ -12,6 +12,7 @@ import {
   TableOfContents
 } from '../../src/components';
 import { SmartLink } from '../../src/components/ArticleHelpers';
+import { Main } from '../../src/components/Layout';
 import { RelatedPost } from '../../src/components/RelatedArticles';
 import { StructuredBlogData } from '../../src/components/SEO';
 import {
@@ -99,9 +100,9 @@ const Article = (props: BlogPostProps) => {
       <StructuredBlogData {...seoData} />
       <RelatedArticles postList={relatedPosts} currentSlug={slug} />
       <HeadingContext.Provider value={memoSection}>
-        <main className={styles.postWrapper}>
+        <Main className={styles.postWrapper}>
           <MDXContent content={decompressData(compressedContent)} />
-        </main>
+        </Main>
       </HeadingContext.Provider>
       {tableOfContents.length > 0 && (
         <TableOfContents

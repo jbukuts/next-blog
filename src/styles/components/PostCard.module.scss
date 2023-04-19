@@ -1,12 +1,18 @@
 @use 'sass:color';
 
 .postCard {
+  z-index: 2;
   position: relative;
-  transition: box-shadow 0.15s ease-out;
+  transition: box-shadow 150ms ease-out, transform 100ms ease-out;
 
   &:hover {
+    z-index: 1;
     text-decoration: none;
-    box-shadow: 0px 10px 15px get-color('foreground', 0.5);
+    box-shadow: 0px 0px 50px get-color('foreground', 0.475);
+  }
+
+  &:active {
+    transform: scale(1.025);
   }
 }
 

@@ -1,5 +1,4 @@
 import '../src/styles/globals.scss';
-
 import { Analytics } from '@vercel/analytics/react';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';

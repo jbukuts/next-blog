@@ -32,3 +32,9 @@
   margin-left: calc(100vw - 100%);
   margin-right: 0;
 }
+
+@mixin is-mobile {
+  @media (pointer: none), (pointer: coarse) {
+    @content;
+  }
+}
