@@ -8,6 +8,7 @@ $border-style: 1px solid get-color('gray-1', 0.5);
   background-color: get-color('foreground', 0.1);
   font-family: 'SF Mono', monospace !important;
   font-size: $code-font-size;
+  border: $border-style;
 }
 
 .prettyCodeContainer {
@@ -26,6 +27,7 @@ $border-style: 1px solid get-color('gray-1', 0.5);
   background-color: unset;
   overflow-x: auto;
   padding: $spacing-4;
+  border: none;
 }
 
 .infoBar {

@@ -11,7 +11,6 @@ export type RelatedPost = Pick<
 >;
 
 interface RelatedArticlesProps {
-  currentSlug: string;
   postList: RelatedPost[];
 }
 

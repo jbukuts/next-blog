@@ -9,7 +9,6 @@ interface MainProps {
 
 const Main = (props: MainProps, ref: ForwardedRef<any>) => {
   const { children, className, ...rest } = props;
-
   const mainClass = cx(styles.mainContent, className && className);
 
   return (

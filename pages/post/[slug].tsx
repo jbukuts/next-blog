@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import dynamic from 'next/dynamic';
-import { MDXRemote } from 'next-mdx-remote';
+import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote';
 
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import logger from '../../logger';
@@ -38,13 +38,13 @@ const FlexContainer = dynamic(
   }
 );
 
-interface BlogPostProps extends ProcessedContent {
+interface BlogPostProps extends Omit<ProcessedContent, 'content'> {
   relatedPosts: RelatedPost[];
   tableOfContents: SectionHead[];
-  compressedContent: any;
+  compressedContent: string;
 }
 
-const components = {
+const components: MDXRemoteProps['components'] = {
   FlexContainer,
   ArticleTags,
   code: PrettyCode,
@@ -54,13 +54,12 @@ const components = {
   a: SmartLink
 } as any;
 
-const MDXContent = React.memo(
-  // eslint-disable-next-line react/prop-types
-  React.forwardRef(({ content }: any, ref: any) => (
+const MDXContent = React.forwardRef<HTMLElement, MDXRemoteProps>(
+  (props, ref) => (
     <article ref={ref} className={cx(styles.postContent)}>
-      <MDXRemote {...content} components={components} />
+      <MDXRemote {...props} components={components} />
     </article>
-  ))
+  )
 );
 
 const Article = (props: BlogPostProps) => {
@@ -75,13 +74,13 @@ const Article = (props: BlogPostProps) => {
     timeToRead
   } = props;
 
-  const [currentSection, setCurrentSection] = useState({ id: '', text: '' });
-  const memoSection = useMemo(
-    () => ({ currentSection, setCurrentSection }),
-    [currentSection]
-  );
+  const headingState = useState({ id: '', text: '' });
 
   const { setCurrentTitle } = useContext(TitleContext);
+  const inflatedContent = useMemo(
+    () => decompressData(compressedContent),
+    [compressedContent]
+  );
 
   useEffect(() => {
     setCurrentTitle(title);
@@ -98,16 +97,16 @@ const Article = (props: BlogPostProps) => {
   return (
     <>
       <StructuredBlogData {...seoData} />
-      <RelatedArticles postList={relatedPosts} currentSlug={slug} />
-      <HeadingContext.Provider value={memoSection}>
+      <RelatedArticles postList={relatedPosts} />
+      <HeadingContext.Provider value={headingState}>
         <Main className={styles.postWrapper}>
-          <MDXContent content={decompressData(compressedContent)} />
+          <MDXContent {...inflatedContent} />
         </Main>
       </HeadingContext.Provider>
       {tableOfContents.length > 0 && (
         <TableOfContents
           tableOfContents={tableOfContents}
-          currentSection={currentSection.id}
+          currentSection={headingState[0].id}
         />
       )}
     </>
@@ -124,7 +123,10 @@ export async function getStaticPaths() {
   }
 
   // pull in all contents from repo folder
-  const contentList: Array<any> = await getPostList();
+  const contentList: Array<any> = await getPostList().catch((e: Error) => {
+    logger.error(`There was an error getting the post list: ${e}`);
+    return [];
+  });
 
   // filter slugs as the file names and remove non-markdown files
   return {
@@ -156,15 +158,17 @@ export async function getStaticProps(context: { params: { slug: string } }) {
 
   logger.info(`Getting processed content for slug: *${currentSlug}*`);
   // get the html and frontmatter data for given slug
+  const processedContent = await getPostContent({
+    slug: currentSlug
+  });
+
   const { tags, content, timeToRead, date, tableOfContents, title, desc } =
-    await getPostContent({
-      slug: currentSlug
-    });
+    processedContent;
 
   // compress content
   const compressedContent = compressData(content);
 
-  const props = {
+  const props: BlogPostProps = {
     slug: currentSlug,
     relatedPosts,
     tags,
@@ -181,17 +185,12 @@ export async function getStaticProps(context: { params: { slug: string } }) {
   const sizeOf = (item: any) =>
     Buffer.from(JSON.stringify(item)).byteLength / 1000;
 
-  Object.keys(props).forEach((key: string) => {
-    logger.info(
-      `Size of prop [${key}] is ${sizeOf((props as any)[key])} kilobytes`
-    );
+  Object.entries(props).forEach((item: [string, object]) => {
+    const [key, value] = item;
+    logger.info(`Size of prop [${key}] is ${sizeOf(value)} kilobytes`);
   });
   logger.info(`Size of prop [content] is ${sizeOf(content)} kilobytes`);
-  logger.info(
-    `TOTAL PROPS SIZE: ${
-      Buffer.from(JSON.stringify(props as any)).byteLength / 1000
-    }`
-  );
+  logger.info(`TOTAL PROPS SIZE: ${sizeOf(props)}`);
 
   return {
     props,

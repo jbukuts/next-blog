@@ -43,7 +43,7 @@ export interface ProcessedContent {
   timeToRead: number;
   tags: string[];
   content: MDXRemoteSerializeResult;
-  tableOfContents?: SectionHead[];
+  tableOfContents: SectionHead[];
   desc: string;
 }
 
@@ -70,8 +70,9 @@ async function createTableOfContents(
   );
 }
 
-/*
+/**
  * Helper functions that returns list of files from Github repo
+ * @param {string} filterType - Files to filter by from the repository
  */
 async function getPostList(filterType = '.md'): Promise<RepositoryContent[]> {
   return (
@@ -81,14 +82,9 @@ async function getPostList(filterType = '.md'): Promise<RepositoryContent[]> {
       path: `${GIT_FOLDER}`,
       apiKey: GIT_API_KEY as string
     }) as Promise<RepositoryContent[]>
-  )
-    .then((r) =>
-      r.filter(({ name, type }) => type === 'file' && name.endsWith(filterType))
-    )
-    .catch((e: any) => {
-      console.log(`There was an error getting the post list: ${e}`);
-      return [];
-    });
+  ).then((r) =>
+    r.filter(({ name, type }) => type === 'file' && name.endsWith(filterType))
+  );
 }
 
 /**
