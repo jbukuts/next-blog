@@ -65,7 +65,7 @@ const StickyHeader = () => {
   );
 };
 
-const StaticHeader = React.forwardRef((_, ref: any) => (
+const StaticHeader = React.forwardRef<Element>((_, ref) => (
   <Stack className={styles.staticBar} ref={ref} title='Back to home'>
     <Link href='/'>
       <Image

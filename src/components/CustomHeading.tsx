@@ -9,33 +9,37 @@ interface CustomHeadingProps {
   children: React.ReactNode;
 }
 
+const HEADER_HEIGHT = styles.headerHeight;
+
 function createHeadingProxy() {
-  const customHead = (key: string) =>
+  const createCustomHeading = (key: string) =>
     function CustomHeading(props: CustomHeadingProps) {
       const { children, id } = props;
 
       const [headingRef, visible] = useElementOnScreen({
-        rootMargin: '0px 0px -90% 0px'
+        rootMargin: `-${HEADER_HEIGHT} 0px -40% 0px`
       });
 
-      const { currentSection, setCurrentSection } = useContext(HeadingContext);
+      const [_, setCurrentSection] = useContext(HeadingContext);
 
       useEffect(() => {
-        if (visible && id && headingRef?.current && currentSection.id !== id) {
-          setCurrentSection({
-            id,
-            text: (headingRef.current as HTMLElement)?.innerText || ''
+        if (visible && id && headingRef?.current) {
+          setCurrentSection((currentSection) => {
+            if (currentSection.id === id) return currentSection;
+
+            return {
+              id,
+              text: headingRef.current?.innerText || ''
+            };
           });
         }
-      }, [visible, id, setCurrentSection, headingRef, currentSection]);
+      }, [visible, setCurrentSection, id, headingRef]);
+
+      const headingClassName = cx(key !== 'H1' && styles.standard, styles[key]);
 
       return React.createElement(
         key.toLowerCase(),
-        {
-          className: cx(key !== 'H1' && styles.standard, styles[key]),
-          ref: headingRef,
-          id
-        },
+        { className: headingClassName, id, ref: headingRef },
         children
       );
     };
@@ -45,7 +49,7 @@ function createHeadingProxy() {
   return new Proxy({} as any, {
     get(_target, key: string) {
       if (!componentCache.has(key)) {
-        componentCache.set(key, customHead(key));
+        componentCache.set(key, createCustomHeading(key));
       }
       return componentCache.get(key);
     }

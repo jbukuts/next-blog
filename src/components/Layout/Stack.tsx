@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React, { ForwardedRef } from 'react';
+import React from 'react';
 import styles from '../../styles/components/Layout/Stack.module.scss';
 
 interface StackProps {
@@ -12,7 +12,7 @@ interface StackProps {
   [asProp: string]: any;
 }
 
-const Stack = (props: StackProps, ref: ForwardedRef<any>) => {
+const Stack = React.forwardRef<Element, StackProps>((props, ref) => {
   const {
     as = 'div',
     className,
@@ -36,6 +36,6 @@ const Stack = (props: StackProps, ref: ForwardedRef<any>) => {
     { ...rest, ref, className: stackClassName },
     children
   );
-};
+});
 
-export default React.forwardRef(Stack);
+export default Stack;

@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
-import { MDXRemote } from 'next-mdx-remote';
+import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote';
 import React, { useEffect, useState } from 'react';
 import logger from '../logger';
 import { Hello, PostCard } from '../src/components';
-import { Stack } from '../src/components/Layout';
+import { Main, Stack } from '../src/components/Layout';
 import { BasicHeadData } from '../src/components/SEO/StructuredBlogData';
 import {
   ProcessedContent,
@@ -19,12 +19,9 @@ interface HomeProps {
 
 const DISABLED_ROUTER = true;
 
-const HeaderReplace = ({ children }: any) => <h2>{children}</h2>;
-const LinkReplace = ({ children }: any) => <u>{children}</u>;
-
-const components = {
-  h1: HeaderReplace,
-  a: LinkReplace
+const components: MDXRemoteProps['components'] = {
+  h1: 'h2',
+  a: 'u'
 };
 
 const Home = (props: HomeProps) => {
@@ -57,7 +54,7 @@ const Home = (props: HomeProps) => {
     <>
       <BasicHeadData />
       <Stack
-        as='main'
+        as={Main}
         type='vertical'
         spacing='xxl'
         className={styles.homePage}>

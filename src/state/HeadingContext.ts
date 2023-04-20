@@ -5,10 +5,9 @@ interface CurrentSection {
   text: string;
 }
 
-const HeadingContext = createContext({
-  currentSection: { id: '', text: '' } as CurrentSection,
-  setCurrentSection: (() => null) as React.Dispatch<
-    React.SetStateAction<CurrentSection>
-  >
-});
+const HeadingContext = createContext([{ id: '', text: '' }, () => null] as [
+  CurrentSection,
+  React.Dispatch<React.SetStateAction<CurrentSection>>
+]);
+
 export default HeadingContext;

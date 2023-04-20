@@ -10,12 +10,11 @@ const useElementOnScreen = (
   options: IntersectionObserverOptions | void,
   defaultValue: boolean = false
 ) => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(defaultValue);
 
-  const callbackFunction = (entries: any[]) => {
-    const [entry] = entries;
-    setVisible(entry.isIntersecting);
+  const callbackFunction = (entries: IntersectionObserverEntry[]) => {
+    setVisible(entries[entries.length - 1].isIntersecting);
   };
 
   useEffect(() => {
@@ -29,11 +28,11 @@ const useElementOnScreen = (
     if (container) observer.observe(container);
 
     return () => {
-      if (container) observer.unobserve(container);
+      observer.disconnect();
     };
   }, [options, containerRef]);
 
-  return [containerRef, visible] as [MutableRefObject<any>, boolean];
+  return [containerRef, visible] as [MutableRefObject<HTMLElement>, boolean];
 };
 
 export default useElementOnScreen;

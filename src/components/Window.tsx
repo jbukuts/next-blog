@@ -6,14 +6,14 @@ import Stack from './Layout/Stack';
 interface WindowProps {
   title?: string;
   children: React.ReactNode;
-  as?: any;
+  as?: string | React.ComponentType | React.ElementType;
   asProps?: any;
   topBar?: boolean;
   className?: string;
   contentClassName?: string;
 }
 
-const Window = React.forwardRef((props: WindowProps, ref: any) => {
+const Window = React.forwardRef<Element, WindowProps>((props, ref) => {
   const {
     title,
     children,
