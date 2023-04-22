@@ -3,7 +3,6 @@
  * Helper functions meant to be used in order to parse .md/.mdx files as jsx
  * that are sourced from a Github repository
  */
-import fs from 'fs';
 import matter from 'gray-matter';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
@@ -20,15 +19,14 @@ import remarkStringifyMdast, {
 } from '../helpers/mdast-compile-toc';
 import remarkSectionWrapper from '../plugins/rehype/rehype-section-wrapper';
 import remarkInsertJSXAfterHeader from '../plugins/remark/remark-insert-jsx';
+import codeTheme from './code-theme';
 import { RepositoryContent, getRepositoryContent } from './git-api-calls';
 
 const { GIT_USER_NAME, GIT_REPO, GIT_FOLDER, GIT_API_KEY } = process.env;
 
 const CHARS_PER_MINUTE = 1150;
 
-const CODE_THEME = JSON.parse(
-  fs.readFileSync('./public/code-themes/vscode.json', 'utf-8')
-);
+const CODE_THEME = codeTheme;
 
 export interface ProcessContentOptions {
   repoContent: RepositoryContent;
