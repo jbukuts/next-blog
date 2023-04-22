@@ -1,0 +1,15 @@
+.iconLink {
+  padding: calc($spacing-1);
+  box-sizing: content-box !important;
+  border-radius: $border-radius-sm;
+  border: 2px solid transparent;
+  opacity: 0.785;
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    opacity: 1;
+    border-color: get-color('outline');
+    background-color: get-color('gray-4', 0.5);
+    @include item-glow($color: get-color('foreground', 0.25));
+  }
+}

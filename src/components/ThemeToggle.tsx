@@ -1,8 +1,7 @@
 import React from 'react';
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
 import { useToggleTheme } from '../hooks';
-import Stack from './Layout/Stack';
-import Toggle from './Toggle';
+import { Stack, Toggle } from './UI';
 
 const ThemeToggle = () => {
   const [theme, toggleTheme] = useToggleTheme();

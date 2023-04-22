@@ -1,3 +1,7 @@
+:export {
+  headerHeight: $sticky-header-height;
+}
+
 .postWrapper {
   z-index: 0;
 }
@@ -10,13 +14,7 @@
 
   & a {
     text-decoration: underline;
-    text-decoration-color: get-color('outline');
-    transition: text-shadow 100ms ease-in-out;
     font-weight: bold;
-
-    &:hover {
-      text-shadow: 0px 0px 20px get-color('outline');
-    }
   }
 
   & ul {

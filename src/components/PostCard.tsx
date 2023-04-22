@@ -2,9 +2,7 @@ import NextLink from 'next/link';
 import React, { Suspense } from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
 import styles from '../styles/components/PostCard.module.scss';
-import TagBadge from './Badge';
-import { Stack } from './Layout';
-import Window from './Window';
+import { Badge, Stack, Window } from './UI';
 
 interface PostCardProps
   extends Partial<
@@ -17,7 +15,7 @@ interface PostCardProps
 const BADGE_SPACING = 'xs';
 
 const PostCard = (props: PostCardProps) => {
-  const { slug, tags, timeToRead, date, children, tagLine } = props;
+  const { slug, tags, timeToRead, date, children, tagLine = undefined } = props;
 
   return (
     <Window
@@ -29,12 +27,12 @@ const PostCard = (props: PostCardProps) => {
 
       <Stack spacing={BADGE_SPACING} className={styles.tagStack}>
         <Stack spacing={BADGE_SPACING} className={styles.horizontalStack}>
-          {tagLine && <TagBadge>{tagLine}</TagBadge>}
-          {tags && tags.map((t, index) => <TagBadge key={index}>{t}</TagBadge>)}
+          {tagLine && <Badge>{tagLine}</Badge>}
+          {tags && tags.map((t, index) => <Badge key={index}>{t}</Badge>)}
         </Stack>
         <Stack spacing={BADGE_SPACING} className={styles.horizontalStack}>
           {date && (
-            <TagBadge>
+            <Badge>
               <Suspense fallback={null}>
                 {new Date(date).toLocaleDateString('en-US', {
                   year: 'numeric',
@@ -42,17 +40,13 @@ const PostCard = (props: PostCardProps) => {
                   day: 'numeric'
                 })}
               </Suspense>
-            </TagBadge>
+            </Badge>
           )}
-          {timeToRead && <TagBadge>{timeToRead} min</TagBadge>}
+          {timeToRead && <Badge>{timeToRead} min</Badge>}
         </Stack>
       </Stack>
     </Window>
   );
-};
-
-PostCard.defaultProps = {
-  tagLine: undefined
 };
 
 export default PostCard;

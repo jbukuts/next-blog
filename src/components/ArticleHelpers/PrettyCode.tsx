@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import React, { useRef, useState } from 'react';
-import styles from '../styles/components/PrettyCode.module.scss';
-import { Stack } from './Layout';
+import styles from '../../styles/components/ArticleHelpers/PrettyCode.module.scss';
+import { Stack } from '../UI';
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLElement> {
   'data-language'?: string;
@@ -11,7 +11,7 @@ interface MultiLineWrapperProps extends Omit<CodeBlockProps, 'data-language'> {
   progLang?: string;
 }
 
-const MultiLineWrapper: React.FC<MultiLineWrapperProps> = (props) => {
+const MultiLineWrapper = (props: MultiLineWrapperProps) => {
   const { children, className, progLang } = props;
   const codeRef = useRef(null);
   const [clicked, setClicked] = useState(false);
@@ -45,7 +45,7 @@ const MultiLineWrapper: React.FC<MultiLineWrapperProps> = (props) => {
   );
 };
 
-const CodeBlock: React.FC<CodeBlockProps> = (props) => {
+const CodeBlock = (props: CodeBlockProps) => {
   const { children, 'data-language': progLang } = props;
 
   const isInline = progLang === undefined;

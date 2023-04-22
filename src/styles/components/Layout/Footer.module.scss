@@ -1,57 +1,67 @@
 .footer {
-  box-sizing: border-box;
+  border-top: 1px solid get-color('gray-3');
   grid-row: footer;
-  grid-column: middle;
-  height: 10rem;
-  margin-bottom: 1rem;
-  isolation: isolate;
-
-  & div:last-child {
-    padding: 0;
-    position: relative;
-    height: 100%;
-  }
-}
-
-.footerVideo {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  user-select: none;
-  object-fit: cover;
-  image-rendering: pixelated;
-  filter: saturate(1.75);
+  grid-column: left-side / end;
+  margin: 0px calc(-1 * $spacing-4);
+  padding: $spacing-6;
+  background-color: get-color('gray-5', 0.25);
 }
 
 .footerContent {
-  z-index: 1;
-  color: get-color('white');
-  justify-content: center;
+  margin: auto;
+  width: min(100%, $content-width);
+}
+
+.spaceBetween {
+  justify-content: space-between;
   align-items: center;
-  height: 100%;
-  width: 100%;
+}
 
-  @supports (backdrop-filter: blur(0.5em)) {
-    backdrop-filter: blur(0.5em);
+.aboutMeEnd {
+  max-width: 25rem;
+}
+
+.imageWrapper {
+  flex-shrink: 0;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  border: 1px solid get-color('foreground');
+  height: 100px;
+  aspect-ratio: 1 / 1;
+  position: relative;
+
+  & > img {
+    object-fit: cover;
+    image-rendering: pixelated;
+  }
+}
+
+.linkList {
+  flex-shrink: 0;
+}
+
+.copyRight {
+  &::after {
+    content: ' • Another Dev Blog';
+  }
+}
+
+@include apply-lesser-than('sm') {
+  .footer {
+    grid-column: middle;
   }
 
-  & > h2 {
-    font-size: 2.25rem;
-    font-weight: bold;
-    margin-bottom: 0.25rem;
+  .aboutMeEnd {
+    flex-direction: column;
   }
 
-  & > h3 {
-    font-size: 1.25rem;
-    font-weight: bold;
+  .imageWrapper {
+    display: none;
+  }
 
-    & > a {
-      text-decoration: underline;
-      transition: text-shadow 150ms ease-in-out;
-
-      &:hover {
-        text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.875);
-      }
+  .copyRight {
+    &::after {
+      content: '';
     }
   }
 }

@@ -3,13 +3,13 @@ import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote';
 import React, { useEffect, useState } from 'react';
 import logger from '../logger';
 import { Hello, PostCard } from '../src/components';
-import { Main, Stack } from '../src/components/Layout';
+import { Main } from '../src/components/Layout';
 import { BasicHeadData } from '../src/components/SEO/StructuredBlogData';
+import { Heading, Stack } from '../src/components/UI';
 import {
   ProcessedContent,
   getProcessedPostList
 } from '../src/data-layer/pull-blog-data';
-
 import styles from '../src/styles/pages/index.module.scss';
 
 interface HomeProps {
@@ -20,11 +20,11 @@ interface HomeProps {
 const DISABLED_ROUTER = true;
 
 const components: MDXRemoteProps['components'] = {
-  h1: 'h2',
+  h1: Heading.H2,
   a: 'u'
 };
 
-const Home = (props: HomeProps) => {
+const IndexPage = (props: HomeProps) => {
   const { postList, fullTagsList } = props;
   const router = useRouter();
   const [filteredList, setFilteredList] = useState(postList);
@@ -88,4 +88,4 @@ export async function getStaticProps() {
   };
 }
 
-export default Home;
+export default IndexPage;

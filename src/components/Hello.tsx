@@ -1,11 +1,14 @@
 import Image from 'next/image';
 import React from 'react';
-import { FaGithub, FaLinkedin, FaSoundcloud, FaTwitter } from 'react-icons/fa';
+import { FiGithub as Github, FiTwitter as Twitter } from 'react-icons/fi';
+import { GrSoundcloud as SoundCloud } from 'react-icons/gr';
+import { RiLinkedinFill as LinkedIn } from 'react-icons/ri';
 import profile from '../../profile';
 import styles from '../styles/components/Hello.module.scss';
-import { Stack } from './Layout';
+import IconLink from './IconLink';
+import { Stack } from './UI';
 
-const { aboutMe, imageWrapper, socials, socialLink, helloContent } = styles;
+const { aboutMe, imageWrapper, socials, helloContent } = styles;
 const {
   firstName,
   lastName,
@@ -15,20 +18,7 @@ const {
   soundCloudProfile
 } = profile;
 
-interface SocialLinkProps {
-  href: string;
-  children: React.ReactNode;
-}
-
-const SocialLink = (props: SocialLinkProps) => {
-  const { href, children } = props;
-
-  return (
-    <a href={href} target='_blank' rel='noreferrer' className={socialLink}>
-      {children}
-    </a>
-  );
-};
+const ICON_SIZE = 24;
 
 const Hello = () => (
   <Stack className={aboutMe} spacing='xxl'>
@@ -54,22 +44,33 @@ const Hello = () => (
       </p>
       <p>Here I blog about random code I&apos;ve written.</p>
 
-      <Stack className={socials} spacing='lg'>
-        <SocialLink href={githubProfile}>
-          <FaGithub title='My Github' />
-        </SocialLink>
-
-        <SocialLink href={twitterProfile}>
-          <FaTwitter title='My Twitter' />
-        </SocialLink>
-
-        <SocialLink href={linkedInProfile}>
-          <FaLinkedin title='My LinkedIn' />
-        </SocialLink>
-
-        <SocialLink href={soundCloudProfile}>
-          <FaSoundcloud title='My SoundCloud' />
-        </SocialLink>
+      <Stack className={socials} spacing='none'>
+        <IconLink
+          href={githubProfile}
+          title='My Github'
+          icon={Github}
+          fill
+          size={ICON_SIZE}
+        />
+        <IconLink
+          href={twitterProfile}
+          title='My Twitter'
+          icon={Twitter}
+          size={ICON_SIZE}
+          fill
+        />
+        <IconLink
+          href={soundCloudProfile}
+          title='My SoundCloud'
+          icon={SoundCloud}
+          size={ICON_SIZE}
+        />
+        <IconLink
+          href={linkedInProfile}
+          title='My LinkedIn'
+          icon={LinkedIn}
+          size={ICON_SIZE}
+        />
       </Stack>
     </Stack>
   </Stack>

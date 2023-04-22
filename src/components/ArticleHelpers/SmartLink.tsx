@@ -1,5 +1,6 @@
 import NextLink from 'next/link';
 import React from 'react';
+import styles from '../../styles/components/ArticleHelpers/SmartLink.module.scss';
 
 interface SmartLinkProps {
   href: string;
@@ -19,7 +20,8 @@ const SmartLink = (props: SmartLinkProps) => {
     href,
     ...((isExternal && { target: '_blank', rel: 'noreferrer' }) || {
       ...((isHash && { replace: true }) || {})
-    })
+    }),
+    className: styles.link
   };
 
   return React.createElement(isExternal ? 'a' : NextLink, linkProps, children);

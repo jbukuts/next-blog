@@ -1,0 +1,48 @@
+.footer {
+  box-sizing: border-box;
+  grid-row: footer;
+  grid-column: middle;
+  height: 10rem;
+  margin-bottom: 1rem;
+  isolation: isolate;
+
+  & div:last-child {
+    padding: 0;
+    position: relative;
+    height: 100%;
+  }
+}
+
+.footerVideo {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  user-select: none;
+  object-fit: cover;
+  image-rendering: pixelated;
+  filter: saturate(1.75);
+}
+
+.footerContent {
+  z-index: 1;
+  color: get-color('white');
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  @supports (backdrop-filter: blur(0.5em)) {
+    backdrop-filter: blur(0.5em);
+  }
+
+  & > h2 {
+    font-size: 2.25rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+
+  & > h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+}

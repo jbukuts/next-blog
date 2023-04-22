@@ -1,0 +1,48 @@
+.standard {
+  font-weight: bold;
+  color: get-color('foreground');
+  margin: 0;
+  margin-bottom: $spacing-4;
+}
+
+.H1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.H2 {
+  font-size: 2.275rem;
+}
+
+.H3 {
+  font-size: 1.875rem;
+}
+
+.H4 {
+  font-size: 1.5rem;
+}
+
+.H5 {
+  font-size: 1.25rem;
+  margin-bottom: $spacing-3;
+}
+
+.H6 {
+  margin-bottom: $spacing-2;
+  font-size: 1rem;
+}
+
+@include apply-lesser-than('sm') {
+  .H1 {
+    font-size: 2.25rem;
+  }
+
+  .H2 {
+    font-size: 1.75rem;
+  }
+
+  .H3 {
+    font-size: 1.5rem;
+  }
+}

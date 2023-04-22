@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { MouseEventHandler } from 'react';
-import styles from '../styles/components/Toggle.module.scss';
+import styles from '../../styles/components/UI/Toggle.module.scss';
 
 interface ToggleProps {
   onClick?: MouseEventHandler<HTMLInputElement>;

@@ -14,7 +14,9 @@ const profile = {
     'Here I write about random programming related things I encounter.',
   siteTitle: 'Software Developer - Jake Bukuts',
   siteURI: 'www.jbukuts.com',
-  headerImage: '/name-chrome.webp'
+  headerImage: '/name-chrome.webp',
+  copyRightYear: 2023,
+  emailAddress: 'jbukuts@gmail.com'
 };
 
 export default profile;

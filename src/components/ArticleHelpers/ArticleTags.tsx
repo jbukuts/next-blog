@@ -1,12 +1,11 @@
 import React, { Suspense } from 'react';
-import { ProcessedContent } from '../data-layer/pull-blog-data';
-import styles from '../styles/components/ArticleTags.module.scss';
-import TagBadge from './Badge';
-import { Stack } from './Layout';
+import { ProcessedContent } from '../../data-layer/pull-blog-data';
+import styles from '../../styles/components/ArticleHelpers/ArticleTags.module.scss';
+import { Badge, Stack } from '../UI';
 
 type ArticleTagsProps = Pick<ProcessedContent, 'tags' | 'timeToRead' | 'date'>;
 
-const ArticleTags: React.FC<ArticleTagsProps> = (props) => {
+const ArticleTags = (props: ArticleTagsProps) => {
   // const router = useRouter();
   // onClick={() => router.push(`/?tags=${tag}`)}
   const { tags, timeToRead, date } = props;
@@ -14,10 +13,10 @@ const ArticleTags: React.FC<ArticleTagsProps> = (props) => {
   return (
     <Stack className={styles.articleTags} spacing='xs' aria-hidden='true'>
       {tags.map((tag, index) => (
-        <TagBadge key={index}>{tag}</TagBadge>
+        <Badge key={index}>{tag}</Badge>
       ))}
-      <TagBadge>{timeToRead} min</TagBadge>
-      <TagBadge>
+      <Badge>{timeToRead} min</Badge>
+      <Badge>
         <Suspense fallback={null}>
           Posted on{' '}
           {new Date(date).toLocaleDateString('en-US', {
@@ -26,7 +25,7 @@ const ArticleTags: React.FC<ArticleTagsProps> = (props) => {
             day: 'numeric'
           })}
         </Suspense>
-      </TagBadge>
+      </Badge>
     </Stack>
   );
 };

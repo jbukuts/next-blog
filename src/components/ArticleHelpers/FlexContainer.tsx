@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../../styles/components/ArticleHelpers/FlexContainer.module.scss';
-import { Stack } from '../Layout';
+import { Stack } from '../UI';
 
 interface FlexContainerProps {
   children: React.ReactNode;
