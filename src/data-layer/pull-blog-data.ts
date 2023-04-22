@@ -14,19 +14,19 @@ import rehypeTruncate from 'rehype-truncate';
 import remarkBreaks from 'remark-breaks';
 import remarkParse from 'remark-parse';
 import { PluggableList, Preset, unified } from 'unified';
+import vsTheme from '../../public/code-themes/vscode.json';
 import remarkStringifyMdast, {
   SectionHead
 } from '../helpers/mdast-compile-toc';
 import remarkSectionWrapper from '../plugins/rehype/rehype-section-wrapper';
 import remarkInsertJSXAfterHeader from '../plugins/remark/remark-insert-jsx';
-import codeTheme from './code-theme';
 import { RepositoryContent, getRepositoryContent } from './git-api-calls';
 
 const { GIT_USER_NAME, GIT_REPO, GIT_FOLDER, GIT_API_KEY } = process.env;
 
 const CHARS_PER_MINUTE = 1150;
 
-const CODE_THEME = codeTheme;
+const CODE_THEME = vsTheme;
 
 export interface ProcessContentOptions {
   repoContent: RepositoryContent;
