@@ -28,6 +28,14 @@
   }
 }
 
+@mixin item-glow(
+  $size: 20px,
+  $color: get-color('foreground', 0.75),
+  $type: 'box-shadow'
+) {
+  #{$type}: 0px 0px $size $color;
+}
+
 @mixin scrollbar-shift {
   margin-left: calc(100vw - 100%);
   margin-right: 0;

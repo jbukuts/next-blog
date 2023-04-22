@@ -13,7 +13,7 @@ import {
 import TitleContext from '../../state/TitleContext';
 import styles from '../../styles/components/Layout/Header.module.scss';
 import ThemeToggle from '../ThemeToggle';
-import Stack from './Stack';
+import { Stack } from '../UI';
 
 const { firstName, lastName, siteTitle, headerImage } = profile;
 
@@ -29,7 +29,7 @@ const domAnimation = () =>
 
 const StickyHeader = () => {
   const scrollPercent = useScrollPercentage(50);
-  const { currentTitle } = useContext(TitleContext);
+  const [currentTitle] = useContext(TitleContext);
   const currentPath = useCurrentPath();
 
   return (

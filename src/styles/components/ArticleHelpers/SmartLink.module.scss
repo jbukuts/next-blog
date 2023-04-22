@@ -1,0 +1,7 @@
+.link {
+  transition: text-shadow 100ms ease-in-out;
+
+  &:hover {
+    @include item-glow($type: 'text-shadow');
+  }
+}

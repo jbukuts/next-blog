@@ -1,17 +1,15 @@
 import cx from 'classnames';
 import dynamic from 'next/dynamic';
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote';
-
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import logger from '../../logger';
+import { RelatedArticles, TableOfContents } from '../../src/components';
 import {
   ArticleTags,
-  Heading,
+  NavHeading,
   PrettyCode,
-  RelatedArticles,
-  TableOfContents
-} from '../../src/components';
-import { SmartLink } from '../../src/components/ArticleHelpers';
+  SmartLink
+} from '../../src/components/ArticleHelpers';
 import { Main } from '../../src/components/Layout';
 import { RelatedPost } from '../../src/components/RelatedArticles';
 import { StructuredBlogData } from '../../src/components/SEO';
@@ -23,8 +21,7 @@ import {
 } from '../../src/data-layer/pull-blog-data';
 import { compressData, decompressData } from '../../src/helpers/compression';
 import { SectionHead } from '../../src/helpers/mdast-compile-toc';
-import HeadingContext from '../../src/state/HeadingContext';
-
+import { useCurrentHeading } from '../../src/hooks';
 import TitleContext from '../../src/state/TitleContext';
 import styles from '../../src/styles/pages/post/[slug].module.scss';
 
@@ -48,11 +45,13 @@ const components: MDXRemoteProps['components'] = {
   FlexContainer,
   ArticleTags,
   code: PrettyCode,
-  h1: Heading.H1,
-  h2: Heading.H2,
-  h3: Heading.H3,
+  h1: NavHeading.H1,
+  h2: NavHeading.H2,
+  h3: NavHeading.H3,
   a: SmartLink
 } as any;
+
+const { headerHeight } = styles;
 
 const MDXContent = React.forwardRef<HTMLElement, MDXRemoteProps>(
   (props, ref) => (
@@ -62,7 +61,7 @@ const MDXContent = React.forwardRef<HTMLElement, MDXRemoteProps>(
   )
 );
 
-const Article = (props: BlogPostProps) => {
+const BlogPostPage = (props: BlogPostProps) => {
   const {
     slug,
     relatedPosts,
@@ -74,12 +73,17 @@ const Article = (props: BlogPostProps) => {
     timeToRead
   } = props;
 
-  const headingState = useState({ id: '', text: '' });
-
-  const { setCurrentTitle } = useContext(TitleContext);
+  const [_, setCurrentTitle] = useContext(TitleContext);
   const inflatedContent = useMemo(
     () => decompressData(compressedContent),
     [compressedContent]
+  );
+  const currentHeadingId = useCurrentHeading(
+    'h1[id],h2[id],h3[id],h4[id],h5[id]',
+    {
+      threshold: [0, 1],
+      rootMargin: `-${headerHeight} 0px -90% 0px`
+    }
   );
 
   useEffect(() => {
@@ -98,15 +102,13 @@ const Article = (props: BlogPostProps) => {
     <>
       <StructuredBlogData {...seoData} />
       <RelatedArticles postList={relatedPosts} />
-      <HeadingContext.Provider value={headingState}>
-        <Main className={styles.postWrapper}>
-          <MDXContent {...inflatedContent} />
-        </Main>
-      </HeadingContext.Provider>
+      <Main className={styles.postWrapper}>
+        <MDXContent {...inflatedContent} />
+      </Main>
       {tableOfContents.length > 0 && (
         <TableOfContents
           tableOfContents={tableOfContents}
-          currentSection={headingState[0].id}
+          currentSection={currentHeadingId}
         />
       )}
     </>
@@ -198,4 +200,4 @@ export async function getStaticProps(context: { params: { slug: string } }) {
   };
 }
 
-export default Article;
+export default BlogPostPage;

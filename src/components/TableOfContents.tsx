@@ -5,7 +5,8 @@ import React from 'react';
 import { SectionHead } from '../helpers/mdast-compile-toc';
 import { useCurrentPath } from '../hooks';
 import styles from '../styles/components/TableOfContents.module.scss';
-import { SideBar, Stack } from './Layout';
+import { SideBar } from './Layout';
+import { Stack } from './UI';
 
 interface TableOfContentsProps {
   tableOfContents: SectionHead[];

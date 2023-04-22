@@ -14,7 +14,8 @@ const useElementOnScreen = (
   const [visible, setVisible] = useState(defaultValue);
 
   const callbackFunction = (entries: IntersectionObserverEntry[]) => {
-    setVisible(entries[entries.length - 1].isIntersecting);
+    const { isIntersecting } = entries[entries.length - 1];
+    setVisible(isIntersecting);
   };
 
   useEffect(() => {

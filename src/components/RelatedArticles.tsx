@@ -2,8 +2,8 @@ import NextLink from 'next/link';
 import React, { Suspense } from 'react';
 import { ProcessedContent } from '../data-layer/pull-blog-data';
 import styles from '../styles/components/RelatedArticles.module.scss';
-import TagBadge from './Badge';
-import { SideBar, Stack } from './Layout';
+import { SideBar } from './Layout';
+import { Badge, Stack } from './UI';
 
 export type RelatedPost = Pick<
   ProcessedContent,
@@ -35,9 +35,9 @@ const RelatedPostItem = (props: RelatedPost) => {
         </p>
         <Stack spacing='xs' className={styles.horizontalStack}>
           {tags.map((t, index) => (
-            <TagBadge key={index} size='sm'>
+            <Badge key={index} size='sm'>
               {t}
-            </TagBadge>
+            </Badge>
           ))}
         </Stack>
       </Stack>

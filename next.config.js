@@ -66,6 +66,14 @@ const nextConfig = {
         headers: securityHeaders
       }
     ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/rss.xml',
+        destination: '/api/rss'
+      }
+    ];
   }
 };
 

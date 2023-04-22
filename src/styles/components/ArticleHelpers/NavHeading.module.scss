@@ -1,0 +1,22 @@
+.hoverEffect {
+  scroll-margin: calc($spacing-5 + $sticky-header-height);
+
+  & a {
+    text-decoration: none !important;
+    text-shadow: none !important;
+
+    &:hover {
+      text-decoration: underline !important;
+      text-decoration-color: get-color('outline') !important;
+    }
+  }
+
+  &:hover {
+    &::after {
+      content: '';
+      color: get-color('outline');
+      margin-left: $spacing-2;
+      font-size: 0.85em;
+    }
+  }
+}

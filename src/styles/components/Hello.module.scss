@@ -37,21 +37,6 @@
   }
 }
 
-.socials {
-  & svg {
-    width: 1.75rem;
-    height: 1.75rem;
-  }
-}
-
-.socialLink {
-  &:hover {
-    & svg {
-      filter: drop-shadow(2px 2px 5px get-color('foreground'));
-    }
-  }
-}
-
 @include apply-lesser-than('sm') {
   .aboutMe {
     flex-direction: column !important;

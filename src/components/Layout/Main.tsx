@@ -3,8 +3,8 @@ import React, { ForwardedRef } from 'react';
 import styles from '../../styles/components/Layout/Main.module.scss';
 
 interface MainProps {
-  children: React.ReactNode;
-  className: string;
+  children?: React.ReactNode;
+  className?: string;
 }
 
 const Main = (props: MainProps, ref: ForwardedRef<any>) => {

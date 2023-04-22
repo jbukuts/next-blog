@@ -1,12 +1,10 @@
 import cx from 'classnames';
 import React from 'react';
-import styles from '../../styles/components/Layout/Stack.module.scss';
+import styles from '../../styles/components/UI/Stack.module.scss';
 
-interface StackProps {
-  as?: string | any;
+interface StackProps extends React.HTMLAttributes<Element> {
+  as?: string | React.FC<any>;
   type?: 'horizontal' | 'vertical';
-  className?: string;
-  children?: React.ReactNode;
   spacing?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none';
   reverse?: boolean;
   [asProp: string]: any;

@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
-import styles from '../styles/components/Window.module.scss';
-import Stack from './Layout/Stack';
+import styles from '../../styles/components/UI/Window.module.scss';
+import Stack from './Stack';
 
 interface WindowProps {
   title?: string;
@@ -36,9 +36,7 @@ const Window = React.forwardRef<Element, WindowProps>((props, ref) => {
           {title || ''}
         </Stack>
       )}
-      <div className={cx(styles.windowContent, contentClassName)}>
-        {children}
-      </div>
+      <div className={contentClassName}>{children}</div>
     </>
   );
 

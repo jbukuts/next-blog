@@ -1,7 +1,24 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
-const TitleContext = createContext({
-  currentTitle: '' as string,
-  setCurrentTitle: (() => null) as React.Dispatch<React.SetStateAction<string>>
-});
+interface TitleProviderProps {
+  children: React.ReactNode;
+}
+
+type TitleContextType = [string, React.Dispatch<React.SetStateAction<string>>];
+
+const TitleContext = createContext<TitleContextType>(['', () => null]);
+
+const TitleProvider = (props: TitleProviderProps) => {
+  const { children } = props;
+
+  const titleState = useState<string>('');
+
+  return React.createElement(
+    TitleContext.Provider,
+    { value: titleState },
+    children
+  );
+};
+
+export { TitleProvider };
 export default TitleContext;
