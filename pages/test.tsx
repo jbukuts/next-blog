@@ -1,6 +1,6 @@
 import React from 'react';
 import { Main } from '../src/components/Layout';
-import Heading from '../src/components/UI/Heading';
+import Heading from '../src/components/UI/Heading/Heading';
 
 const TestPage = () => (
   <Main>
