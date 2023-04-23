@@ -4,7 +4,7 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
 import React from 'react';
 import { Footer, Header } from '../src/components/Layout';
-import { SharedHeader } from '../src/components/seo';
+import { SharedHeader } from '../src/components/seo-wrappers';
 import { TitleProvider } from '../src/state/TitleContext';
 
 const App = ({ Component, pageProps }: AppProps) => (

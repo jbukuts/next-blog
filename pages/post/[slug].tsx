@@ -12,7 +12,7 @@ import {
 } from '../../src/components/article-helpers';
 import { Main } from '../../src/components/Layout';
 import { RelatedPost } from '../../src/components/RelatedArticles/RelatedArticles';
-import { StructuredBlogData } from '../../src/components/seo';
+import { StructuredBlogData } from '../../src/components/seo-wrappers';
 import {
   ProcessedContent,
   getPostContent,

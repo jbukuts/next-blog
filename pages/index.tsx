@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import logger from '../logger';
 import { Hello, PostCard } from '../src/components';
 import { Main } from '../src/components/Layout';
-import { BasicHeadData } from '../src/components/seo';
+import { BasicHeadData } from '../src/components/seo-wrappers';
 import { Heading, Stack } from '../src/components/UI';
 import {
   ProcessedContent,
