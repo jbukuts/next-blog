@@ -1,7 +1,17 @@
-import BottomCard from './BottomCard';
-import Hello from './Hello';
-import PostCard from './PostCard';
-import RelatedArticles from './RelatedArticles';
-import TableOfContents from './TableOfContents';
+import BottomCard from './BottomCard/BottomCard';
+import Hello from './Hello/Hello';
+import IconLink from './IconLink/IconLink';
+import PostCard from './PostCard/PostCard';
+import RelatedArticles from './RelatedArticles/RelatedArticles';
+import TableOfContents from './TableOfContents/TableOfContents';
+import ThemeToggle from './ThemeToggle/ThemeToggle';
 
-export { TableOfContents, RelatedArticles, PostCard, Hello, BottomCard };
+export {
+  BottomCard,
+  Hello,
+  IconLink,
+  PostCard,
+  RelatedArticles,
+  TableOfContents,
+  ThemeToggle
+};

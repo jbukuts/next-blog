@@ -8,7 +8,6 @@ interface AppleColor {
   aqua: number[];
 }
 
-// source from https://developer.apple.com/design/human-interface-guidelines/foundations/color/
 const fullAquaList: Record<string, AppleColor> = {
   red: {
     aqua: [255, 59, 48]

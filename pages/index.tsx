@@ -4,13 +4,13 @@ import React, { useEffect, useState } from 'react';
 import logger from '../logger';
 import { Hello, PostCard } from '../src/components';
 import { Main } from '../src/components/Layout';
-import { BasicHeadData } from '../src/components/SEO/StructuredBlogData';
+import { BasicHeadData } from '../src/components/seo-wrappers';
 import { Heading, Stack } from '../src/components/UI';
 import {
   ProcessedContent,
   getProcessedPostList
 } from '../src/data-layer/pull-blog-data';
-import styles from '../src/styles/pages/index.module.scss';
+import styles from './index.module.scss';
 
 interface HomeProps {
   postList: ProcessedContent[];

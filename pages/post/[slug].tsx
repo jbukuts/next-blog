@@ -9,10 +9,10 @@ import {
   NavHeading,
   PrettyCode,
   SmartLink
-} from '../../src/components/ArticleHelpers';
+} from '../../src/components/article-helpers';
 import { Main } from '../../src/components/Layout';
-import { RelatedPost } from '../../src/components/RelatedArticles';
-import { StructuredBlogData } from '../../src/components/SEO';
+import { RelatedPost } from '../../src/components/RelatedArticles/RelatedArticles';
+import { StructuredBlogData } from '../../src/components/seo-wrappers';
 import {
   ProcessedContent,
   getPostContent,
@@ -23,11 +23,11 @@ import { compressData, decompressData } from '../../src/helpers/compression';
 import { SectionHead } from '../../src/helpers/mdast-compile-toc';
 import { useCurrentHeading } from '../../src/hooks';
 import TitleContext from '../../src/state/TitleContext';
-import styles from '../../src/styles/pages/post/[slug].module.scss';
+import styles from './[slug].module.scss';
 
 const FlexContainer = dynamic(
   () =>
-    import('../../src/components/ArticleHelpers').then(
+    import('../../src/components/article-helpers').then(
       (mod) => mod.FlexContainer
     ),
   {
