@@ -31,3 +31,11 @@ $spacings: (
 .spacing {
   @include create-utility-class($spacings, 'gap');
 }
+
+@include apply-lesser-than('sm') {
+  .responsive[class*='horizontal'] {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+}

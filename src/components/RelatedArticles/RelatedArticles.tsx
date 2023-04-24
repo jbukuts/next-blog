@@ -18,7 +18,7 @@ const RelatedPostItem = (props: RelatedPost) => {
   const { title, slug, tags, date, timeToRead } = props;
   return (
     <Stack type='vertical' className={styles.relatedArticle}>
-      <NextLink href={`/post/${slug}`}>
+      <NextLink href={`/post/${slug}`} className={styles.linkItem}>
         <h2>{title}</h2>
       </NextLink>
       <Stack className={styles.horizontalStack}>

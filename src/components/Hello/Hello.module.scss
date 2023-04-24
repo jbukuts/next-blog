@@ -38,12 +38,6 @@
 }
 
 @include apply-lesser-than('sm') {
-  .aboutMe {
-    flex-direction: column !important;
-    text-align: center;
-    gap: $spacing-4;
-  }
-
   .imageWrapper {
     height: 125px;
   }

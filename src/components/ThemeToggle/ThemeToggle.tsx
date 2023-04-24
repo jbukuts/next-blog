@@ -5,7 +5,6 @@ import { Stack, Toggle } from '../UI';
 
 const ThemeToggle = () => {
   const [theme, toggleTheme] = useToggleTheme();
-
   return (
     <Stack style={{ alignItems: 'center' }}>
       <MdLightMode size={20} />

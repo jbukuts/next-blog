@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
-import { FiGithub as Github, FiTwitter as Twitter } from 'react-icons/fi';
-import { GrSoundcloud as SoundCloud } from 'react-icons/gr';
-import { RiLinkedinFill as LinkedIn } from 'react-icons/ri';
 import profile from '../../../profile';
-import IconLink from '../IconLink/IconLink';
+import IconLink from '../IconLink';
 import { Stack } from '../UI';
+import { Github, LinkedIn, SoundCloud, Twitter } from '../UI/icons';
 import styles from './Hello.module.scss';
 
 const { aboutMe, imageWrapper, socials, helloContent } = styles;
@@ -21,7 +19,7 @@ const {
 const ICON_SIZE = 24;
 
 const Hello = () => (
-  <Stack className={aboutMe} spacing='xxl'>
+  <Stack className={aboutMe} spacing='xxl' responsive>
     <div className={imageWrapper}>
       <Image
         src='/images/me.webp'

@@ -1,25 +1,22 @@
 import Image from 'next/image';
 import React from 'react';
-import { TbSourceCode as Code, TbMail as Mail } from 'react-icons/tb';
-import { TiRss as RSS } from 'react-icons/ti';
 import profile from '../../../../profile';
 import { SmartLink } from '../../article-helpers';
 import IconLink from '../../IconLink/IconLink';
 import { Heading, Stack } from '../../UI';
+import { Code, LinkedIn, Mail, RSS, Twitter } from '../../UI/icons';
 import styles from './Footer.module.scss';
 
 interface LinkStack {
   title: string;
   links: {
-    [name: string]: {
-      href: string;
-    };
-  };
+    title: string;
+    href: string;
+  }[];
 }
 
 const {
   linkedInProfile,
-  soundCloudProfile,
   githubProfile,
   twitterProfile,
   emailAddress,
@@ -30,22 +27,22 @@ const {
 
 const linkList: LinkStack[] = [
   {
-    title: 'My socials',
-    links: {
-      Github: {
-        href: githubProfile
-      },
-      Twitter: {
-        href: twitterProfile
-      },
-      LinkedIn: {
-        href: linkedInProfile
-      },
-      SoundCloud: {
-        href: soundCloudProfile
-      }
-    }
+    title: 'Built using',
+    links: [
+      { title: 'Next.js', href: 'https://nextjs.org/' },
+      { title: 'Sass', href: 'https://sass-lang.com/' },
+      { title: 'MDX', href: 'https://mdxjs.com/' },
+      { title: 'GitHub API', href: 'https://docs.github.com/en/rest' }
+    ]
   }
+];
+
+const socialsList = [
+  { title: 'My email', href: `mailto:${emailAddress}`, icon: Mail },
+  { title: 'Site code', href: `${githubProfile}/next-blog`, icon: Code },
+  { title: 'RSS Feed', href: '/rss.xml', icon: RSS },
+  { title: 'My Twitter', href: twitterProfile, icon: Twitter },
+  { title: 'My LinkedIn', href: linkedInProfile, icon: LinkedIn }
 ];
 
 interface LinkStackProps {
@@ -60,11 +57,11 @@ const LinkList = (props: LinkStackProps) => {
   return (
     <Stack type='vertical' spacing='none' className={styles.linkList}>
       <Heading.H6>{title}</Heading.H6>
-      {Object.entries(links).map(([key, val], index) => {
-        const { href } = val;
+      {links.map((val, index) => {
+        const { href, title: linkTitle } = val;
         return (
           <SmartLink href={href} key={index}>
-            <small>{key}</small>
+            <small>{linkTitle}</small>
           </SmartLink>
         );
       })}
@@ -74,16 +71,9 @@ const LinkList = (props: LinkStackProps) => {
 
 const MoreAboutMe = () => (
   <Stack type='vertical' spacing='xl'>
-    <Stack spacing='xl' className={styles.aboutMeEnd}>
+    <Stack spacing='xl' className={styles.aboutMeEnd} responsive>
       <div className={styles.imageWrapper}>
-        <Image
-          src='/images/me.webp'
-          alt='This is me'
-          fill
-          width={320}
-          height={240}
-          priority
-        />
+        <Image src='/images/me.webp' alt='This is me' fill priority={false} />
       </div>
       <Stack type='vertical' spacing='none'>
         <Heading.H6>It&apos;s me again</Heading.H6>
@@ -91,7 +81,8 @@ const MoreAboutMe = () => (
           <small>
             Thanks for reading.
             <br />
-            If you&apos;d like updates feel free to subscribe via RSS.
+            If you&apos;d like updates feel free to{' '}
+            <SmartLink href='/rss.xml'>subscribe via RSS</SmartLink> .
             <br />I try to create new posts weekly.
           </small>
         </p>
@@ -100,28 +91,29 @@ const MoreAboutMe = () => (
   </Stack>
 );
 
+const SocialLinks = () => (
+  <>
+    {socialsList.map(({ title, href, icon: Icon }, index) => (
+      <IconLink key={index} href={href} title={title} icon={Icon} />
+    ))}
+  </>
+);
 const Footer = () => (
   <footer className={styles.footer}>
     <Stack className={styles.footerContent} spacing='xxl' type='vertical'>
-      <Stack className={styles.spaceBetween} spacing='xxl'>
+      <Stack className={styles.spaceBetween} spacing='xxl' responsive>
         <MoreAboutMe />
         {linkList.map((linkStack, index) => (
           <LinkList key={index} linkStack={linkStack} />
         ))}
       </Stack>
-      <Stack className={styles.spaceBetween}>
+      <Stack className={styles.socialsStack} responsive>
         <Stack spacing='none'>
-          <IconLink href={`mailto:${emailAddress}`} title='Email' icon={Mail} />
-          <IconLink
-            href={`${githubProfile}/next-blog`}
-            title='Site Code'
-            icon={Code}
-          />
-          <IconLink href='/rss.xml' title='RSS Feed' icon={RSS} />
+          <SocialLinks />
         </Stack>
         <p>
-          <small className={styles.copyRight}>
-            © {copyRightYear} {firstName} {lastName}
+          <small>
+            © {copyRightYear} {firstName} {lastName} • Another Dev Blog ❤️
           </small>
         </p>
       </Stack>

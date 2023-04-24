@@ -1,7 +1,10 @@
 .link {
   transition: text-shadow 100ms ease-in-out;
+  text-decoration: underline;
+  text-decoration-color: get-color('foreground', 0.5);
 
   &:hover {
-    @include item-glow($type: 'text-shadow');
+    @include item-glow($type: 'text-shadow', $size: 25px);
+    text-decoration-color: get-color('foreground');
   }
 }

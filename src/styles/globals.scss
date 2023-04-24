@@ -27,6 +27,7 @@ body {
 #__next {
   display: grid;
   gap: $grid-spacing;
+  min-height: 100vh;
 
   grid-template-rows: [header] auto [content] auto [footer] auto;
   grid-template-columns:

@@ -1,10 +1,10 @@
 import BottomCard from './BottomCard/BottomCard';
-import Hello from './Hello/Hello';
-import IconLink from './IconLink/IconLink';
-import PostCard from './PostCard/PostCard';
-import RelatedArticles from './RelatedArticles/RelatedArticles';
-import TableOfContents from './TableOfContents/TableOfContents';
-import ThemeToggle from './ThemeToggle/ThemeToggle';
+import Hello from './Hello';
+import IconLink from './IconLink';
+import PostCard from './PostCard';
+import RelatedArticles from './RelatedArticles';
+import TableOfContents from './TableOfContents';
+import ThemeToggle from './ThemeToggle';
 
 export {
   BottomCard,

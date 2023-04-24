@@ -1,7 +1,7 @@
-import Badge from './Badge/Badge';
-import Heading from './Heading/Heading';
-import Stack from './Stack/Stack';
-import Toggle from './Toggle/Toggle';
-import Window from './Window/Window';
+import Badge from './Badge';
+import Heading from './Heading';
+import Stack from './Stack';
+import Toggle from './Toggle';
+import Window from './Window';
 
 export { Badge, Heading, Stack, Toggle, Window };

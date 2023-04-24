@@ -4,6 +4,7 @@
   grid-column: left-side / end;
   margin: 0px calc(-1 * $spacing-4);
   padding: $spacing-6;
+  margin-top: auto;
 }
 
 .footerContent {
@@ -12,6 +13,10 @@
 }
 
 .spaceBetween {
+  justify-content: space-between;
+}
+
+.socialsStack {
   justify-content: space-between;
   align-items: center;
 }
@@ -26,6 +31,7 @@
   overflow: hidden;
   border: 1px solid get-color('foreground');
   height: 100px;
+  width: 100px;
   aspect-ratio: 1 / 1;
   position: relative;
 
@@ -39,12 +45,6 @@
   flex-shrink: 0;
 }
 
-.copyRight {
-  &::after {
-    content: ' • Another Dev Blog';
-  }
-}
-
 @include apply-lesser-than('sm') {
   .footer {
     grid-column: middle;
@@ -52,15 +52,5 @@
 
   .aboutMeEnd {
     flex-direction: column;
-  }
-
-  .imageWrapper {
-    display: none;
-  }
-
-  .copyRight {
-    &::after {
-      content: '';
-    }
   }
 }

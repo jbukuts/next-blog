@@ -6,13 +6,13 @@ import logger from '../../logger';
 import { RelatedArticles, TableOfContents } from '../../src/components';
 import {
   ArticleTags,
-  NavHeading,
   PrettyCode,
   SmartLink
 } from '../../src/components/article-helpers';
 import { Main } from '../../src/components/Layout';
 import { RelatedPost } from '../../src/components/RelatedArticles/RelatedArticles';
 import { StructuredBlogData } from '../../src/components/seo-wrappers';
+import { Heading } from '../../src/components/UI';
 import {
   ProcessedContent,
   getPostContent,
@@ -45,9 +45,9 @@ const components: MDXRemoteProps['components'] = {
   FlexContainer,
   ArticleTags,
   code: PrettyCode,
-  h1: NavHeading.H1,
-  h2: NavHeading.H2,
-  h3: NavHeading.H3,
+  h1: Heading.H1,
+  h2: Heading.H2,
+  h3: Heading.H3,
   a: SmartLink
 } as any;
 

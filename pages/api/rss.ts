@@ -1,11 +1,8 @@
+import { Feed } from 'feed';
 import { NextApiRequest, NextApiResponse } from 'next';
-import RSS from 'rss';
 import logger from '../../logger';
 import profile from '../../profile';
-import {
-  ProcessedContent,
-  getProcessedPostList
-} from '../../src/data-layer/pull-blog-data';
+import { getProcessedPostList } from '../../src/data-layer/pull-blog-data';
 
 const {
   siteURI,
@@ -14,42 +11,50 @@ const {
   image,
   copyRightYear,
   siteTitle,
-  description
+  description,
+  emailAddress,
+  linkedInProfile
 } = profile;
 const SITE_URL = `https://${siteURI}`;
 const FULL_NAME = `${firstName} ${lastName}`;
 
 export default async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const feed = new RSS({
+    const feed = new Feed({
       title: siteTitle,
       description,
-      feed_url: `${SITE_URL}/rss.xml`,
-      site_url: SITE_URL,
-      image_url: `${SITE_URL}${image}`,
-      managingEditor: FULL_NAME,
-      webMaster: FULL_NAME,
-      copyright: `${copyRightYear} ${FULL_NAME}`,
+      id: SITE_URL,
+      link: SITE_URL,
       language: 'en',
-      categories: ['Tech', 'Programming', 'Computer Science'],
-      pubDate: 'May 20, 2012 04:00:00 GMT',
-      ttl: 32400
+      image: `${SITE_URL}${image}`,
+      favicon: `${SITE_URL}/favicon.ico`,
+      copyright: `${copyRightYear} ${FULL_NAME}`,
+      feedLinks: {
+        json: `${SITE_URL}/json`,
+        atom: `${SITE_URL}/atom`
+      },
+      author: {
+        name: FULL_NAME,
+        email: emailAddress,
+        link: linkedInProfile
+      }
     });
-    const postList: ProcessedContent[] = await getProcessedPostList({});
 
-    postList.forEach((postItem) => {
+    (await getProcessedPostList({})).forEach((postItem) => {
       const { title, slug, desc, date, tags } = postItem;
 
-      feed.item({
+      feed.addItem({
         title,
+        id: `${SITE_URL}/post/${slug}`,
+        link: `${SITE_URL}/post/${slug}`,
         description: desc,
-        url: `${SITE_URL}/post/${slug}`,
-        date,
-        categories: tags
+        date: new Date(date),
+        image: `${SITE_URL}${image}`,
+        category: tags.map((tag) => ({ name: tag }))
       });
     });
 
-    const xml = feed.xml();
+    const xml = feed.rss2();
     res.status(200).send(xml);
   } catch (err: unknown) {
     logger.error({

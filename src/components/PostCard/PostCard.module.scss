@@ -4,6 +4,7 @@
   z-index: 2;
   position: relative;
   transition: box-shadow 150ms ease-out, transform 100ms ease-out;
+  text-decoration: none;
 
   &:hover {
     z-index: 1;

@@ -24,7 +24,12 @@ const TableOfContents = (props: TableOfContentsProps) => {
       as={SideBar}
       side='right'
       className={styles.tableOfContents}>
-      <NextLink href='#' title='Back to top' replace as={currentPath}>
+      <NextLink
+        href='#'
+        title='Back to top'
+        replace
+        as={currentPath}
+        className={styles.linkItem}>
         <h2>In This Article</h2>
       </NextLink>
       <ul>
@@ -37,7 +42,7 @@ const TableOfContents = (props: TableOfContentsProps) => {
                 styles[tagName],
                 id === currentSection && styles.currentSection
               )}>
-              <NextLink href={`#${id}`} replace>
+              <NextLink href={`#${id}`} replace className={styles.linkItem}>
                 {title}
               </NextLink>
             </li>

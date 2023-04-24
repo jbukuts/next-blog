@@ -7,6 +7,7 @@ interface StackProps extends React.HTMLAttributes<Element> {
   type?: 'horizontal' | 'vertical';
   spacing?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none';
   reverse?: boolean;
+  responsive?: boolean;
   [asProp: string]: any;
 }
 
@@ -18,6 +19,7 @@ const Stack = React.forwardRef<Element, StackProps>((props, ref) => {
     type = 'horizontal',
     spacing = 'sm',
     reverse = false,
+    responsive = false,
     ...rest
   } = props;
 
@@ -25,6 +27,7 @@ const Stack = React.forwardRef<Element, StackProps>((props, ref) => {
     styles.stackShare,
     styles[type],
     reverse && styles.reverse,
+    responsive && styles.responsive,
     styles[`spacing-${spacing}`],
     className && className
   );

@@ -13,8 +13,4 @@ const SideBar = (props: SideBarProps) => {
   return <nav className={cx(className, styles[side])}>{children}</nav>;
 };
 
-SideBar.defaultProps = {
-  className: undefined
-};
-
 export default SideBar;

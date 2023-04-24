@@ -18,8 +18,13 @@
 
   & li {
     color: get-color('gray-1');
+    margin: 0;
     transition: color 100ms ease-in-out;
   }
+}
+
+.linkItem {
+  text-decoration: none;
 }
 
 .h2 {
