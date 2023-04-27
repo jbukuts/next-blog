@@ -11,6 +11,8 @@ import rehypeSlug from 'rehype-slug';
 import rehypeTruncate from 'rehype-truncate';
 import remarkBreaks from 'remark-breaks';
 import remarkParse from 'remark-parse';
+// eslint-disable-next-line no-unused-vars
+import shiki from 'shiki';
 import { PluggableList, Preset, unified } from 'unified';
 import vsTheme from '../../public/code-themes/vscode.json';
 import remarkSectionWrapper from '../plugins/rehype/rehype-section-wrapper';
