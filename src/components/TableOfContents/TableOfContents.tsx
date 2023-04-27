@@ -2,7 +2,7 @@
 import cx from 'classnames';
 import NextLink from 'next/link';
 import React from 'react';
-import { SectionHead } from '../../helpers/mdast-compile-toc';
+import { SectionHead } from '../../data-layer/mdast-compile-toc';
 import { useCurrentPath } from '../../hooks';
 import { SideBar } from '../Layout';
 import { Stack } from '../UI';

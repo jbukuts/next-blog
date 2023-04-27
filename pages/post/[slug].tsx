@@ -13,17 +13,18 @@ import { Main } from '../../src/components/Layout';
 import { RelatedPost } from '../../src/components/RelatedArticles/RelatedArticles';
 import { StructuredBlogData } from '../../src/components/seo-wrappers';
 import { Heading } from '../../src/components/UI';
-import {
+import GitHubCMS, {
   ProcessedContent,
-  getPostContent,
-  getPostList,
-  getProcessedPostList
-} from '../../src/data-layer/pull-blog-data';
+  RepositoryContent,
+  getProcessedContent
+} from '../../src/data-layer';
+import { SectionHead } from '../../src/data-layer/mdast-compile-toc';
 import { compressData, decompressData } from '../../src/helpers/compression';
-import { SectionHead } from '../../src/helpers/mdast-compile-toc';
 import { useCurrentHeading } from '../../src/hooks';
 import TitleContext from '../../src/state/TitleContext';
 import styles from './[slug].module.scss';
+
+const CMSInstance = GitHubCMS.getInstance();
 
 const FlexContainer = dynamic(
   () =>
@@ -125,10 +126,8 @@ export async function getStaticPaths() {
   }
 
   // pull in all contents from repo folder
-  const contentList: Array<any> = await getPostList().catch((e: Error) => {
-    logger.error(`There was an error getting the post list: ${e}`);
-    return [];
-  });
+  const contentList =
+    (await CMSInstance.getRepoContent()) as RepositoryContent[];
 
   // filter slugs as the file names and remove non-markdown files
   return {
@@ -148,7 +147,9 @@ export async function getStaticProps(context: { params: { slug: string } }) {
 
   logger.info('Getting full post-list for related post');
   // get post list for related articles
-  const relatedPosts: RelatedPost[] = (await getProcessedPostList({}))
+  const relatedPosts: RelatedPost[] = (
+    (await getProcessedContent()) as ProcessedContent[]
+  )
     .map(({ title, slug, date, tags, timeToRead }) => ({
       title,
       slug,
@@ -160,9 +161,9 @@ export async function getStaticProps(context: { params: { slug: string } }) {
 
   logger.info(`Getting processed content for slug: *${currentSlug}*`);
   // get the html and frontmatter data for given slug
-  const processedContent = await getPostContent({
+  const processedContent = (await getProcessedContent({
     slug: currentSlug
-  });
+  })) as ProcessedContent;
 
   const { tags, content, timeToRead, date, tableOfContents, title, desc } =
     processedContent;

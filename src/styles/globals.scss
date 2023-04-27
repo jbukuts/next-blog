@@ -36,14 +36,23 @@ body {
   justify-content: center;
 }
 
+.sticky-header-enter {
+  top: -$sticky-header-height;
+}
+.sticky-header-enter-active {
+  top: 0;
+  transition: top 100ms;
+}
+.sticky-header-exit {
+  top: 0;
+}
+.sticky-header-exit-active {
+  top: -$sticky-header-height;
+  transition: top 100ms;
+}
+
 @include apply-lesser-than('md') {
   #__next {
     column-gap: 0;
-  }
-}
-
-@include apply-lesser-than('sm') {
-  #__next {
-    gap: $spacing-5;
   }
 }

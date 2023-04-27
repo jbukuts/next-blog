@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { ProcessedContent } from '../../../data-layer/pull-blog-data';
+import { ProcessedContent } from '../../../data-layer';
 import { Badge, Stack } from '../../UI';
 import styles from './ArticleTags.module.scss';
 

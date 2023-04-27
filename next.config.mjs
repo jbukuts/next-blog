@@ -1,7 +1,20 @@
 /* eslint-disable no-param-reassign */
-const path = require('path');
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import analyzer from '@next/bundle-analyzer';
+import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
-const { ENABLE_STATIC } = process.env;
+const { ENABLE_STATIC, ENABLE_PREACT, ANALYZE } = process.env;
+
+const withBundleAnalyzer = analyzer({
+  enabled: ANALYZE === 'true'
+});
+
+const enableStatic = ENABLE_STATIC === 'true';
+const enablePreact = ENABLE_PREACT === 'true';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const staticExport = {
   output: 'export',
@@ -38,7 +51,7 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  ...((ENABLE_STATIC && staticExport) || {}),
+  ...((enableStatic && staticExport) || {}),
   reactStrictMode: true,
   swcMinify: true,
   sassOptions: {
@@ -51,8 +64,19 @@ const nextConfig = {
       }
     }
   },
-  webpack: (config) => {
+  webpack: (config, { isServer, dev }) => {
     config.mode = 'production';
+    config.optimization.minimizer.push(new UglifyJsPlugin());
+    config.plugins.push(new DuplicatePackageCheckerPlugin());
+    if (!dev && !isServer && enablePreact) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'react/jsx-runtime.js': 'preact/compat/jsx-runtime',
+        react: 'preact/compat',
+        'react-dom/test-utils': 'preact/test-utils',
+        'react-dom': 'preact/compat'
+      };
+    }
     return config;
   },
   async headers() {
@@ -77,4 +101,4 @@ const nextConfig = {
   }
 };
 
-module.exports = nextConfig;
+export default withBundleAnalyzer(nextConfig);
