@@ -6,15 +6,13 @@
 import { serialize } from 'next-mdx-remote/serialize';
 import nodeFetch from 'node-fetch';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypePrettyCode from 'rehype-pretty-code';
+// import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import rehypeTruncate from 'rehype-truncate';
 import remarkBreaks from 'remark-breaks';
 import remarkParse from 'remark-parse';
-// eslint-disable-next-line no-unused-vars
-import shiki from 'shiki';
 import { PluggableList, Preset, unified } from 'unified';
-import vsTheme from '../../public/code-themes/vscode.json';
+// import vsTheme from '../../public/code-themes/vscode.json';
 import remarkSectionWrapper from '../plugins/rehype/rehype-section-wrapper';
 import remarkInsertJSXAfterHeader from '../plugins/remark/remark-insert-jsx';
 import GitHubCMS from './git-cms';
@@ -23,7 +21,7 @@ import { ProcessedContent, RepositoryContent } from './types';
 
 const { GIT_FOLDER, GIT_API_KEY, GIT_USER_NAME, GIT_REPO } = process.env;
 const CHARS_PER_MINUTE = 1150;
-const CODE_THEME = vsTheme;
+// const CODE_THEME = vsTheme;
 
 interface GetPostOptions {
   slug?: string;
@@ -142,7 +140,7 @@ async function getProcessedContent(
     repoContent,
     remarkPlugins: [remarkInsertJSXAfterHeader, ...remarkPlugins],
     rehypePlugins: [
-      [rehypePrettyCode, { theme: CODE_THEME }],
+      // [rehypePrettyCode, { theme: CODE_THEME }],
       rehypeSlug,
       [
         rehypeAutolinkHeadings,
