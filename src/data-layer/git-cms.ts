@@ -122,6 +122,10 @@ class GitHubCMS {
       return `/post/${slug}`;
     });
   }
+
+  public async clearSha() {
+    this.lastSha = '';
+  }
 }
 
 export default GitHubCMS;

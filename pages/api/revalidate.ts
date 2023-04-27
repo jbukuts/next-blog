@@ -29,6 +29,8 @@ export default async function handler(
 
     const pathList = slug ? [slug] : await CMSInstance.getChangedFiles();
 
+    logger.info('Paths sourced from repository');
+
     if (pathList.length > 0) {
       await Promise.all(
         pathList.map(async (path) => {
@@ -44,6 +46,7 @@ export default async function handler(
     return res.json({ revalidated: true, pages_updated: pathList });
   } catch (err) {
     logger.error('There was an error revalidating pages', err);
+    CMSInstance.clearSha();
     return sendError(res, 500, 'Error revalidating');
   }
 }
