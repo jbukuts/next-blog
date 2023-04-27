@@ -1,4 +1,6 @@
-import { visit } from 'unist-util-visit';
+import { CompilerFunction } from 'unified';
+import { Node } from 'unist';
+import { CONTINUE, visit } from 'unist-util-visit';
 
 export interface SectionHead {
   tagName: string;
@@ -10,8 +12,7 @@ export interface SectionHead {
 // parses AST into a table of contents
 // eslint-disable-next-line no-unused-vars
 export default function mdastCompileToc(this: any) {
-  /** @type {import('unified').CompilerFunction<Node, string>} */
-  const compiler = (tree: any) => {
+  const compiler: CompilerFunction<Node, string> = (tree: any) => {
     const tableOfContents: SectionHead[] = [];
 
     visit(
@@ -34,10 +35,12 @@ export default function mdastCompileToc(this: any) {
             .replace(/[\s_-]+/g, '-')
             .replace(/^-+|-+$/g, '')
         });
+
+        return CONTINUE;
       }
     );
 
-    return JSON.stringify(tableOfContents);
+    return JSON.stringify(tableOfContents.slice(1));
   };
 
   Object.assign(this, { Compiler: compiler });

@@ -6,10 +6,7 @@ import { Hello, PostCard } from '../src/components';
 import { Main } from '../src/components/Layout';
 import { BasicHeadData } from '../src/components/seo-wrappers';
 import { Heading, Stack } from '../src/components/UI';
-import {
-  ProcessedContent,
-  getProcessedPostList
-} from '../src/data-layer/pull-blog-data';
+import { ProcessedContent, getProcessedContent } from '../src/data-layer';
 import styles from './index.module.scss';
 
 interface HomeProps {
@@ -71,7 +68,7 @@ const IndexPage = (props: HomeProps) => {
 
 export async function getStaticProps() {
   logger.info('Pulling in full post-list for landing page');
-  const testPostList: ProcessedContent[] = await getProcessedPostList({});
+  const testPostList = (await getProcessedContent()) as ProcessedContent[];
   logger.info(`Number of articles pulled: ${testPostList.length}`);
 
   const fullTagsList: string[] = testPostList.reduce(

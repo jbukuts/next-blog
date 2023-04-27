@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import React, { Suspense } from 'react';
-import { ProcessedContent } from '../../data-layer/pull-blog-data';
+import { ProcessedContent } from '../../data-layer';
 import { Badge, Stack, Window } from '../UI';
 import styles from './PostCard.module.scss';
 

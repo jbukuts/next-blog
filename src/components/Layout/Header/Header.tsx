@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { AnimatePresence, LazyMotion, m } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { Suspense, useContext } from 'react';
+import React, { useContext, useRef } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import profile from '../../../../profile';
 import {
   useCurrentPath,
@@ -24,44 +24,45 @@ const stickyHeaderMotions = {
   transition: { duration: 0.1 }
 };
 
-const domAnimation = () =>
-  import('framer-motion').then((mod) => mod.domAnimation);
-
-const StickyHeader = () => {
+const StickyHeader = ({ show }: { show: boolean }) => {
   const scrollPercent = useScrollPercentage(50);
   const [currentTitle] = useContext(TitleContext);
   const currentPath = useCurrentPath();
+  const nodeRef = useRef(null);
 
   return (
-    <Suspense fallback={null}>
-      <LazyMotion features={domAnimation} strict>
-        <Stack
-          type='vertical'
-          spacing='none'
-          as={m.div}
-          {...stickyHeaderMotions}
-          className={styles.stickyBarWrapper}>
-          <div
-            style={{
-              width: `${(scrollPercent * 100).toPrecision(3)}%`
-            }}
-            className={styles.stickyBarScroll}
-          />
-          <Stack className={styles.stickyBarContent}>
-            <h3 title='Back to home'>
-              <Link href='/'>
-                <b>{`${firstName} ${lastName}`}</b>
-              </Link>
-            </h3>
-            <h5 title='Back to top'>
-              <Link href='#' replace as={currentPath}>
-                {currentTitle || ''}
-              </Link>
-            </h5>
-          </Stack>
+    <CSSTransition
+      in={show}
+      nodeRef={nodeRef}
+      timeout={100}
+      unmountOnExit
+      classNames='sticky-header'>
+      <Stack
+        ref={nodeRef}
+        type='vertical'
+        spacing='none'
+        {...stickyHeaderMotions}
+        className={styles.stickyBarWrapper}>
+        <div
+          style={{
+            width: `${(scrollPercent * 100).toPrecision(3)}%`
+          }}
+          className={styles.stickyBarScroll}
+        />
+        <Stack className={styles.stickyBarContent}>
+          <h3 title='Back to home'>
+            <Link href='/'>
+              <b>{`${firstName} ${lastName}`}</b>
+            </Link>
+          </h3>
+          <h5 title='Back to top'>
+            <Link href='#' replace as={currentPath}>
+              {currentTitle || ''}
+            </Link>
+          </h5>
         </Stack>
-      </LazyMotion>
-    </Suspense>
+      </Stack>
+    </CSSTransition>
   );
 };
 
@@ -86,9 +87,7 @@ const CombinedHeader = () => {
 
   return (
     <header className={styles.header}>
-      <AnimatePresence>
-        {!headerVisible && router.pathname !== '/' && <StickyHeader />}
-      </AnimatePresence>
+      <StickyHeader show={!headerVisible && router.pathname !== '/'} />
       <StaticHeader ref={headerRef} />
     </header>
   );

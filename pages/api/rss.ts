@@ -2,7 +2,7 @@ import { Feed } from 'feed';
 import { NextApiRequest, NextApiResponse } from 'next';
 import logger from '../../logger';
 import profile from '../../profile';
-import { getProcessedPostList } from '../../src/data-layer/pull-blog-data';
+import { ProcessedContent, getProcessedContent } from '../../src/data-layer';
 
 const {
   siteURI,
@@ -18,7 +18,7 @@ const {
 const SITE_URL = `https://${siteURI}`;
 const FULL_NAME = `${firstName} ${lastName}`;
 
-export default async (_req: NextApiRequest, res: NextApiResponse) => {
+export default async function rss(_req: NextApiRequest, res: NextApiResponse) {
   try {
     const feed = new Feed({
       title: siteTitle,
@@ -40,22 +40,24 @@ export default async (_req: NextApiRequest, res: NextApiResponse) => {
       }
     });
 
-    (await getProcessedPostList({})).forEach((postItem) => {
-      const { title, slug, desc, date, tags } = postItem;
+    ((await getProcessedContent()) as ProcessedContent[]).forEach(
+      (postItem) => {
+        const { title, slug, desc, date, tags } = postItem;
 
-      feed.addItem({
-        title,
-        id: `${SITE_URL}/post/${slug}`,
-        link: `${SITE_URL}/post/${slug}`,
-        description: desc,
-        date: new Date(date),
-        image: `${SITE_URL}${image}`,
-        category: tags.map((tag) => ({ name: tag }))
-      });
-    });
+        feed.addItem({
+          title,
+          id: `${SITE_URL}/post/${slug}`,
+          link: `${SITE_URL}/post/${slug}`,
+          description: desc,
+          date: new Date(date),
+          image: `${SITE_URL}${image}`,
+          category: tags.map((tag) => ({ name: tag }))
+        });
+      }
+    );
 
     const xml = feed.rss2();
-    res.status(200).send(xml);
+    return res.status(200).send(xml);
   } catch (err: unknown) {
     logger.error({
       err: {
@@ -64,6 +66,8 @@ export default async (_req: NextApiRequest, res: NextApiResponse) => {
       }
     });
 
-    res.status(500).send('There was an internal error. Try again later.');
+    return res
+      .status(500)
+      .send('There was an internal error. Try again later.');
   }
-};
+}

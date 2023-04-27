@@ -16,7 +16,7 @@ const profile = {
   siteURI: 'www.jbukuts.com',
   headerImage: '/name-chrome.webp',
   copyRightYear: 2023,
-  emailAddress: 'jbukuts@gmail.com'
+  emailAddress: 'me@jbukuts.com'
 };
 
 export default profile;
