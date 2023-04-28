@@ -4,7 +4,7 @@ import { fromHtml } from 'hast-util-from-html';
 import shiki from 'shiki';
 // import { findAfter } from 'unist-util-find-after';
 import { CONTINUE, visit } from 'unist-util-visit';
-
+import vsTheme from '../../../public/code-themes/vscode.json';
 /*
  * Test is node is a heading element
  */
@@ -19,7 +19,14 @@ const isCodeBlock = (node: any) => {
 export default function rehypeCodeWrap() {
   return async (tree: any) => {
     const highlighter = await shiki.getHighlighter({
-      theme: 'nord'
+      theme: {
+        name: '',
+        type: 'light',
+        settings: [],
+        fg: '',
+        bg: '',
+        colors: vsTheme.colors
+      }
     });
 
     visit(tree, isCodeBlock, (node: any) => {
