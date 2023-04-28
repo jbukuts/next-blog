@@ -113,7 +113,6 @@ class GitHubCMS {
 
     const newSha = commits[0].sha;
 
-    console.log(`new ${newSha}, old ${this.lastSha}`);
     if (newSha === this.lastSha) return [];
 
     const recentCommit = await this.octokit.rest.repos.getCommit({
