@@ -6,15 +6,15 @@
 import { serialize } from 'next-mdx-remote/serialize';
 import nodeFetch from 'node-fetch';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-// import rehypePrettyCode from 'rehype-pretty-code';
+import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import rehypeTruncate from 'rehype-truncate';
 import remarkBreaks from 'remark-breaks';
 import remarkParse from 'remark-parse';
 import { PluggableList, Preset, unified } from 'unified';
-// import vsTheme from '../../public/code-themes/vscode.json';
+import vsTheme from '../../public/code-themes/vscode.json';
 import {
-  rehypeCodeWrap,
+  // rehypeCodeWrap,
   rehypeSectionWrapper,
   remarkInsertJSXAfterHeader
 } from '../plugins';
@@ -24,8 +24,6 @@ import { ProcessedContent, RepositoryContent } from './types';
 
 const { GIT_FOLDER, GIT_API_KEY, GIT_USER_NAME, GIT_REPO } = process.env;
 const CHARS_PER_MINUTE = 1150;
-// const CODE_THEME = vsTheme;
-
 interface GetPostOptions {
   slug?: string;
   remarkPlugins?: PluggableList;
@@ -143,8 +141,8 @@ async function getProcessedContent(
     repoContent,
     remarkPlugins: [remarkInsertJSXAfterHeader, ...remarkPlugins],
     rehypePlugins: [
-      rehypeCodeWrap,
-      // [rehypePrettyCode, { theme: CODE_THEME }],
+      // rehypeCodeWrap,
+      [rehypePrettyCode, { theme: vsTheme }],
       rehypeSlug,
       [
         rehypeAutolinkHeadings,
