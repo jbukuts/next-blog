@@ -29,6 +29,9 @@ class GitHubCMS {
 
   private lastSha: string = '';
 
+  private memoData: Map<string, RepositoryContent | RepositoryContent[]> =
+    new Map();
+
   // eslint-disable-next-line no-use-before-define
   private static instance: GitHubCMS;
 
@@ -61,13 +64,17 @@ class GitHubCMS {
   // pulls content from repository by path
   public async getRepoContent(
     options: GetPostListOptions | void
-  ): Promise<RepositoryContent[] | RepositoryContent> {
+  ): Promise<RepositoryContent[] | RepositoryContent | undefined> {
     const { path, fileExt = '.md' } = options || {};
+
+    const apiPath = path ? `${this.path}/${path}` : this.path;
+
+    if (this.memoData.has(apiPath)) return this.memoData.get(apiPath);
 
     const repoContent = await this.octokit.rest.repos.getContent({
       owner: this.owner,
       repo: this.repo,
-      path: path ? `${this.path}/${path}` : this.path
+      path: apiPath
     });
 
     const { status, data } = repoContent;
@@ -79,6 +86,8 @@ class GitHubCMS {
       responseData = responseData.filter(
         (item) => item.type === 'file' && item.name.endsWith(fileExt)
       );
+
+    this.memoData.set(apiPath, responseData);
 
     return responseData;
   }
@@ -121,6 +130,10 @@ class GitHubCMS {
       const slug = filename.split('/').slice(-1)[0].split('.')[0];
       return `/post/${slug}`;
     });
+  }
+
+  public async clearData() {
+    this.memoData.clear();
   }
 
   public async clearSha() {

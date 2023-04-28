@@ -31,6 +31,8 @@ export default async function handler(
 
     logger.info('Paths sourced from repository');
 
+    CMSInstance.clearData();
+
     if (pathList.length > 0) {
       await Promise.all(
         pathList.map(async (path) => {
@@ -38,6 +40,8 @@ export default async function handler(
           logger.info(`Revalidated ${path}`);
         })
       );
+
+      logger.info('Paths revalidated!');
 
       await res.revalidate('/');
     }
