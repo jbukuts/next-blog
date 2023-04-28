@@ -15,7 +15,7 @@ const isHeading = (node: any) => {
 /*
  * Wraps section under heading element into a section tag
  */
-export default function remarkSectionWrapper() {
+export default function rehypeSectionWrapper() {
   return (tree: any) => {
     visit(tree, isHeading, (headingNode, startIndex) => {
       const {
