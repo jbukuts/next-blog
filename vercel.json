@@ -1,7 +1,7 @@
 {
   "functions": {
     "pages/post/[slug].tsx": {
-      "includeFiles": "node_modules/skiki/**"
+      "includeFiles": "var/task/node_modules/shiki/**"
     }
   }
 }

@@ -1,10 +1,9 @@
 /* eslint-disable no-param-reassign */
-// import { h } from 'hastscript';
 import { fromHtml } from 'hast-util-from-html';
-import shiki from 'shiki';
-// import { findAfter } from 'unist-util-find-after';
 import { CONTINUE, visit } from 'unist-util-visit';
 // import vsTheme from '../../../public/code-themes/vscode.json'
+
+const shiki = require('shiki');
 
 /*
  * Test is node is a heading element
@@ -39,7 +38,7 @@ export default function rehypeCodeWrap() {
       const html = shiki.renderToHtml(tokens, {
         bg: 'transparent',
         elements: {
-          code({ children: c }) {
+          code({ children: c }: any) {
             return `${c}`;
           }
         }
