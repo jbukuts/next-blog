@@ -1,6 +1,6 @@
 {
   "functions": {
-    "post/[slug].tsx": {
+    "pages/post/[slug].tsx": {
       "includeFiles": "node_modules/skiki/**"
     }
   }
