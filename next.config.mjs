@@ -64,10 +64,17 @@ const nextConfig = {
       }
     }
   },
+  experimental: {
+    outputFileTracingIncludes: {
+      '/post/[slug]': ['./node_modules/shiki/**']
+    }
+  },
   webpack: (config, { isServer, dev }) => {
     config.mode = 'production';
     config.optimization.minimizer.push(new UglifyJsPlugin());
-    config.plugins.push(new DuplicatePackageCheckerPlugin());
+    if (dev) {
+      config.plugins.push(new DuplicatePackageCheckerPlugin());
+    }
     if (!dev && !isServer && enablePreact) {
       config.resolve.alias = {
         ...config.resolve.alias,

@@ -27,7 +27,10 @@ class GitHubCMS {
 
   private path: string;
 
-  private lastSha: string = '';
+  private lastSha: string;
+
+  private memoStore: Map<string, RepositoryContent | RepositoryContent[]> =
+    new Map();
 
   // eslint-disable-next-line no-use-before-define
   private static instance: GitHubCMS;
@@ -37,6 +40,7 @@ class GitHubCMS {
     this.owner = owner;
     this.repo = repo;
     this.path = path;
+    this.lastSha = '';
     this.octokit = new Octokit({ auth: token });
   }
 
@@ -64,10 +68,15 @@ class GitHubCMS {
   ): Promise<RepositoryContent[] | RepositoryContent> {
     const { path, fileExt = '.md' } = options || {};
 
+    const apiPath = path ? `${this.path}/${path}` : this.path;
+
+    const memoData = this.memoStore.get(apiPath);
+    if (memoData !== undefined) return memoData;
+
     const repoContent = await this.octokit.rest.repos.getContent({
       owner: this.owner,
       repo: this.repo,
-      path: path ? `${this.path}/${path}` : this.path
+      path: apiPath
     });
 
     const { status, data } = repoContent;
@@ -79,6 +88,8 @@ class GitHubCMS {
       responseData = responseData.filter(
         (item) => item.type === 'file' && item.name.endsWith(fileExt)
       );
+
+    this.memoStore.set(apiPath, responseData);
 
     return responseData;
   }
@@ -117,10 +128,16 @@ class GitHubCMS {
 
     this.lastSha = newSha;
 
-    return commit.files.map(({ filename }) => {
-      const slug = filename.split('/').slice(-1)[0].split('.')[0];
-      return `/post/${slug}`;
-    });
+    return commit.files
+      .filter(({ filename }) => filename.startsWith(path))
+      .map(({ filename }) => {
+        const slug = filename.split('/').slice(-1)[0].split('.')[0];
+        return `/post/${slug}`;
+      });
+  }
+
+  public async clearData() {
+    this.memoStore.clear();
   }
 
   public async clearSha() {

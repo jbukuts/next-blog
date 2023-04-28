@@ -13,16 +13,17 @@ import remarkBreaks from 'remark-breaks';
 import remarkParse from 'remark-parse';
 import { PluggableList, Preset, unified } from 'unified';
 import vsTheme from '../../public/code-themes/vscode.json';
-import remarkSectionWrapper from '../plugins/rehype/rehype-section-wrapper';
-import remarkInsertJSXAfterHeader from '../plugins/remark/remark-insert-jsx';
+import {
+  // rehypeCodeWrap,
+  rehypeSectionWrapper,
+  remarkInsertJSXAfterHeader
+} from '../plugins';
 import GitHubCMS from './git-cms';
 import compileAsTOC, { SectionHead } from './mdast-compile-toc';
 import { ProcessedContent, RepositoryContent } from './types';
 
 const { GIT_FOLDER, GIT_API_KEY, GIT_USER_NAME, GIT_REPO } = process.env;
 const CHARS_PER_MINUTE = 1150;
-const CODE_THEME = vsTheme;
-
 interface GetPostOptions {
   slug?: string;
   remarkPlugins?: PluggableList;
@@ -140,14 +141,15 @@ async function getProcessedContent(
     repoContent,
     remarkPlugins: [remarkInsertJSXAfterHeader, ...remarkPlugins],
     rehypePlugins: [
-      [rehypePrettyCode, { theme: CODE_THEME }],
+      // rehypeCodeWrap,
+      [rehypePrettyCode, { theme: vsTheme }],
       rehypeSlug,
       [
         rehypeAutolinkHeadings,
         { behavior: 'wrap', test: ['h2', 'h3', 'h4', 'h5', 'h6'] }
       ],
       ...rehypePlugins,
-      remarkSectionWrapper
+      rehypeSectionWrapper
     ]
   });
 }

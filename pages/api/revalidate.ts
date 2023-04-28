@@ -29,7 +29,9 @@ export default async function handler(
 
     const pathList = slug ? [slug] : await CMSInstance.getChangedFiles();
 
-    logger.info('Paths sourced from repository');
+    logger.info(`Paths sourced from repository ${pathList}`);
+
+    CMSInstance.clearData();
 
     if (pathList.length > 0) {
       await Promise.all(
@@ -38,6 +40,8 @@ export default async function handler(
           logger.info(`Revalidated ${path}`);
         })
       );
+
+      logger.info('Paths revalidated!');
 
       await res.revalidate('/');
     }
