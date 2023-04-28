@@ -19,7 +19,7 @@ const isCodeBlock = (node: any) => {
 export default function rehypeCodeWrap() {
   return async (tree: any) => {
     const highlighter = await shiki.getHighlighter({
-      theme: 'nord'
+      theme: 'one-dark-pro'
     });
 
     visit(tree, isCodeBlock, (node: any) => {
