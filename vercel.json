@@ -1,7 +1,6 @@
 {
   "functions": {
     "pages/post/[slug].tsx": {
-      "memory": 2048,
       "includeFiles": "var/task/node_modules/shiki/**"
     }
   }
