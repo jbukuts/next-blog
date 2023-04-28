@@ -66,7 +66,7 @@ const nextConfig = {
   },
   experimental: {
     outputFileTracingIncludes: {
-      '/post/[slug]': ['/node_modules/shiki/**/*']
+      '/post/[slug]': ['./node_modules/shiki/**']
     }
   },
   webpack: (config, { isServer, dev }) => {
