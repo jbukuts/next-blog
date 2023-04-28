@@ -29,7 +29,7 @@ export default async function handler(
 
     const pathList = slug ? [slug] : await CMSInstance.getChangedFiles();
 
-    logger.info('Paths sourced from repository');
+    logger.info(`Paths sourced from repository ${pathList}`);
 
     CMSInstance.clearData();
 

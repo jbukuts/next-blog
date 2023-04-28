@@ -27,7 +27,7 @@ class GitHubCMS {
 
   private path: string;
 
-  private lastSha: string = '';
+  private lastSha: string;
 
   private memoStore: Map<string, RepositoryContent | RepositoryContent[]> =
     new Map();
@@ -40,6 +40,7 @@ class GitHubCMS {
     this.owner = owner;
     this.repo = repo;
     this.path = path;
+    this.lastSha = '';
     this.octokit = new Octokit({ auth: token });
   }
 
@@ -112,6 +113,7 @@ class GitHubCMS {
 
     const newSha = commits[0].sha;
 
+    console.log(`new ${newSha}, old ${this.lastSha}`);
     if (newSha === this.lastSha) return [];
 
     const recentCommit = await this.octokit.rest.repos.getCommit({
@@ -127,10 +129,12 @@ class GitHubCMS {
 
     this.lastSha = newSha;
 
-    return commit.files.map(({ filename }) => {
-      const slug = filename.split('/').slice(-1)[0].split('.')[0];
-      return `/post/${slug}`;
-    });
+    return commit.files
+      .filter(({ filename }) => filename.startsWith(path))
+      .map(({ filename }) => {
+        const slug = filename.split('/').slice(-1)[0].split('.')[0];
+        return `/post/${slug}`;
+      });
   }
 
   public async clearData() {
