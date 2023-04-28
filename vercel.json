@@ -1,7 +1,7 @@
 {
   "functions": {
-    "api/test.js": {
-      "includeFiles": "node_modules/shiki/**"
+    "post/[slug].tsx": {
+      "includeFiles": "node_modules/skiki/**"
     }
   }
 }
