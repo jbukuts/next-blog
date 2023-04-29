@@ -13,14 +13,10 @@ import remarkBreaks from 'remark-breaks';
 import remarkParse from 'remark-parse';
 import { PluggableList, Preset, unified } from 'unified';
 import vsTheme from '../../public/code-themes/vscode.json';
-import {
-  // rehypeCodeWrap,
-  rehypeSectionWrapper,
-  remarkInsertJSXAfterHeader
-} from '../plugins';
+import { rehypeSectionWrapper, remarkInsertJSXAfterHeader } from '../plugins';
 import GitHubCMS from './git-cms';
-import compileAsTOC, { SectionHead } from './mdast-compile-toc';
-import { ProcessedContent, RepositoryContent } from './types';
+import compileAsTOC from './mdast-compile-toc';
+import { ProcessedContent, RepositoryContent, SectionHead } from './types';
 
 const { GIT_FOLDER, GIT_API_KEY, GIT_USER_NAME, GIT_REPO } = process.env;
 const CHARS_PER_MINUTE = 1150;
@@ -69,6 +65,7 @@ async function processContent(
   options: ProcessContentOptions
 ): Promise<ProcessedContent> {
   const { repoContent, remarkPlugins = [], rehypePlugins = [] } = options;
+
   const {
     download_url: downloadURL,
     size,
@@ -122,9 +119,9 @@ async function getProcessedContent(
 ): Promise<ProcessedContent | ProcessedContent[]> {
   const { slug, remarkPlugins = [], rehypePlugins = [] } = options || {};
 
-  const repoContent = await CMSInstance.getRepoContent(
-    slug ? { path: `${slug}.md` } : {}
-  );
+  const repoContent = await CMSInstance.getRepoContent({
+    path: slug ? `${slug}.md` : undefined
+  });
 
   if (Array.isArray(repoContent))
     return Promise.all(
@@ -141,7 +138,6 @@ async function getProcessedContent(
     repoContent,
     remarkPlugins: [remarkInsertJSXAfterHeader, ...remarkPlugins],
     rehypePlugins: [
-      // rehypeCodeWrap,
       [rehypePrettyCode, { theme: vsTheme }],
       rehypeSlug,
       [

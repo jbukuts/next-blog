@@ -3,18 +3,17 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import analyzer from '@next/bundle-analyzer';
 import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import { withDataLayer } from './src/data-layer/data-layer.mjs';
 
-const { ENABLE_STATIC, ENABLE_PREACT, ANALYZE } = process.env;
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const { ENABLE_STATIC, ANALYZE } = process.env;
 
 const withBundleAnalyzer = analyzer({
   enabled: ANALYZE === 'true'
 });
 
 const enableStatic = ENABLE_STATIC === 'true';
-const enablePreact = ENABLE_PREACT === 'true';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const staticExport = {
   output: 'export',
@@ -69,20 +68,10 @@ const nextConfig = {
       '/post/[slug]': ['./node_modules/shiki/**']
     }
   },
-  webpack: (config, { isServer, dev }) => {
+  webpack: (config, { dev }) => {
     config.mode = 'production';
-    config.optimization.minimizer.push(new UglifyJsPlugin());
     if (dev) {
       config.plugins.push(new DuplicatePackageCheckerPlugin());
-    }
-    if (!dev && !isServer && enablePreact) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        'react/jsx-runtime.js': 'preact/compat/jsx-runtime',
-        react: 'preact/compat',
-        'react-dom/test-utils': 'preact/test-utils',
-        'react-dom': 'preact/compat'
-      };
     }
     return config;
   },
@@ -108,4 +97,4 @@ const nextConfig = {
   }
 };
 
-export default withBundleAnalyzer(nextConfig);
+export default withDataLayer(withBundleAnalyzer(nextConfig));

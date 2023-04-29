@@ -1,10 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { updateDataStore } from '@/data-layer/data-layer.mjs';
 import logger from '../../logger';
-import GitHubCMS from '../../src/data-layer';
 
 const { REVALIDATE_SECRET } = process.env;
-
-const CMSInstance = GitHubCMS.getInstance();
 
 function sendError(res: NextApiResponse, code: number, message: string) {
   return res.status(code).send({ message });
@@ -22,35 +20,24 @@ export default async function handler(
   if (method?.toUpperCase() !== 'POST')
     return sendError(res, 400, 'Invalid method');
 
+  if (!slug) return sendError(res, 400, 'slug required');
+
   if (token !== REVALIDATE_SECRET) return sendError(res, 401, 'Invalid token');
 
   try {
-    logger.info('Attempting to revalidate static pages');
+    logger.info(`Attempting to revalidate static page: ${slug}`);
 
-    const pathList = slug ? [slug] : await CMSInstance.getChangedFiles();
+    if (slug !== '/')
+      await updateDataStore({ slug: slug.split('/').slice(-1)[0] });
 
-    logger.info(`Paths sourced from repository ${pathList}`);
+    await res.revalidate(slug);
+    await res.revalidate('/');
 
-    CMSInstance.clearData();
-
-    if (pathList.length > 0) {
-      await Promise.all(
-        pathList.map(async (path) => {
-          await res.revalidate(path);
-          logger.info(`Revalidated ${path}`);
-        })
-      );
-
-      logger.info('Paths revalidated!');
-
-      await res.revalidate('/');
-    }
-
-    logger.info('Static pages revalidated successfully!');
-    return res.json({ revalidated: true, pages_updated: pathList });
+    logger.info('Static page revalidated successfully!');
+    return res.json({ revalidated: true, page_updated: slug });
   } catch (err) {
     logger.error('There was an error revalidating pages', err);
-    CMSInstance.clearSha();
+
     return sendError(res, 500, 'Error revalidating');
   }
 }

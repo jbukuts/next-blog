@@ -1,12 +1,17 @@
 import { useRouter } from 'next/router';
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote';
 import React, { useEffect, useState } from 'react';
-import logger from '../logger';
-import { Hello, PostCard } from '../src/components';
-import { Main } from '../src/components/Layout';
-import { BasicHeadData } from '../src/components/seo-wrappers';
-import { Heading, Stack } from '../src/components/UI';
-import { ProcessedContent, getProcessedContent } from '../src/data-layer';
+import {
+  BasicHeadData,
+  Heading,
+  Hello,
+  Main,
+  PostCard,
+  Stack
+} from '@/components/index';
+import { getDataStoreSorted } from '@/data-layer/data-layer.mjs';
+import { ProcessedContent } from '@/data-layer/index';
+import logger from 'logger';
 import styles from './index.module.scss';
 
 interface HomeProps {
@@ -17,6 +22,7 @@ interface HomeProps {
 const DISABLED_ROUTER = true;
 
 const components: MDXRemoteProps['components'] = {
+  FlexContainer: React.Fragment,
   h1: Heading.H2,
   a: 'u'
 };
@@ -68,17 +74,17 @@ const IndexPage = (props: HomeProps) => {
 
 export async function getStaticProps() {
   logger.info('Pulling in full post-list for landing page');
-  const testPostList = (await getProcessedContent()) as ProcessedContent[];
-  logger.info(`Number of articles pulled: ${testPostList.length}`);
+  const postList = getDataStoreSorted();
+  logger.info(`Number of articles pulled: ${postList.length}`);
 
-  const fullTagsList: string[] = testPostList.reduce(
+  const fullTagsList: string[] = postList.reduce(
     (acc, { tags }) => [...acc, ...tags],
     [] as string[]
   );
 
   return {
     props: {
-      postList: testPostList,
+      postList: postList as ProcessedContent[],
       fullTagsList: Array.from(new Set(fullTagsList))
     } as HomeProps,
     revalidate: 43200

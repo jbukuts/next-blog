@@ -1,8 +1,9 @@
 import { Feed } from 'feed';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getDataStoreSorted } from '@/data-layer/data-layer.mjs';
 import logger from '../../logger';
 import profile from '../../profile';
-import { ProcessedContent, getProcessedContent } from '../../src/data-layer';
+import { ProcessedContent } from '../../src/data-layer';
 
 const {
   siteURI,
@@ -40,21 +41,19 @@ export default async function rss(_req: NextApiRequest, res: NextApiResponse) {
       }
     });
 
-    ((await getProcessedContent()) as ProcessedContent[]).forEach(
-      (postItem) => {
-        const { title, slug, desc, date, tags } = postItem;
+    (getDataStoreSorted() as ProcessedContent[]).forEach((postItem) => {
+      const { title, slug, desc, date, tags } = postItem;
 
-        feed.addItem({
-          title,
-          id: `${SITE_URL}/post/${slug}`,
-          link: `${SITE_URL}/post/${slug}`,
-          description: desc,
-          date: new Date(date),
-          image: `${SITE_URL}${image}`,
-          category: tags.map((tag) => ({ name: tag }))
-        });
-      }
-    );
+      feed.addItem({
+        title,
+        id: `${SITE_URL}/post/${slug}`,
+        link: `${SITE_URL}/post/${slug}`,
+        description: desc,
+        date: new Date(date),
+        image: `${SITE_URL}${image}`,
+        category: tags.map((tag) => ({ name: tag }))
+      });
+    });
 
     const xml = feed.rss2();
     return res.status(200).send(xml);

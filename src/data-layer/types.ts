@@ -32,3 +32,5 @@ export interface ProcessedContent {
   tableOfContents: SectionHead[];
   desc: string;
 }
+
+export type MinContent = Omit<ProcessedContent, 'content' | 'tableOfContents'>;
