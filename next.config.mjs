@@ -3,22 +3,14 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import analyzer from '@next/bundle-analyzer';
 import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin';
-import { withDataLayer } from './src/data-layer/data-layer.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const { ENABLE_STATIC, ANALYZE } = process.env;
+const { ANALYZE } = process.env;
 
 const withBundleAnalyzer = analyzer({
   enabled: ANALYZE === 'true'
 });
-
-const enableStatic = ENABLE_STATIC === 'true';
-
-const staticExport = {
-  output: 'export',
-  distDir: 'out'
-};
 
 const contentSecurityPolicy = `
   default-src 'self' vitals.vercel-insights.com assets.vercel.com;
@@ -50,7 +42,6 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  ...((enableStatic && staticExport) || {}),
   reactStrictMode: true,
   swcMinify: true,
   sassOptions: {
@@ -64,9 +55,10 @@ const nextConfig = {
     }
   },
   experimental: {
-    outputFileTracingIncludes: {
-      '/post/[slug]': ['./node_modules/shiki/**']
-    }
+    appDir: true
+    // outputFileTracingIncludes: {
+    //   '/post/[slug]': ['./node_modules/shiki/**']
+    // }
   },
   webpack: (config, { dev }) => {
     config.mode = 'production';
@@ -97,4 +89,4 @@ const nextConfig = {
   }
 };
 
-export default withDataLayer(withBundleAnalyzer(nextConfig));
+export default withBundleAnalyzer(nextConfig);

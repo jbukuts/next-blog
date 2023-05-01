@@ -29,7 +29,7 @@ body {
   gap: $grid-spacing;
   min-height: 100vh;
 
-  grid-template-rows: [header] auto [content] auto [footer] auto;
+  grid-template-rows: [header] min-content [content] auto [footer] auto;
   grid-template-columns:
     [left-side] 1fr [middle] min(100%, $content-width)
     [right-side] 1fr [end];

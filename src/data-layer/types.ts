@@ -1,4 +1,4 @@
-import { MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { JSXElementConstructor, ReactElement } from 'react';
 
 export interface SectionHead {
   tagName: string;
@@ -19,18 +19,20 @@ export interface RepositoryContent {
   git_url: string | null;
   html_url: string | null;
   download_url: string | null;
-  _links: object | null;
+  _links: Record<string, string>;
 }
 
 export interface ProcessedContent {
-  date: string;
   title: string;
-  slug: string;
-  timeToRead: number;
   tags: string[];
-  content: MDXRemoteSerializeResult;
+  content: ReactElement<any, string | JSXElementConstructor<any>>;
+  date: string;
   tableOfContents: SectionHead[];
   desc: string;
+  slug: string;
+  path: string;
+  timeToRead: number;
+  hash: string;
 }
 
 export type MinContent = Omit<ProcessedContent, 'content' | 'tableOfContents'>;

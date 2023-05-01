@@ -63,6 +63,10 @@ $scroll-color: get-color('blue');
   }
 }
 
+.unsetLink {
+  text-decoration: none;
+}
+
 @include apply-lesser-than('md') {
   .stickyBarContent {
     width: min(100%, calc($content-width + 2 * $sticky-bar-padding));

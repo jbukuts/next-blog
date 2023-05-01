@@ -1,6 +1,2 @@
-import GitHubCMS from './git-cms';
-import getProcessedContent from './pull-blog-data';
-
+export * from './data-layer';
 export * from './types';
-export { getProcessedContent };
-export default GitHubCMS;

@@ -1,9 +1,9 @@
 import { Feed } from 'feed';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getDataStoreSorted } from '@/data-layer/data-layer.mjs';
+
+import { ProcessedContent, getDataStoreSorted } from '@/data-layer/index';
 import logger from '../../logger';
 import profile from '../../profile';
-import { ProcessedContent } from '../../src/data-layer';
 
 const {
   siteURI,
@@ -41,7 +41,7 @@ export default async function rss(_req: NextApiRequest, res: NextApiResponse) {
       }
     });
 
-    (getDataStoreSorted() as ProcessedContent[]).forEach((postItem) => {
+    ((await getDataStoreSorted()) as ProcessedContent[]).forEach((postItem) => {
       const { title, slug, desc, date, tags } = postItem;
 
       feed.addItem({
@@ -56,6 +56,8 @@ export default async function rss(_req: NextApiRequest, res: NextApiResponse) {
     });
 
     const xml = feed.rss2();
+    res.setHeader('Cache-Control', 's-maxage=86400');
+    res.setHeader('Content-Type', 'application/xml');
     return res.status(200).send(xml);
   } catch (err: unknown) {
     logger.error({

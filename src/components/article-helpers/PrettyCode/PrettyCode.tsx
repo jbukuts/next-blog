@@ -1,3 +1,5 @@
+'use client';
+
 import cx from 'classnames';
 import React, { useRef, useState } from 'react';
 import { Stack } from '../../UI';

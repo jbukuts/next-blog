@@ -1,18 +1,17 @@
+'use client';
+
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import React, { useContext, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import profile from '../../../../profile';
-import {
-  useCurrentPath,
-  useElementOnScreen,
-  useScrollPercentage
-} from '../../../hooks';
-import TitleContext from '../../../state/TitleContext';
-import ThemeToggle from '../../ThemeToggle/ThemeToggle';
-import { Stack } from '../../UI';
+import SmartLink from '@/components/article-helpers/SmartLink';
+import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
+import { Stack } from '@/components/UI';
+import profile from 'profile';
+import { useElementOnScreen, useScrollPercentage } from 'src/hooks';
+import TitleContext from 'src/state/TitleContext';
 import styles from './Header.module.scss';
 
 const { firstName, lastName, siteTitle, headerImage } = profile;
@@ -27,7 +26,6 @@ const stickyHeaderMotions = {
 const StickyHeader = ({ show }: { show: boolean }) => {
   const scrollPercent = useScrollPercentage(50);
   const [currentTitle] = useContext(TitleContext);
-  const currentPath = useCurrentPath();
   const nodeRef = useRef(null);
 
   return (
@@ -56,9 +54,9 @@ const StickyHeader = ({ show }: { show: boolean }) => {
             </Link>
           </h3>
           <h5 title='Back to top'>
-            <Link href='#' replace as={currentPath}>
+            <SmartLink href='#' className={styles.unsetLink}>
               {currentTitle || ''}
-            </Link>
+            </SmartLink>
           </h5>
         </Stack>
       </Stack>
@@ -83,11 +81,11 @@ const StaticHeader = React.forwardRef<Element>((_, ref) => (
 
 const CombinedHeader = () => {
   const [headerRef, headerVisible] = useElementOnScreen({}, true);
-  const router = useRouter();
+  const pathName = usePathname();
 
   return (
     <header className={styles.header}>
-      <StickyHeader show={!headerVisible && router.pathname !== '/'} />
+      <StickyHeader show={!headerVisible && pathName !== '/'} />
       <StaticHeader ref={headerRef} />
     </header>
   );

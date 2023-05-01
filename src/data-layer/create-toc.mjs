@@ -30,7 +30,7 @@ function compileTOC() {
         return CONTINUE;
       }
     );
-    return JSON.stringify(tableOfContents.slice(1));
+    return JSON.stringify(tableOfContents);
   };
 
   Object.assign(this, { Compiler: compiler });

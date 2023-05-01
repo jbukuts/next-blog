@@ -1,11 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { updateDataStore } from '@/data-layer/data-layer.mjs';
 import logger from '../../logger';
 
 const { REVALIDATE_SECRET } = process.env;
 
 function sendError(res: NextApiResponse, code: number, message: string) {
-  return res.status(code).send({ message });
+  return res.status(code).send({ revalidated: false, message });
 }
 
 export default async function handler(
@@ -26,9 +25,6 @@ export default async function handler(
 
   try {
     logger.info(`Attempting to revalidate static page: ${slug}`);
-
-    if (slug !== '/')
-      await updateDataStore({ slug: slug.split('/').slice(-1)[0] });
 
     await res.revalidate(slug);
     await res.revalidate('/');
