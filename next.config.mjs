@@ -55,10 +55,10 @@ const nextConfig = {
     }
   },
   experimental: {
-    appDir: true
-    // outputFileTracingIncludes: {
-    //   '/post/[slug]': ['./node_modules/shiki/**']
-    // }
+    appDir: true,
+    outputFileTracingIncludes: {
+      '/post/[slug]': ['./node_modules/shiki/**']
+    }
   },
   webpack: (config, { dev }) => {
     config.mode = 'production';
