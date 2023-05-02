@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { MDXRemoteProps } from 'next-mdx-remote';
-import React from 'react';
+import React, { Suspense } from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
@@ -155,10 +155,12 @@ const BlogPostPage = async ({ params }: BlogPostProps) => {
         <article className={styles.postContent}>{content}</article>
       </Main>
       {tableOfContents.length > 0 && (
-        <TableOfContents
-          tableOfContents={tableOfContents}
-          articleTitle={title}
-        />
+        <Suspense>
+          <TableOfContents
+            tableOfContents={tableOfContents}
+            articleTitle={title}
+          />
+        </Suspense>
       )}
     </>
   );

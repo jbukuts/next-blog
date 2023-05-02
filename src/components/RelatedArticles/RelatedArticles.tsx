@@ -1,10 +1,9 @@
-'use server';
-
 import NextLink from 'next/link';
 import React, { Suspense } from 'react';
+import SideBar from '@/components/Layout/SideBar';
+import Badge from '@/components/UI/Badge';
+import Stack from '@/components/UI/Stack';
 import { ProcessedContent, getDataStoreSorted } from '@/data-layer/index';
-import { SideBar } from '../Layout';
-import { Badge, Stack } from '../UI';
 import styles from './RelatedArticles.module.scss';
 
 export type RelatedPost = Pick<
