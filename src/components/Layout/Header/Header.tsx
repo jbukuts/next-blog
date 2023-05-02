@@ -9,8 +9,9 @@ import { CSSTransition } from 'react-transition-group';
 import SmartLink from '@/components/article-helpers/SmartLink';
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
 import { Stack } from '@/components/UI';
+import useElementOnScreen from '@/hooks/useElementOnScreen';
+import useScrollPercentage from '@/hooks/useScrollPercentage';
 import profile from 'profile';
-import { useElementOnScreen, useScrollPercentage } from 'src/hooks';
 import TitleContext from 'src/state/TitleContext';
 import styles from './Header.module.scss';
 

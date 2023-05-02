@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { MDXRemoteProps } from 'next-mdx-remote';
 import React, { Suspense } from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -43,6 +44,7 @@ const {
 const origin = `https://${siteURI}`;
 
 export const dynamic = 'force-static';
+export const fetchCache = 'force-cache';
 export const dynamicParams = true;
 
 const components: MDXRemoteProps['components'] = {
@@ -56,7 +58,7 @@ const components: MDXRemoteProps['components'] = {
 } as any;
 
 export async function generateStaticParams() {
-  const keys: string[] = Object.keys(getDataStore());
+  const keys: string[] = Object.keys(await getDataStore());
 
   return keys.map((slug) => ({
     slug
@@ -64,25 +66,29 @@ export async function generateStaticParams() {
 }
 
 async function getPageData(pageSlug: string) {
-  logger.info(`Getting page data for: *${pageSlug}*`);
+  try {
+    logger.info(`Getting page data for: *${pageSlug}*`);
 
-  const processedContent = (await getContent({
-    slug: pageSlug,
-    components,
-    remarkPlugins: [remarkInsertJSXAfterHeader],
-    rehypePlugins: [
-      [rehypePrettyCode, { theme: vsTheme }],
-      rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        { behavior: 'wrap', test: ['h2', 'h3', 'h4', 'h5', 'h6'] }
+    const processedContent = (await getContent({
+      slug: pageSlug,
+      components,
+      remarkPlugins: [remarkInsertJSXAfterHeader],
+      rehypePlugins: [
+        [rehypePrettyCode, { theme: vsTheme }],
+        rehypeSlug,
+        [
+          rehypeAutolinkHeadings,
+          { behavior: 'wrap', test: ['h2', 'h3', 'h4', 'h5', 'h6'] }
+        ]
       ]
-    ]
-  })) as ProcessedContent;
+    })) as ProcessedContent;
 
-  logger.info(processedContent.title);
+    logger.info(processedContent.title);
 
-  return processedContent;
+    return processedContent;
+  } catch {
+    return notFound();
+  }
 }
 
 export async function generateMetadata({
