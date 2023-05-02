@@ -1,6 +1,6 @@
 {
   "functions": {
-    "pages/post/[slug].tsx": {
+    "app/post/[slug]/page.tsx": {
       "includeFiles": "var/task/node_modules/shiki/**"
     }
   }

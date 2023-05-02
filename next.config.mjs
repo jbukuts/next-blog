@@ -57,7 +57,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
     outputFileTracingIncludes: {
-      '/post/[slug]/page': ['./node_modules/shiki/**']
+      '/post/[slug]': ['./node_modules/shiki/**']
     }
   },
   webpack: (config, { dev }) => {
