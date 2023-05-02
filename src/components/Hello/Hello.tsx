@@ -3,18 +3,12 @@ import React from 'react';
 import profile from '../../../profile';
 import IconLink from '../IconLink';
 import { Stack } from '../UI';
-import { Github, LinkedIn, SoundCloud, Twitter } from '../UI/icons';
+import { Github, LinkedIn, Twitter } from '../UI/icons';
 import styles from './Hello.module.scss';
 
 const { aboutMe, imageWrapper, socials, helloContent } = styles;
-const {
-  firstName,
-  lastName,
-  linkedInProfile,
-  twitterProfile,
-  githubProfile,
-  soundCloudProfile
-} = profile;
+const { firstName, lastName, linkedInProfile, twitterProfile, githubProfile } =
+  profile;
 
 const ICON_SIZE = 24;
 
@@ -56,12 +50,6 @@ const Hello = () => (
           icon={Twitter}
           size={ICON_SIZE}
           fill
-        />
-        <IconLink
-          href={soundCloudProfile}
-          title='My SoundCloud'
-          icon={SoundCloud}
-          size={ICON_SIZE}
         />
         <IconLink
           href={linkedInProfile}
