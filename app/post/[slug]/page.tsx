@@ -6,7 +6,6 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import { Article, WithContext } from 'schema-dts';
-import { getHighlighter } from 'shiki';
 import ArticleTags from '@/components/article-helpers/ArticleTags';
 import FlexContainer from '@/components/article-helpers/FlexContainer';
 import PrettyCode from '@/components/article-helpers/PrettyCode';
@@ -20,6 +19,7 @@ import { ProcessedContent } from '@/data-layer/types';
 import styles from '@/styles/pages/[slug].module.scss';
 import logger from 'logger';
 import profile from 'profile';
+import vsTheme from 'public/code-themes/vscode.json';
 import { remarkInsertJSXAfterHeader } from 'src/plugins';
 
 interface BlogPostProps {
@@ -74,30 +74,7 @@ async function getPageData(pageSlug: string) {
       components,
       remarkPlugins: [remarkInsertJSXAfterHeader],
       rehypePlugins: [
-        [
-          rehypePrettyCode,
-          {
-            // nextjs file tracing forces the need for this
-            // given if cant detect the dependencies use of fs
-            getHighlighter: () =>
-              getHighlighter({
-                theme: 'one-dark-pro',
-                langs: [
-                  'js',
-                  'md',
-                  'mdx',
-                  'ts',
-                  'tsx',
-                  'python',
-                  'html',
-                  'scss',
-                  'css',
-                  'c',
-                  'rust'
-                ]
-              })
-          }
-        ],
+        // [rehypePrettyCode, { theme: vsTheme }],
         rehypeSlug,
         [
           rehypeAutolinkHeadings,

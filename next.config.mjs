@@ -43,7 +43,7 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
+  // output: 'standalone',
   swcMinify: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
