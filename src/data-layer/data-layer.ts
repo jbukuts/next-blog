@@ -97,8 +97,7 @@ export async function getContent(
   const apiURL = `https://api.github.com/repos/${GIT_USER_NAME}/${GIT_REPO}/contents/${path}`;
 
   const data: RepositoryContent | RepositoryContent[] = await fetch(apiURL, {
-    cache: 'force-cache',
-    next: { revalidate: 43200 },
+    // next: { revalidate: 43200 },
     headers: {
       authorization: `Bearer ${GIT_API_KEY}`,
       contentType: 'application/vnd.github.v3+json'
