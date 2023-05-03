@@ -109,7 +109,8 @@ async function getPageData(pageSlug: string) {
     logger.info(processedContent.title);
 
     return processedContent;
-  } catch {
+  } catch (err: any) {
+    logger.error(err);
     return notFound();
   }
 }
