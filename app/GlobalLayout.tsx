@@ -2,9 +2,9 @@
 
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from 'next-themes';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Footer, Header } from '@/components/index';
-import useCurrentPath from '@/hooks/useCurrentPath';
+// import useCurrentPath from '@/hooks/useCurrentPath';
 import { TitleProvider } from 'src/state/TitleContext';
 
 interface GlobalLayoutProps {
@@ -14,11 +14,11 @@ interface GlobalLayoutProps {
 const GlobalLayout = (props: GlobalLayoutProps) => {
   const { children } = props;
 
-  const page = useCurrentPath();
+  // const page = useCurrentPath();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [page]);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [page]);
 
   return (
     <ThemeProvider defaultTheme='dark'>
