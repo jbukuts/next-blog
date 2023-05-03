@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { MDXRemoteProps } from 'next-mdx-remote';
 import React, { Suspense } from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypePrettyCode from 'rehype-pretty-code';
+// import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import { Article, WithContext } from 'schema-dts';
 import ArticleTags from '@/components/article-helpers/ArticleTags';
@@ -19,7 +19,7 @@ import { ProcessedContent } from '@/data-layer/types';
 import styles from '@/styles/pages/[slug].module.scss';
 import logger from 'logger';
 import profile from 'profile';
-import vsTheme from 'public/code-themes/vscode.json';
+// import vsTheme from 'public/code-themes/vscode.json';
 import { remarkInsertJSXAfterHeader } from 'src/plugins';
 
 interface BlogPostProps {
