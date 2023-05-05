@@ -44,7 +44,7 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // output: 'standalone',
+  output: 'standalone',
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@use "src/styles/resources" as *;`,

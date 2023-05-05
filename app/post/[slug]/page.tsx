@@ -24,10 +24,10 @@ import profile from 'profile';
 import vsTheme from 'public/code-themes/vscode.json';
 import { remarkInsertJSXAfterHeader } from 'src/plugins';
 
-const { IS_BUILD, NODE_ENV } = process.env;
+// const { IS_BUILD, NODE_ENV } = process.env;
 
-const isBuild = IS_BUILD === 'true';
-const isDev = NODE_ENV === 'development';
+// const isBuild = IS_BUILD === 'true';
+// const isDev = NODE_ENV === 'development';
 
 interface BlogPostProps {
   params: { slug: string };
@@ -77,7 +77,7 @@ async function getPageData(pageSlug: string) {
     console.log(`Pulling page data for *${pageSlug}*`);
     // last resort since nextjs wont let me turn off file tracing
     const createPath = (end: string) =>
-      path.join(process.cwd(), isBuild || isDev ? 'public' : '', end);
+      path.join(process.cwd(), 'node_modules', 'shiki', end);
 
     const processedContent = (await getContent({
       slug: pageSlug,
