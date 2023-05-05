@@ -1,14 +1,15 @@
 /* eslint-disable no-console */
-import path from 'path';
+// import path from 'path';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MDXRemoteProps } from 'next-mdx-remote';
 import React, { Suspense } from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeHighlight from 'rehype-highlight';
+// import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import { Article, WithContext } from 'schema-dts';
-import { BUNDLED_LANGUAGES, getHighlighter } from 'shiki';
+// import { BUNDLED_LANGUAGES, getHighlighter } from 'shiki';
 import ArticleTags from '@/components/article-helpers/ArticleTags';
 import FlexContainer from '@/components/article-helpers/FlexContainer';
 import PrettyCode from '@/components/article-helpers/PrettyCode';
@@ -21,7 +22,7 @@ import { getContent, getDataStore } from '@/data-layer/data-layer';
 import { ProcessedContent } from '@/data-layer/types';
 import styles from '@/styles/pages/[slug].module.scss';
 import profile from 'profile';
-import vsTheme from 'public/code-themes/vscode.json';
+// import vsTheme from 'public/code-themes/vscode.json';
 import { remarkInsertJSXAfterHeader } from 'src/plugins';
 
 // const { IS_BUILD, NODE_ENV } = process.env;
@@ -76,29 +77,30 @@ async function getPageData(pageSlug: string) {
   try {
     console.log(`Pulling page data for *${pageSlug}*`);
     // last resort since nextjs wont let me turn off file tracing
-    const createPath = (end: string) =>
-      path.join(process.cwd(), 'node_modules', 'shiki', end);
+    // const createPath = (end: string) =>
+    //   path.join(process.cwd(), 'node_modules', 'shiki', end);
 
     const processedContent = (await getContent({
       slug: pageSlug,
       components,
       remarkPlugins: [remarkInsertJSXAfterHeader],
       rehypePlugins: [
-        [
-          rehypePrettyCode,
-          {
-            theme: vsTheme,
-            getHighlighter: (options: any) =>
-              getHighlighter({
-                ...options,
-                paths: {
-                  themes: createPath('themes'),
-                  languages: createPath('languages')
-                },
-                langs: [...BUNDLED_LANGUAGES]
-              })
-          }
-        ],
+        // [
+        //   rehypePrettyCode,
+        //   {
+        //     theme: vsTheme,
+        //     getHighlighter: (options: any) =>
+        //       getHighlighter({
+        //         ...options,
+        //         paths: {
+        //           themes: createPath('themes'),
+        //           languages: createPath('languages')
+        //         },
+        //         langs: [...BUNDLED_LANGUAGES]
+        //       })
+        //   }
+        // ],
+        rehypeHighlight,
         rehypeSlug,
         [
           rehypeAutolinkHeadings,
