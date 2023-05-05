@@ -60,7 +60,7 @@ const nextConfig = {
     }
   },
   webpack: (config, { dev }) => {
-    config.mode = 'production';
+    // config.mode = 'production';
     if (dev) {
       config.plugins.push(new DuplicatePackageCheckerPlugin());
     }
