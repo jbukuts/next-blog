@@ -10,7 +10,6 @@ import Stack from '@/components/UI/Stack';
 import { getDataStoreSorted } from '@/data-layer/data-layer';
 import { ProcessedContent } from '@/data-layer/types';
 import styles from '@/styles/pages/index.module.scss';
-import logger from 'logger';
 import profile from 'profile';
 
 interface HomeData {
@@ -33,7 +32,6 @@ export const metadata: Metadata = {
 export const dynamic = 'force-static';
 
 async function getData(): Promise<HomeData> {
-  logger.info('Getting index page data!');
   const postList = await getDataStoreSorted({ components });
 
   const fullTagsList: string[] = postList.reduce(

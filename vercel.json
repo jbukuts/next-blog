@@ -1,4 +1,5 @@
 {
+  "framework": "nextjs",
   "functions": {
     "app/post/[slug]/page.tsx": {
       "includeFiles": "var/task/node_modules/shiki/**"

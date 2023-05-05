@@ -23,8 +23,12 @@ export const metadata: Metadata = {
     template: `${firstName} ${lastName} - %s`,
     default: jobTitle
   },
+  description,
   alternates: {
-    canonical: origin
+    canonical: origin,
+    types: {
+      'application/rss+xml': `${origin}/rss.xml`
+    }
   },
   openGraph: {
     title: siteTitle,

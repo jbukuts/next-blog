@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { MDXRemoteProps } from 'next-mdx-remote';
 import React, { Suspense } from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-// import rehypePrettyCode from 'rehype-pretty-code';
+import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import { Article, WithContext } from 'schema-dts';
 import ArticleTags from '@/components/article-helpers/ArticleTags';
@@ -17,9 +17,8 @@ import Heading from '@/components/UI/Heading';
 import { getContent, getDataStore } from '@/data-layer/data-layer';
 import { ProcessedContent } from '@/data-layer/types';
 import styles from '@/styles/pages/[slug].module.scss';
-import logger from 'logger';
 import profile from 'profile';
-// import vsTheme from 'public/code-themes/vscode.json';
+import vsTheme from 'public/code-themes/vscode.json';
 import { remarkInsertJSXAfterHeader } from 'src/plugins';
 
 interface BlogPostProps {
@@ -67,14 +66,12 @@ export async function generateStaticParams() {
 
 async function getPageData(pageSlug: string) {
   try {
-    logger.info(`Getting page data for: *${pageSlug}*`);
-
     const processedContent = (await getContent({
       slug: pageSlug,
       components,
       remarkPlugins: [remarkInsertJSXAfterHeader],
       rehypePlugins: [
-        // [rehypePrettyCode, { theme: vsTheme }],
+        [rehypePrettyCode, { theme: vsTheme }],
         rehypeSlug,
         [
           rehypeAutolinkHeadings,
@@ -82,12 +79,8 @@ async function getPageData(pageSlug: string) {
         ]
       ]
     })) as ProcessedContent;
-
-    logger.info(processedContent.title);
-
     return processedContent;
   } catch (err: any) {
-    logger.error(err);
     return notFound();
   }
 }
@@ -98,14 +91,21 @@ export async function generateMetadata({
   const { title, desc: description } = await getPageData(params.slug);
 
   const imageUrl = `${origin}/${image}`;
+  const pageUrl = `${origin}/post/${params.slug}`;
 
   return {
     title,
     description,
+    alternates: {
+      canonical: pageUrl,
+      types: {
+        'application/rss+xml': `${origin}/rss`
+      }
+    },
     openGraph: {
       title,
       description,
-      url: `${origin}/post/${params.slug}`,
+      url: pageUrl,
       siteName: siteTitle,
       images: [{ url: imageUrl }],
       locale: 'en-US',

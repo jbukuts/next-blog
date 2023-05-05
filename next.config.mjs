@@ -43,7 +43,6 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // output: 'standalone',
   swcMinify: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
@@ -56,12 +55,9 @@ const nextConfig = {
     }
   },
   experimental: {
-    // nftTracing: false,
     outputFileTracingIncludes: {
-      '/post/[slug].rsc': ['./node_modules/shiki/**']
-    },
-    // outputFileTracingRoot: path.join(__dirname, './'),
-    appDir: true
+      '/post/[slug]': ['./node_modules/shiki/**']
+    }
   },
   webpack: (config, { dev }) => {
     config.mode = 'production';
