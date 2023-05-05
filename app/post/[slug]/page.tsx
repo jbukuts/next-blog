@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MDXRemoteProps } from 'next-mdx-remote';
@@ -66,6 +67,7 @@ export async function generateStaticParams() {
 
 async function getPageData(pageSlug: string) {
   try {
+    console.log(`Pulling page data for *${pageSlug}*`);
     const processedContent = (await getContent({
       slug: pageSlug,
       components,
@@ -81,6 +83,7 @@ async function getPageData(pageSlug: string) {
     })) as ProcessedContent;
     return processedContent;
   } catch (err: any) {
+    console.error(err);
     return notFound();
   }
 }
