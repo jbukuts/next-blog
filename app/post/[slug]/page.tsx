@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import path from 'path';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MDXRemoteProps } from 'next-mdx-remote';
@@ -22,6 +23,11 @@ import styles from '@/styles/pages/[slug].module.scss';
 import profile from 'profile';
 import vsTheme from 'public/code-themes/vscode.json';
 import { remarkInsertJSXAfterHeader } from 'src/plugins';
+
+const { IS_BUILD, NODE_ENV } = process.env;
+
+const isBuild = IS_BUILD === 'true';
+const isDev = NODE_ENV === 'development';
 
 interface BlogPostProps {
   params: { slug: string };
@@ -69,6 +75,9 @@ export async function generateStaticParams() {
 async function getPageData(pageSlug: string) {
   try {
     console.log(`Pulling page data for *${pageSlug}*`);
+    // last resort since nextjs wont let me turn off file tracing
+    const createPath = (end: string) =>
+      path.join(process.cwd(), isBuild || isDev ? 'public' : '', end);
 
     const processedContent = (await getContent({
       slug: pageSlug,
@@ -79,13 +88,12 @@ async function getPageData(pageSlug: string) {
           rehypePrettyCode,
           {
             theme: vsTheme,
-            // last resort since nextjs wont let me turn off file tracing
             getHighlighter: (options: any) =>
               getHighlighter({
                 ...options,
                 paths: {
-                  themes: '../../public/themes',
-                  languages: '../../public/languages'
+                  themes: createPath('themes'),
+                  languages: createPath('languages')
                 },
                 langs: [...BUNDLED_LANGUAGES]
               })
