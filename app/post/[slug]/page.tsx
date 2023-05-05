@@ -7,6 +7,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import { Article, WithContext } from 'schema-dts';
+import { setCDN } from 'shiki';
 import ArticleTags from '@/components/article-helpers/ArticleTags';
 import FlexContainer from '@/components/article-helpers/FlexContainer';
 import PrettyCode from '@/components/article-helpers/PrettyCode';
@@ -68,6 +69,8 @@ export async function generateStaticParams() {
 async function getPageData(pageSlug: string) {
   try {
     console.log(`Pulling page data for *${pageSlug}*`);
+    setCDN('https://unpkg.com/shiki/');
+
     const processedContent = (await getContent({
       slug: pageSlug,
       components,

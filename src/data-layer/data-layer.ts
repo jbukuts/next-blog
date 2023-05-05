@@ -41,21 +41,6 @@ async function processContent(
 ): Promise<ProcessedContent> {
   const { plugins, components } = options;
 
-  // const isWebWorker =
-  //   typeof self !== 'undefined' &&
-  //   typeof self.WorkerGlobalScope !== 'undefined';
-
-  // const isNode =
-  //   'process' in globalThis &&
-  //   typeof process !== 'undefined' &&
-  //   typeof process.release !== 'undefined' &&
-  //   process.release.name === 'node';
-  // const isBrowser = isWebWorker || !isNode;
-
-  // console.log(
-  //   `THE CURRENT ENV IS NODE: ${isNode}, ${isWebWorker}, ${isBrowser}`
-  // );
-
   const { size, path, sha, download_url, content: rawContent, encoding } = item;
   const { remarkPlugins = [], rehypePlugins = [] } = plugins || {};
 
