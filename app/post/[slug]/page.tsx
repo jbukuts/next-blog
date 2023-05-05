@@ -7,7 +7,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import { Article, WithContext } from 'schema-dts';
-import { setCDN } from 'shiki';
+import { BUNDLED_LANGUAGES, getHighlighter, setCDN } from 'shiki';
 import ArticleTags from '@/components/article-helpers/ArticleTags';
 import FlexContainer from '@/components/article-helpers/FlexContainer';
 import PrettyCode from '@/components/article-helpers/PrettyCode';
@@ -76,7 +76,20 @@ async function getPageData(pageSlug: string) {
       components,
       remarkPlugins: [remarkInsertJSXAfterHeader],
       rehypePlugins: [
-        [rehypePrettyCode, { theme: vsTheme }],
+        [
+          rehypePrettyCode,
+          {
+            theme: vsTheme,
+            getHighlighter: (options: any) => {
+              setCDN('https://unpkg.com/shiki/');
+
+              return getHighlighter({
+                ...options,
+                langs: [...BUNDLED_LANGUAGES]
+              });
+            }
+          }
+        ],
         rehypeSlug,
         [
           rehypeAutolinkHeadings,
