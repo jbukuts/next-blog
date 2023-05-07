@@ -30,7 +30,10 @@ export const dynamic = 'force-static';
 
 // pull in post list
 async function getData(): Promise<HomeData> {
-  const postList = await getDataStoreSorted({ components });
+  const postList = await getDataStoreSorted({
+    components,
+    fetchOptions: { next: { tags: ['post-list'], revalidate: 86400 } }
+  });
 
   const fullTagsList: string[] = postList.reduce(
     (acc, { tags }) => [...acc, ...tags],

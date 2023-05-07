@@ -16,9 +16,9 @@ const {
 } = profile;
 
 const origin = `https://${siteURI}`;
-const imageURL = `${origin}${image}`;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(origin),
   title: {
     template: `${firstName} ${lastName} - %s`,
     default: jobTitle
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: origin,
     types: {
-      'application/rss+xml': `${origin}/rss.xml`
+      'application/rss+xml': `/rss.xml`
     }
   },
   openGraph: {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     description,
     url: origin,
     siteName: siteTitle,
-    images: [{ url: imageURL }],
+    images: image,
     locale: 'en-US',
     type: 'website'
   },
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     site: origin,
     description,
     creator: `@${username}`,
-    images: [imageURL]
+    images: image
   }
 };
 

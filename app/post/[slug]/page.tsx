@@ -37,15 +37,13 @@ const {
   almaMater,
   siteTitle,
   jobTitle,
-  siteURI,
-  image,
-  username
+  siteURI
 } = profile;
 
 const origin = `https://${siteURI}`;
 
-export const dynamic = 'force-static';
-export const fetchCache = 'force-cache';
+// export const dynamic = 'force-static';
+// export const fetchCache = 'force-cache';
 export const dynamicParams = true;
 
 const components: MDXRemoteProps['components'] = {
@@ -72,6 +70,7 @@ async function getPageData(pageSlug: string) {
     console.log(`Pulling page data for *${pageSlug}*`);
 
     const processedContent = (await getContent({
+      fetchOptions: { next: { revalidate: 86400 } },
       slug: pageSlug,
       components,
       remarkPlugins: [remarkInsertJSXAfterHeader],
@@ -97,8 +96,7 @@ export async function generateMetadata({
 }: BlogPostProps): Promise<Metadata> {
   const { title, desc: description } = await getPageData(params.slug);
 
-  const imageUrl = `${origin}/${image}`;
-  const pageUrl = `${origin}/post/${params.slug}`;
+  const pageUrl = `/post/${params.slug}`;
 
   return {
     title,
@@ -113,18 +111,11 @@ export async function generateMetadata({
       title,
       description,
       url: pageUrl,
-      siteName: siteTitle,
-      images: [{ url: imageUrl }],
-      locale: 'en-US',
       type: 'article'
     },
     twitter: {
-      card: 'summary',
       title,
-      site: origin,
-      description,
-      creator: `@${username}`,
-      images: [imageUrl]
+      description
     }
   };
 }

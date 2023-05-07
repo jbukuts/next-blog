@@ -16,7 +16,9 @@ interface RelatedArticlesProps {
 }
 
 async function getRecentPost(pageSlug: string): Promise<RelatedPost[]> {
-  const dataStore = await getDataStoreSorted();
+  const dataStore = await getDataStoreSorted({
+    fetchOptions: { next: { tags: ['post-list'], revalidate: 86400 } }
+  });
 
   return dataStore
     .map((item: any) => ({
@@ -62,7 +64,7 @@ const RelatedPostItem = (props: RelatedPost) => {
 
 async function RelatedArticles(props: RelatedArticlesProps) {
   const { currentSlug } = props;
-  const postList = await getRecentPost('');
+  const postList = await getRecentPost(currentSlug);
 
   return (
     <Stack
@@ -71,11 +73,9 @@ async function RelatedArticles(props: RelatedArticlesProps) {
       className={styles.relatedArticles}
       type='vertical'>
       <h2>Recent Posts</h2>
-      {postList
-        .filter(({ slug }) => slug !== currentSlug)
-        .map((post, index) => (
-          <RelatedPostItem key={index} {...post} />
-        ))}
+      {postList.map((post, index) => (
+        <RelatedPostItem key={index} {...post} />
+      ))}
     </Stack>
   );
 }

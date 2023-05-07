@@ -12,15 +12,23 @@ import { PluggableList } from 'unified';
 import createTOC from './create-toc.mjs';
 import { ProcessedContent, RepositoryContent } from './types';
 
-interface GetDataStoreOptions {
-  components?: MDXRemoteProps['components'];
-}
-
 interface GetContentOptions {
   slug?: string;
   components?: MDXRemoteProps['components'];
+  fetchOptions?: {
+    cache?: 'no-store' | 'force-cache';
+    next?: {
+      revalidate?: number;
+      tags?: string[];
+    };
+  };
   remarkPlugins?: PluggableList;
   rehypePlugins?: PluggableList;
+}
+
+interface GetDataStoreOptions {
+  components?: MDXRemoteProps['components'];
+  fetchOptions?: GetContentOptions['fetchOptions'];
 }
 
 interface ProcessContentOptions {
@@ -74,7 +82,7 @@ async function processContent(
   const slug = path.split('/').slice(-1)[0].split('.')[0];
 
   return {
-    title: tableOfContents[0].title,
+    title: tableOfContents[0]?.title || '',
     tags: tags as string[],
     content,
     date: new Date(date as string).toISOString(),
@@ -91,13 +99,18 @@ async function processContent(
 export async function getContent(
   options: GetContentOptions
 ): Promise<ProcessedContent | ProcessedContent[]> {
-  const { slug, components = {}, ...plugins } = options || {};
+  const {
+    slug,
+    components = {},
+    fetchOptions = {},
+    ...plugins
+  } = options || {};
 
   const path = slug ? `${GIT_FOLDER}/${slug}.md` : GIT_FOLDER;
   const apiURL = `https://api.github.com/repos/${GIT_USER_NAME}/${GIT_REPO}/contents/${path}`;
 
   const data: RepositoryContent | RepositoryContent[] = await fetch(apiURL, {
-    // next: { revalidate: 43200 },
+    ...fetchOptions,
     headers: {
       authorization: `Bearer ${GIT_API_KEY}`,
       contentType: 'application/vnd.github.v3+json'
@@ -112,14 +125,14 @@ export async function getContent(
   return processContent(data, { plugins, components });
 }
 
-// get the data store object
-
+// get the data store as object map
 export async function getDataStore(
   options: GetDataStoreOptions | void
 ): Promise<Record<string, ProcessedContent>> {
-  const { components = {} } = options || {};
+  const { components = {}, fetchOptions = {} } = options || {};
 
   const storeList = (await getContent({
+    fetchOptions,
     components,
     rehypePlugins: [[rehypeTruncate, { maxChars: 300 }]]
   })) as ProcessedContent[];
