@@ -5,14 +5,17 @@ $border-style: 1px solid get-color('gray-1', 0.5);
 .code {
   padding: 0.15rem $spacing-1;
   border-radius: 5px;
-  background-color: get-color('foreground', 0.1);
+
   font-family: 'SF Mono', monospace !important;
   font-size: $code-font-size;
   border: $border-style;
 }
 
+.inlineCode {
+  background-color: get-color('foreground', 0.1);
+}
+
 .prettyCodeContainer {
-  background-color: get-color('code-bg');
   padding: 0;
   border-radius: $border-radius-sm;
   overflow: hidden;
@@ -24,7 +27,6 @@ $border-style: 1px solid get-color('gray-1', 0.5);
   position: relative;
   line-height: 1.5;
   border-radius: 0;
-  background-color: unset;
   overflow-x: auto;
   padding: $spacing-4;
   border: none;
@@ -35,6 +37,7 @@ $border-style: 1px solid get-color('gray-1', 0.5);
   font-size: $code-font-size;
   color: get-color('white');
   user-select: none;
+  background-color: get-color('code-bg');
 
   & p {
     margin: 0 !important;

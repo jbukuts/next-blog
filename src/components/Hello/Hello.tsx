@@ -3,26 +3,25 @@ import React from 'react';
 import profile from '../../../profile';
 import IconLink from '../IconLink';
 import { Stack } from '../UI';
-import { Github, LinkedIn, Twitter } from '../UI/icons';
+import { Github, LinkedIn, Mail, Twitter } from '../UI/icons';
 import styles from './Hello.module.scss';
 
 const { aboutMe, imageWrapper, socials, helloContent } = styles;
-const { firstName, lastName, linkedInProfile, twitterProfile, githubProfile } =
-  profile;
+const {
+  firstName,
+  lastName,
+  linkedInProfile,
+  twitterProfile,
+  githubProfile,
+  emailAddress
+} = profile;
 
 const ICON_SIZE = 24;
 
 const Hello = () => (
   <Stack className={aboutMe} spacing='xxl' responsive>
     <div className={imageWrapper}>
-      <Image
-        src='/images/me.webp'
-        alt='This is me'
-        fill
-        width={320}
-        height={240}
-        priority
-      />
+      <Image src='/images/me.webp' alt='This is me' fill priority />
     </div>
 
     <Stack className={helloContent} type='vertical'>
@@ -37,6 +36,12 @@ const Hello = () => (
       <p>Here I blog about random code I&apos;ve written.</p>
 
       <Stack className={socials} spacing='none'>
+        <IconLink
+          href={emailAddress}
+          title='My email'
+          icon={Mail}
+          size={ICON_SIZE}
+        />
         <IconLink
           href={githubProfile}
           title='My Github'

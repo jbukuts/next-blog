@@ -29,7 +29,7 @@ const linkList: LinkStack[] = [
   {
     title: 'Built using',
     links: [
-      { title: 'Next.js', href: 'https://nextjs.org/' },
+      { title: 'Next.js', href: 'https://nextjs.org/docs' },
       { title: 'Sass', href: 'https://sass-lang.com/' },
       { title: 'MDX', href: 'https://mdxjs.com/' },
       { title: 'GitHub API', href: 'https://docs.github.com/en/rest' }

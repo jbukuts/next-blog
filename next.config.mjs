@@ -55,11 +55,6 @@ const nextConfig = {
       }
     }
   },
-  experimental: {
-    outputFileTracingIncludes: {
-      '/post/[slug]': ['./node_modules/shiki/']
-    }
-  },
   webpack: (config, { dev }) => {
     // config.mode = 'production';
     if (dev) {

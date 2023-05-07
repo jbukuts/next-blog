@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import React from 'react';
 import '@/styles/globals.scss';
+import { GlobalLayout } from '@/components/index';
 import profile from 'profile';
-import GlobalLayout from './GlobalLayout';
 
 const {
   siteTitle,

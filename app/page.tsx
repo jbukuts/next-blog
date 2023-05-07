@@ -2,13 +2,10 @@
 import { Metadata } from 'next';
 import { MDXRemoteProps } from 'next-mdx-remote';
 import React from 'react';
-import Hello from '@/components/Hello';
-import Main from '@/components/Layout/Main';
-import PostCard from '@/components/PostCard';
-import Heading from '@/components/UI/Heading';
-import Stack from '@/components/UI/Stack';
-import { getDataStoreSorted } from '@/data-layer/data-layer';
-import { ProcessedContent } from '@/data-layer/types';
+import { Hello, PostCard } from '@/components/index';
+import { Main } from '@/components/Layout/index';
+import { Heading, Stack } from '@/components/UI/index';
+import { ProcessedContent, getDataStoreSorted } from '@/data-layer/index';
 import styles from '@/styles/pages/index.module.scss';
 import profile from 'profile';
 
@@ -17,7 +14,7 @@ interface HomeData {
   fullTagsList: string[];
 }
 
-const { jobTitle } = profile;
+const { siteTitle } = profile;
 
 const components: MDXRemoteProps['components'] = {
   FlexContainer: React.Fragment,
@@ -26,11 +23,12 @@ const components: MDXRemoteProps['components'] = {
 };
 
 export const metadata: Metadata = {
-  title: jobTitle
+  title: siteTitle
 };
 
 export const dynamic = 'force-static';
 
+// pull in post list
 async function getData(): Promise<HomeData> {
   const postList = await getDataStoreSorted({ components });
 

@@ -57,7 +57,7 @@ const CodeBlock = (props: CodeBlockProps) => {
   return React.createElement(
     isBlock ? MultiLineWrapper : 'code',
     {
-      className: cx(styles.code, className),
+      className: cx(styles.code, className, !isBlock && styles.inlineCode),
       ...(isBlock && { progLang })
     },
     children

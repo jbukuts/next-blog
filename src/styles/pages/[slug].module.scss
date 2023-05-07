@@ -9,6 +9,10 @@
   }
 }
 
+.postSection {
+  margin-bottom: $spacing-8;
+}
+
 // remove window styling on small screens
 @include apply-lesser-than('sm') {
   .postWrapper {

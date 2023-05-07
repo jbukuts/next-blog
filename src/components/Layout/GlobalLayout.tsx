@@ -3,9 +3,10 @@
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from 'next-themes';
 import React, { useEffect } from 'react';
-import { Footer, Header } from '@/components/index';
 import useCurrentPath from '@/hooks/useCurrentPath';
 import { TitleProvider } from 'src/state/TitleContext';
+import Footer from './Footer';
+import Header from './Header';
 
 interface GlobalLayoutProps {
   children: React.ReactNode;
