@@ -1,7 +1,3 @@
 {
-  "functions": {
-    "pages/post/[slug].tsx": {
-      "includeFiles": "var/task/node_modules/shiki/**"
-    }
-  }
+  "framework": "nextjs"
 }

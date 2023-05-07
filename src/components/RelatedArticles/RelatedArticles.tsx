@@ -1,8 +1,9 @@
 import NextLink from 'next/link';
 import React, { Suspense } from 'react';
-import { ProcessedContent } from '../../data-layer';
-import { SideBar } from '../Layout';
-import { Badge, Stack } from '../UI';
+import SideBar from '@/components/Layout/SideBar';
+import Badge from '@/components/UI/Badge';
+import Stack from '@/components/UI/Stack';
+import { ProcessedContent, getDataStoreSorted } from '@/data-layer/index';
 import styles from './RelatedArticles.module.scss';
 
 export type RelatedPost = Pick<
@@ -11,7 +12,21 @@ export type RelatedPost = Pick<
 >;
 
 interface RelatedArticlesProps {
-  postList: RelatedPost[];
+  currentSlug: string;
+}
+
+async function getRecentPost(pageSlug: string): Promise<RelatedPost[]> {
+  const dataStore = await getDataStoreSorted();
+
+  return dataStore
+    .map((item: any) => ({
+      title: item.title,
+      slug: item.slug,
+      date: item.date,
+      tags: item.tags,
+      timeToRead: item.timeToRead
+    }))
+    .filter(({ slug }) => slug !== pageSlug);
 }
 
 const RelatedPostItem = (props: RelatedPost) => {
@@ -45,8 +60,9 @@ const RelatedPostItem = (props: RelatedPost) => {
   );
 };
 
-const RelatedArticles = (props: RelatedArticlesProps) => {
-  const { postList } = props;
+async function RelatedArticles(props: RelatedArticlesProps) {
+  const { currentSlug } = props;
+  const postList = await getRecentPost('');
 
   return (
     <Stack
@@ -55,11 +71,13 @@ const RelatedArticles = (props: RelatedArticlesProps) => {
       className={styles.relatedArticles}
       type='vertical'>
       <h2>Recent Posts</h2>
-      {postList.map((post, index) => (
-        <RelatedPostItem key={index} {...post} />
-      ))}
+      {postList
+        .filter(({ slug }) => slug !== currentSlug)
+        .map((post, index) => (
+          <RelatedPostItem key={index} {...post} />
+        ))}
     </Stack>
   );
-};
+}
 
 export default RelatedArticles;

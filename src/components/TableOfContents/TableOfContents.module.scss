@@ -1,5 +1,9 @@
 @use 'sass:color';
 
+:export {
+  headerHeight: $sticky-header-height;
+}
+
 .tableOfContents {
   line-height: 1.475;
 
@@ -32,7 +36,7 @@
 }
 
 .h3 {
-  margin-left: 0.5rem;
+  margin-left: 0.5rem !important;
   font-size: 0.875em;
 }
 

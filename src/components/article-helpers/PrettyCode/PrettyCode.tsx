@@ -1,7 +1,10 @@
+'use client';
+
 import cx from 'classnames';
 import React, { useRef, useState } from 'react';
 import { Stack } from '../../UI';
 import styles from './PrettyCode.module.scss';
+import '@/styles/highlight.scss';
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLElement> {
   'data-language'?: string;
@@ -46,15 +49,16 @@ const MultiLineWrapper = (props: MultiLineWrapperProps) => {
 };
 
 const CodeBlock = (props: CodeBlockProps) => {
-  const { children, 'data-language': progLang } = props;
+  const { children, 'data-language': progLang, className = '' } = props;
 
-  const isInline = progLang === undefined;
+  const isBlock =
+    progLang !== undefined || className.split(' ').includes('hljs');
 
   return React.createElement(
-    isInline ? 'code' : MultiLineWrapper,
+    isBlock ? MultiLineWrapper : 'code',
     {
-      className: cx(styles.code),
-      ...(!isInline && { progLang })
+      className: cx(styles.code, className, !isBlock && styles.inlineCode),
+      ...(isBlock && { progLang })
     },
     children
   );

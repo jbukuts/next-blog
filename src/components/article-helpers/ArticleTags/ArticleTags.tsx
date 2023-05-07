@@ -1,6 +1,7 @@
-import React, { Suspense } from 'react';
-import { ProcessedContent } from '../../../data-layer';
-import { Badge, Stack } from '../../UI';
+import React from 'react';
+import Badge from '@/components/UI/Badge';
+import Stack from '@/components/UI/Stack';
+import { ProcessedContent } from '@/data-layer/types';
 import styles from './ArticleTags.module.scss';
 
 type ArticleTagsProps = Pick<ProcessedContent, 'tags' | 'timeToRead' | 'date'>;
@@ -17,14 +18,12 @@ const ArticleTags = (props: ArticleTagsProps) => {
       ))}
       <Badge>{timeToRead} min</Badge>
       <Badge>
-        <Suspense fallback={null}>
-          Posted on{' '}
-          {new Date(date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-          })}
-        </Suspense>
+        Posted on{' '}
+        {new Date(date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        })}
       </Badge>
     </Stack>
   );

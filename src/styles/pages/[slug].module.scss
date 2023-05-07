@@ -1,7 +1,3 @@
-:export {
-  headerHeight: $sticky-header-height;
-}
-
 .postWrapper {
   z-index: 0;
 }
@@ -11,6 +7,10 @@
     margin-bottom: 1rem;
     line-height: 1.65;
   }
+}
+
+.postSection {
+  margin-bottom: $spacing-8;
 }
 
 // remove window styling on small screens

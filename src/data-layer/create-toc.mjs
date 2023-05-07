@@ -1,27 +1,18 @@
-import { CompilerFunction } from 'unified';
-import { Node } from 'unist';
+import remarkParse from 'remark-parse';
+import { unified } from 'unified';
 import { CONTINUE, visit } from 'unist-util-visit';
 
-export interface SectionHead {
-  tagName: string;
-  title: string;
-  id: string;
-  depth: number;
-}
-
-// parses AST into a table of contents
-// eslint-disable-next-line no-unused-vars
-export default function mdastCompileToc(this: any) {
-  const compiler: CompilerFunction<Node, string> = (tree: any) => {
-    const tableOfContents: SectionHead[] = [];
+function compileTOC() {
+  const compiler = (tree) => {
+    const tableOfContents = [];
 
     visit(
       tree,
-      (node: any) => {
+      (node) => {
         const { type, children } = node;
         return type === 'heading' && children[0]?.value;
       },
-      (node: any) => {
+      (node) => {
         const { depth, children } = node;
         const { value } = children[0];
         tableOfContents.push({
@@ -39,9 +30,16 @@ export default function mdastCompileToc(this: any) {
         return CONTINUE;
       }
     );
-
-    return JSON.stringify(tableOfContents.slice(1));
+    return JSON.stringify(tableOfContents);
   };
 
   Object.assign(this, { Compiler: compiler });
+}
+
+export default async function createTOC(rawMarkdown) {
+  return JSON.parse(
+    String(
+      await unified().use(remarkParse).use(compileTOC).process(rawMarkdown)
+    )
+  );
 }

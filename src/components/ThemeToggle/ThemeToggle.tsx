@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
-import { useToggleTheme } from '../../hooks';
-import { Stack, Toggle } from '../UI';
+import Stack from '@/components/UI/Stack';
+import Toggle from '@/components/UI/Toggle';
+import useToggleTheme from '@/hooks/useToggleTheme';
 
 const ThemeToggle = () => {
   const [theme, toggleTheme] = useToggleTheme();

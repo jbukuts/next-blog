@@ -3,23 +3,14 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import analyzer from '@next/bundle-analyzer';
 import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
-const { ENABLE_STATIC, ENABLE_PREACT, ANALYZE } = process.env;
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const { ANALYZE } = process.env;
 
 const withBundleAnalyzer = analyzer({
   enabled: ANALYZE === 'true'
 });
-
-const enableStatic = ENABLE_STATIC === 'true';
-const enablePreact = ENABLE_PREACT === 'true';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const staticExport = {
-  output: 'export',
-  distDir: 'out'
-};
 
 const contentSecurityPolicy = `
   default-src 'self' vitals.vercel-insights.com assets.vercel.com;
@@ -51,9 +42,9 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  ...((enableStatic && staticExport) || {}),
   reactStrictMode: true,
   swcMinify: true,
+  output: 'standalone',
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@use "src/styles/resources" as *;`,
@@ -64,25 +55,10 @@ const nextConfig = {
       }
     }
   },
-  experimental: {
-    outputFileTracingIncludes: {
-      '/post/[slug]': ['./node_modules/shiki/**']
-    }
-  },
-  webpack: (config, { isServer, dev }) => {
-    config.mode = 'production';
-    config.optimization.minimizer.push(new UglifyJsPlugin());
+  webpack: (config, { dev }) => {
+    // config.mode = 'production';
     if (dev) {
       config.plugins.push(new DuplicatePackageCheckerPlugin());
-    }
-    if (!dev && !isServer && enablePreact) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        'react/jsx-runtime.js': 'preact/compat/jsx-runtime',
-        react: 'preact/compat',
-        'react-dom/test-utils': 'preact/test-utils',
-        'react-dom': 'preact/compat'
-      };
     }
     return config;
   },

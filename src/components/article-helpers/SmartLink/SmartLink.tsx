@@ -1,14 +1,15 @@
 import NextLink from 'next/link';
 import React from 'react';
+import HashLink from './HashLink';
 import styles from './SmartLink.module.scss';
 
-interface SmartLinkProps {
+interface SmartLinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   children: React.ReactNode;
 }
 
 const SmartLink = (props: SmartLinkProps) => {
-  const { href, children } = props;
+  const { href, children, className, ...rest } = props;
 
   const isExternal =
     href.startsWith('http') ||
@@ -18,11 +19,12 @@ const SmartLink = (props: SmartLinkProps) => {
 
   const linkProps = {
     href,
-    ...((isExternal && { target: '_blank', rel: 'noreferrer' }) || {
-      ...((isHash && { replace: true }) || {})
-    }),
-    className: styles.link
+    ...rest,
+    ...((isExternal && { target: '_blank', rel: 'noreferrer' }) || {}),
+    className: className || styles.link
   };
+
+  if (isHash) return <HashLink {...props} />;
 
   return React.createElement(isExternal ? 'a' : NextLink, linkProps, children);
 };
