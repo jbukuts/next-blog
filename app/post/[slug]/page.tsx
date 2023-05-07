@@ -45,7 +45,7 @@ const {
 const origin = `https://${siteURI}`;
 
 export const dynamic = 'force-static';
-// export const fetchCache = 'force-cache';
+export const revalidate = 86400;
 export const dynamicParams = true;
 
 const components: MDXRemoteProps['components'] = {
@@ -72,7 +72,7 @@ async function getPageData(pageSlug: string) {
     console.log(`Pulling page data for *${pageSlug}*`);
 
     const processedContent = (await getContent({
-      fetchOptions: { next: { revalidate: 86400 } },
+      fetchOptions: { next: { tags: [pageSlug] } },
       slug: pageSlug,
       components,
       remarkPlugins: [remarkInsertJSXAfterHeader],

@@ -12,13 +12,13 @@ export interface RepositoryContent {
   size: number;
   name: string;
   path: string;
-  content?: string | undefined;
+  content?: string;
   encoding?: string;
   sha: string;
   url: string;
-  git_url: string | null;
-  html_url: string | null;
-  download_url: string | null;
+  git_url?: string;
+  html_url?: string;
+  download_url?: string;
   _links: Record<string, string>;
 }
 

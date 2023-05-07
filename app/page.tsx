@@ -27,12 +27,12 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = 'force-static';
+export const revalidate = 86400;
 
 // pull in post list
 async function getData(): Promise<HomeData> {
   const postList = await getDataStoreSorted({
-    components,
-    fetchOptions: { next: { tags: ['post-list'], revalidate: 86400 } }
+    components
   });
 
   const fullTagsList: string[] = postList.reduce(

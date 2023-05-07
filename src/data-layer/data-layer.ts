@@ -52,12 +52,17 @@ async function processContent(
   const { size, path, sha, download_url, content: rawContent, encoding } = item;
   const { remarkPlugins = [], rehypePlugins = [] } = plugins || {};
 
+  const isContentAvailable = rawContent && encoding !== 'none';
+
+  if (!isContentAvailable && !download_url)
+    throw new Error('No content in item and no download_url');
+
   // ideally gray-matter wouldn't be needed
   // but next-mdx-remote can't parse frontmatter from inserted JSX during remark phase
   const { content: rawMarkdown, data: frontmatter } = matter(
-    !rawContent || encoding === 'none'
+    !isContentAvailable
       ? await fetch(download_url as string).then((r) => r.text())
-      : Buffer.from(rawContent, 'base64').toString()
+      : Buffer.from(rawContent as string, 'base64').toString()
   );
 
   const { tags, desc, date } = frontmatter;
@@ -111,6 +116,7 @@ export async function getContent(
 
   const data: RepositoryContent | RepositoryContent[] = await fetch(apiURL, {
     ...fetchOptions,
+    ...(slug ? {} : { next: { ...fetchOptions.next, tags: ['post-list'] } }),
     headers: {
       authorization: `Bearer ${GIT_API_KEY}`,
       contentType: 'application/vnd.github.v3+json'

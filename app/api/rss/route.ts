@@ -43,9 +43,7 @@ export async function GET() {
     (m) => m.getDataStoreSorted
   );
 
-  const postList = await getDataStoreSorted({
-    fetchOptions: { next: { tags: ['post-list'], revalidate: 86400 } }
-  });
+  const postList = await getDataStoreSorted();
 
   postList.forEach((postItem) => {
     const { title, slug, desc, date, tags } = postItem;

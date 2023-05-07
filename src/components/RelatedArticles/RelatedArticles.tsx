@@ -16,9 +16,7 @@ interface RelatedArticlesProps {
 }
 
 async function getRecentPost(pageSlug: string): Promise<RelatedPost[]> {
-  const dataStore = await getDataStoreSorted({
-    fetchOptions: { next: { tags: ['post-list'], revalidate: 86400 } }
-  });
+  const dataStore = await getDataStoreSorted();
 
   return dataStore
     .map((item: any) => ({
