@@ -44,7 +44,7 @@ const {
 
 const origin = `https://${siteURI}`;
 
-// export const dynamic = 'force-static';
+export const dynamic = 'force-static';
 // export const fetchCache = 'force-cache';
 export const dynamicParams = true;
 
