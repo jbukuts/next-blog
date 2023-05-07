@@ -37,7 +37,9 @@ const {
   almaMater,
   siteTitle,
   jobTitle,
-  siteURI
+  siteURI,
+  username,
+  image
 } = profile;
 
 const origin = `https://${siteURI}`;
@@ -111,11 +113,18 @@ export async function generateMetadata({
       title,
       description,
       url: pageUrl,
-      type: 'article'
+      type: 'article',
+      siteName: siteTitle,
+      images: image,
+      locale: 'en-US'
     },
     twitter: {
+      card: 'summary',
       title,
-      description
+      site: origin,
+      description,
+      creator: `@${username}`,
+      images: image
     }
   };
 }
