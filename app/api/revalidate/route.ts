@@ -1,5 +1,6 @@
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
+import config from 'config';
 
 interface RevalidateResponse {
   status: number;
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
   console.log(`path to revalidate **${splitSlug[1]}**`);
 
   revalidateTag(splitSlug[1]);
-  revalidateTag('post-list');
+  revalidateTag(config.listTag);
   revalidatePath(slug);
   revalidatePath('/rss.xml');
 

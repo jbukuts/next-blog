@@ -9,6 +9,7 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import rehypeTruncate from 'rehype-truncate';
 import remarkBreaks from 'remark-breaks';
 import { PluggableList } from 'unified';
+import config from 'config';
 import createTOC from './create-toc.mjs';
 import { ProcessedContent, RepositoryContent } from './types';
 
@@ -116,12 +117,15 @@ export async function getContent(
 
   const data: RepositoryContent | RepositoryContent[] = await fetch(apiURL, {
     ...fetchOptions,
-    ...(slug ? {} : { next: { ...fetchOptions.next, tags: ['post-list'] } }),
+    ...(slug ? {} : { next: { ...fetchOptions.next, tags: [config.listTag] } }),
     headers: {
       authorization: `Bearer ${GIT_API_KEY}`,
       contentType: 'application/vnd.github.v3+json'
     }
-  }).then((r: Response) => r.json());
+  }).then((r: Response) => {
+    if (r.status !== 200) throw new Error(`Slug **${slug}** does not exist!`);
+    return r.json();
+  });
 
   if (Array.isArray(data))
     return Promise.all(

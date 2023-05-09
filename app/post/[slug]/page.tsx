@@ -20,6 +20,7 @@ import { Heading } from '@/components/UI/index';
 import { getContent, getDataStore } from '@/data-layer/data-layer';
 import { ProcessedContent } from '@/data-layer/types';
 import styles from '@/styles/pages/[slug].module.scss';
+import config from 'config';
 import profile from 'profile';
 import { rehypeSectionWrapper, remarkInsertJSXAfterHeader } from 'src/plugins';
 
@@ -45,7 +46,7 @@ const {
 const origin = `https://${siteURI}`;
 
 export const dynamic = 'force-static';
-export const revalidate = 86400;
+export const revalidate = config.revalidateLength;
 export const dynamicParams = true;
 
 const components: MDXRemoteProps['components'] = {
