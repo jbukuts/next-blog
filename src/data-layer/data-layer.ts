@@ -89,9 +89,9 @@ async function processContent(
 
   return {
     title: tableOfContents[0]?.title || '',
-    tags: tags as string[],
+    tags: (tags as string[]) || [],
     content,
-    date: new Date(date as string).toISOString(),
+    date: new Date((date as string) || '1-01-2001').toISOString(),
     tableOfContents,
     desc: desc as string,
     slug,
