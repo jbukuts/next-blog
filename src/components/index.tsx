@@ -8,7 +8,6 @@ import ThemeToggle from './ThemeToggle';
 
 export * from './UI';
 export * from './article-helpers';
-export * from './seo-wrappers';
 export * from './Layout';
 
 export {

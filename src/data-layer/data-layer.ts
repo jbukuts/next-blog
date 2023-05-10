@@ -9,18 +9,27 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import rehypeTruncate from 'rehype-truncate';
 import remarkBreaks from 'remark-breaks';
 import { PluggableList } from 'unified';
+import config from 'config';
 import createTOC from './create-toc.mjs';
 import { ProcessedContent, RepositoryContent } from './types';
-
-interface GetDataStoreOptions {
-  components?: MDXRemoteProps['components'];
-}
 
 interface GetContentOptions {
   slug?: string;
   components?: MDXRemoteProps['components'];
+  fetchOptions?: {
+    cache?: 'no-store' | 'force-cache';
+    next?: {
+      revalidate?: number;
+      tags?: string[];
+    };
+  };
   remarkPlugins?: PluggableList;
   rehypePlugins?: PluggableList;
+}
+
+interface GetDataStoreOptions {
+  components?: MDXRemoteProps['components'];
+  fetchOptions?: GetContentOptions['fetchOptions'];
 }
 
 interface ProcessContentOptions {
@@ -44,12 +53,17 @@ async function processContent(
   const { size, path, sha, download_url, content: rawContent, encoding } = item;
   const { remarkPlugins = [], rehypePlugins = [] } = plugins || {};
 
+  const isContentAvailable = rawContent && encoding !== 'none';
+
+  if (!isContentAvailable && !download_url)
+    throw new Error('No content in item and no download_url');
+
   // ideally gray-matter wouldn't be needed
   // but next-mdx-remote can't parse frontmatter from inserted JSX during remark phase
   const { content: rawMarkdown, data: frontmatter } = matter(
-    !rawContent || encoding === 'none'
+    !isContentAvailable
       ? await fetch(download_url as string).then((r) => r.text())
-      : Buffer.from(rawContent, 'base64').toString()
+      : Buffer.from(rawContent as string, 'base64').toString()
   );
 
   const { tags, desc, date } = frontmatter;
@@ -74,10 +88,10 @@ async function processContent(
   const slug = path.split('/').slice(-1)[0].split('.')[0];
 
   return {
-    title: tableOfContents[0].title,
-    tags: tags as string[],
+    title: tableOfContents[0]?.title || '',
+    tags: (tags as string[]) || [],
     content,
-    date: new Date(date as string).toISOString(),
+    date: new Date((date as string) || '1-01-2001').toISOString(),
     tableOfContents,
     desc: desc as string,
     slug,
@@ -91,18 +105,27 @@ async function processContent(
 export async function getContent(
   options: GetContentOptions
 ): Promise<ProcessedContent | ProcessedContent[]> {
-  const { slug, components = {}, ...plugins } = options || {};
+  const {
+    slug,
+    components = {},
+    fetchOptions = {},
+    ...plugins
+  } = options || {};
 
   const path = slug ? `${GIT_FOLDER}/${slug}.md` : GIT_FOLDER;
   const apiURL = `https://api.github.com/repos/${GIT_USER_NAME}/${GIT_REPO}/contents/${path}`;
 
   const data: RepositoryContent | RepositoryContent[] = await fetch(apiURL, {
-    // next: { revalidate: 43200 },
+    ...fetchOptions,
+    ...(slug ? {} : { next: { ...fetchOptions.next, tags: [config.listTag] } }),
     headers: {
       authorization: `Bearer ${GIT_API_KEY}`,
       contentType: 'application/vnd.github.v3+json'
     }
-  }).then((r: Response) => r.json());
+  }).then((r: Response) => {
+    if (r.status !== 200) throw new Error(`Slug **${slug}** does not exist!`);
+    return r.json();
+  });
 
   if (Array.isArray(data))
     return Promise.all(
@@ -112,14 +135,14 @@ export async function getContent(
   return processContent(data, { plugins, components });
 }
 
-// get the data store object
-
+// get the data store as object map
 export async function getDataStore(
   options: GetDataStoreOptions | void
 ): Promise<Record<string, ProcessedContent>> {
-  const { components = {} } = options || {};
+  const { components = {}, fetchOptions = {} } = options || {};
 
   const storeList = (await getContent({
+    fetchOptions,
     components,
     rehypePlugins: [[rehypeTruncate, { maxChars: 300 }]]
   })) as ProcessedContent[];

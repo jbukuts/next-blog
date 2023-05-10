@@ -44,7 +44,9 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: 'standalone',
+  experimental: {
+    serverComponentsExternalPackages: ['pino']
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@use "src/styles/resources" as *;`,

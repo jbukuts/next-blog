@@ -37,7 +37,7 @@ const Hello = () => (
 
       <Stack className={socials} spacing='none'>
         <IconLink
-          href={emailAddress}
+          href={`mailto:${emailAddress}`}
           title='My email'
           icon={Mail}
           size={ICON_SIZE}

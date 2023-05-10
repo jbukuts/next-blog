@@ -20,6 +20,7 @@ import { Heading } from '@/components/UI/index';
 import { getContent, getDataStore } from '@/data-layer/data-layer';
 import { ProcessedContent } from '@/data-layer/types';
 import styles from '@/styles/pages/[slug].module.scss';
+import config from 'config';
 import profile from 'profile';
 import { rehypeSectionWrapper, remarkInsertJSXAfterHeader } from 'src/plugins';
 
@@ -38,14 +39,14 @@ const {
   siteTitle,
   jobTitle,
   siteURI,
-  image,
-  username
+  username,
+  image
 } = profile;
 
 const origin = `https://${siteURI}`;
 
 export const dynamic = 'force-static';
-export const fetchCache = 'force-cache';
+export const revalidate = config.revalidateLength;
 export const dynamicParams = true;
 
 const components: MDXRemoteProps['components'] = {
@@ -72,6 +73,7 @@ async function getPageData(pageSlug: string) {
     console.log(`Pulling page data for *${pageSlug}*`);
 
     const processedContent = (await getContent({
+      fetchOptions: { next: { tags: [pageSlug] } },
       slug: pageSlug,
       components,
       remarkPlugins: [remarkInsertJSXAfterHeader],
@@ -97,8 +99,7 @@ export async function generateMetadata({
 }: BlogPostProps): Promise<Metadata> {
   const { title, desc: description } = await getPageData(params.slug);
 
-  const imageUrl = `${origin}/${image}`;
-  const pageUrl = `${origin}/post/${params.slug}`;
+  const pageUrl = `/post/${params.slug}`;
 
   return {
     title,
@@ -113,10 +114,10 @@ export async function generateMetadata({
       title,
       description,
       url: pageUrl,
+      type: 'article',
       siteName: siteTitle,
-      images: [{ url: imageUrl }],
-      locale: 'en-US',
-      type: 'article'
+      images: image,
+      locale: 'en-US'
     },
     twitter: {
       card: 'summary',
@@ -124,7 +125,7 @@ export async function generateMetadata({
       site: origin,
       description,
       creator: `@${username}`,
-      images: [imageUrl]
+      images: image
     }
   };
 }
