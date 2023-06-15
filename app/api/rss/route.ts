@@ -1,6 +1,6 @@
+/* eslint-disable import/prefer-default-export */
 import { Feed } from 'feed';
 import { NextResponse } from 'next/server';
-import config from 'config';
 import profile from 'profile';
 
 const {
@@ -17,9 +17,8 @@ const {
 const SITE_URL = `https://${siteURI}`;
 const FULL_NAME = `${firstName} ${lastName}`;
 
-export const revalidate = config.revalidateLength;
+// export const revalidate = config.revalidateLength;
 
-// eslint-disable-next-line import/prefer-default-export
 export async function GET() {
   const feed = new Feed({
     title: siteTitle,

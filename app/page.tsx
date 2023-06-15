@@ -7,7 +7,6 @@ import { Main } from '@/components/Layout/index';
 import { Heading, Stack } from '@/components/UI/index';
 import { ProcessedContent, getDataStoreSorted } from '@/data-layer/index';
 import styles from '@/styles/pages/index.module.scss';
-import config from 'config';
 import profile from 'profile';
 
 interface HomeData {
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = 'force-static';
-export const revalidate = config.revalidateLength;
+// export const revalidate = config.revalidateLength;
 
 // pull in post list
 async function getData(): Promise<HomeData> {
