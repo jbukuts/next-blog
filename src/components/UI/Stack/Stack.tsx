@@ -5,7 +5,7 @@ import styles from './Stack.module.scss';
 interface StackProps extends React.HTMLAttributes<Element> {
   as?: string | React.FC<any>;
   type?: 'horizontal' | 'vertical';
-  spacing?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none';
+  spacing?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none';
   reverse?: boolean;
   responsive?: boolean;
   [asProp: string]: any;

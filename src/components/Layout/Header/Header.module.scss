@@ -67,6 +67,10 @@ $scroll-color: get-color('blue');
   text-decoration: none;
 }
 
+.activePath {
+  text-decoration: underline;
+}
+
 @include apply-lesser-than('md') {
   .stickyBarContent {
     width: min(100%, calc($content-width + 2 * $sticky-bar-padding));

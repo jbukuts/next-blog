@@ -1,0 +1,34 @@
+.button {
+  font-size: 0.875rem;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  text-decoration: underline;
+  color: get-color('foreground', 0.75);
+  width: fit-content;
+  transition: text-shadow 100ms ease-in-out;
+
+  &:hover {
+    color: get-color('foreground');
+    cursor: pointer;
+    @include item-glow($type: 'text-shadow', $size: 25px);
+  }
+}
+
+// https://keithjgrant.com/posts/2023/04/transitioning-to-height-auto/
+.wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 250ms ease-out;
+}
+
+.open {
+  grid-template-rows: 1fr;
+}
+
+.content {
+  padding: 0;
+  height: auto;
+  overflow: hidden;
+}

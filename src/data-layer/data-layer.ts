@@ -120,10 +120,13 @@ export async function getContent(
     ...(slug ? {} : { next: { ...fetchOptions.next, tags: [config.listTag] } }),
     headers: {
       authorization: `Bearer ${GIT_API_KEY}`,
+      'X-GitHub-Api-Version': ' 2022-11-28',
       contentType: 'application/vnd.github.v3+json'
     }
   }).then((r: Response) => {
-    if (r.status !== 200) throw new Error(`Slug **${slug}** does not exist!`);
+    if (r.status === 401) throw new Error(`Not authed. API key problem?`);
+    else if (r.status === 404)
+      throw new Error(`Slug **${slug}** does not exist!`);
     return r.json();
   });
 
@@ -145,6 +148,9 @@ export async function getDataStore(
     fetchOptions,
     components,
     rehypePlugins: [[rehypeTruncate, { maxChars: 300 }]]
+  }).catch((e) => {
+    console.log(e);
+    return [];
   })) as ProcessedContent[];
 
   const storeMap = storeList.reduce((acc: any, curr: any) => {

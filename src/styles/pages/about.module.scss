@@ -1,0 +1,48 @@
+.workCard {
+  padding: 1rem;
+
+  & h2 {
+    font-size: 1.65rem;
+  }
+
+  & .cardHeadline {
+    justify-content: space-between;
+  }
+
+  & .organization {
+    color: get-color('foreground', 0.75);
+  }
+
+  & .justifyRight {
+    align-items: flex-end;
+    justify-content: flex-start;
+    font-size: 0.875rem;
+    color: get-color('foreground', 0.75);
+    font-style: italic;
+    flex-shrink: 0;
+  }
+
+  & .description {
+    & ul {
+      list-style: none;
+      list-style-position: outside;
+      padding-left: 1.25rem;
+      margin: 0;
+
+      & li::before {
+        display: inline-block;
+        content: '-';
+        width: 1rem;
+        margin-left: -1rem;
+      }
+    }
+  }
+}
+
+@include apply-lesser-than('sm') {
+  .workCard {
+    & .justifyRight {
+      align-items: center;
+    }
+  }
+}
