@@ -1,14 +1,17 @@
 /* eslint-disable camelcase */
+import { Metadata } from 'next';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import React from 'react';
 import { PrettyCode, SmartLink } from '@/components/article-helpers';
 import Hello from '@/components/Hello';
 import { Main } from '@/components/Layout/index';
 import { Stack, Window } from '@/components/UI';
-
 import TagBadge from '@/components/UI/Badge/Badge';
 import dbConnection from '@/data-layer/db-connection';
 import styles from '@/styles/pages/about.module.scss';
+import profile from 'profile';
+
+const { siteURI } = profile;
 
 export const revalidate = 86400;
 export const dynamic = 'force-static';
@@ -22,6 +25,30 @@ interface ProjectEntry {
   langs?: string[];
   homepage_url?: string;
 }
+
+const pageTitle = 'Personal Projects';
+const pageDescription = 'List of my personal projects';
+const origin = `https://${siteURI}`;
+
+export const metadata: Metadata = {
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: '/projects',
+    types: {
+      'application/rss+xml': `${origin}/rss.xml`
+    }
+  },
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    url: '/projects'
+  },
+  twitter: {
+    title: pageTitle,
+    description: pageDescription
+  }
+};
 
 const Projects = async () => {
   const projectRows = await dbConnection

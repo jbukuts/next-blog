@@ -120,7 +120,7 @@ export async function getContent(
     ...(slug ? {} : { next: { ...fetchOptions.next, tags: [config.listTag] } }),
     headers: {
       authorization: `Bearer ${GIT_API_KEY}`,
-      'X-GitHub-Api-Version': ' 2022-11-28',
+      'X-GitHub-Api-Version': '2022-11-28',
       contentType: 'application/vnd.github.v3+json'
     }
   }).then((r: Response) => {

@@ -1,14 +1,41 @@
+import { Metadata } from 'next';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import React from 'react';
 import Hello from '@/components/Hello';
 import { Main } from '@/components/Layout/index';
 import { Accordion, Stack, Window } from '@/components/UI';
-
 import dbConnection from '@/data-layer/db-connection';
 import styles from '@/styles/pages/about.module.scss';
+import profile from 'profile';
+
+const { siteURI } = profile;
 
 export const revalidate = 86400;
 export const dynamic = 'force-static';
+
+const pageTitle = 'My Résumé';
+const pageDescription = 'My education and work background';
+const origin = `https://${siteURI}`;
+
+export const metadata: Metadata = {
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: '/projects',
+    types: {
+      'application/rss+xml': `${origin}/rss.xml`
+    }
+  },
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    url: '/projects'
+  },
+  twitter: {
+    title: pageTitle,
+    description: pageDescription
+  }
+};
 
 const createDateSpan = (startDate: Date, endDate: Date | undefined) =>
   `${startDate.toLocaleDateString('en-us', {
