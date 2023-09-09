@@ -6,6 +6,7 @@ import { Main } from '@/components/Layout/index';
 import { Accordion, Stack, Window } from '@/components/UI';
 import dbConnection from '@/data-layer/db-connection';
 import styles from '@/styles/pages/about.module.scss';
+import { openGraphData, twitterData } from 'app/shared-metadata';
 import profile from 'profile';
 
 const { siteURI } = profile;
@@ -27,11 +28,13 @@ export const metadata: Metadata = {
     }
   },
   openGraph: {
+    ...openGraphData,
     title: pageTitle,
     description: pageDescription,
     url: '/projects'
   },
   twitter: {
+    ...twitterData,
     title: pageTitle,
     description: pageDescription
   }

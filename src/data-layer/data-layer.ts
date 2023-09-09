@@ -43,6 +43,12 @@ interface ProcessContentOptions {
 const { GIT_API_KEY, GIT_USER_NAME, GIT_REPO, GIT_FOLDER } = process.env;
 const CHARS_PER_MINUTE = 1150;
 
+const ERROR_MAP: Record<number, ((_arg?: string) => string) | undefined> = {
+  401: () => 'Not authed. API key problem?',
+  404: (s) => `Slug **${s}** does not exist!`,
+  500: () => 'Internal server error.'
+};
+
 // process repository content item
 async function processContent(
   item: RepositoryContent,
@@ -124,9 +130,8 @@ export async function getContent(
       contentType: 'application/vnd.github.v3+json'
     }
   }).then((r: Response) => {
-    if (r.status === 401) throw new Error(`Not authed. API key problem?`);
-    else if (r.status === 404)
-      throw new Error(`Slug **${slug}** does not exist!`);
+    const error = ERROR_MAP[r.status || 500];
+    if (error !== undefined) throw new Error(error(slug));
     return r.json();
   });
 

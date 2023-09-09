@@ -10,7 +10,7 @@
         "react/jsx-props-no-spreading": "off",
         "react/no-array-index-key": "off",
         "react/require-default-props": "off",
-        "no-unused-vars": ["error", { "destructuredArrayIgnorePattern": "^_" }],
+        "no-unused-vars": ["error", { "destructuredArrayIgnorePattern": "^_", "argsIgnorePattern": "^_" }],
         "sort-imports": [
             "error",
             {
