@@ -1,24 +1,24 @@
 import NextLink from 'next/link';
-import React from 'react';
+import React, { AnchorHTMLAttributes, DetailedHTMLProps } from 'react';
 import HashLink from './HashLink';
 import styles from './SmartLink.module.scss';
 
-interface SmartLinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
-  href: string;
-  children: React.ReactNode;
-}
+type SmartLinkProps = DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+>;
 
-const SmartLink = (props: SmartLinkProps) => {
+const SmartLink: React.FunctionComponent<SmartLinkProps> = (props) => {
   const { href, children, className, ...rest } = props;
 
   const isExternal =
-    href.startsWith('http') ||
-    href.startsWith('//') ||
-    href.startsWith('mailto:');
-  const isHash = href.startsWith('#');
+    href?.startsWith('http') ||
+    href?.startsWith('//') ||
+    href?.startsWith('mailto:');
+  const isHash = href?.startsWith('#');
 
   const linkProps = {
-    href,
+    href: href as any,
     ...rest,
     ...((isExternal && { target: '_blank', rel: 'noreferrer' }) || {}),
     className: className || styles.link
@@ -26,7 +26,11 @@ const SmartLink = (props: SmartLinkProps) => {
 
   if (isHash) return <HashLink {...props} />;
 
-  return React.createElement(isExternal ? 'a' : NextLink, linkProps, children);
+  return React.createElement(
+    isExternal ? 'a' : NextLink,
+    linkProps as any,
+    children
+  );
 };
 
 export default SmartLink;

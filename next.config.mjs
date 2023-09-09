@@ -2,7 +2,7 @@
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import analyzer from '@next/bundle-analyzer';
-import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin';
+// import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -57,15 +57,35 @@ const nextConfig = {
       }
     }
   },
-  webpack: (config, { dev }) => {
-    // config.mode = 'production';
-    if (dev) {
-      config.plugins.push(new DuplicatePackageCheckerPlugin());
-    }
-    return config;
-  },
+  // webpack: (config, { dev }) => {
+  //   // config.mode = 'production';
+  //   if (dev) {
+  //     config.plugins.push(new DuplicatePackageCheckerPlugin());
+  //   }
+
+  //   config.resolve.alias = {
+  //     ...config.resolve.alias,
+  //     'react-is': path.resolve(__dirname, 'node_modules/react-is')
+  //   };
+
+  //   return config;
+  // },
   async headers() {
     return [
+      {
+        source: '/:all*(svg|jpg|png|woff2|ttf)',
+        locale: false,
+        headers: [
+          {
+            key: 'x-custom-header',
+            value: 'my custom header value'
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=9999999999, must-revalidate'
+          }
+        ]
+      },
       {
         source: '/post/:path*',
         headers: securityHeaders

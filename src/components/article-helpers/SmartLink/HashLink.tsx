@@ -1,12 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { AnchorHTMLAttributes, DetailedHTMLProps } from 'react';
 import styles from './SmartLink.module.scss';
 
-interface SmartLinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
-  href: string;
-  children: React.ReactNode;
-}
+type SmartLinkProps = DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+>;
 
 const HashLink = (props: SmartLinkProps) => {
   const { href, children, className } = props;

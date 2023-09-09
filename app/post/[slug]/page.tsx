@@ -20,6 +20,7 @@ import { Heading } from '@/components/UI/index';
 import { getContent, getDataStore } from '@/data-layer/data-layer';
 import { ProcessedContent } from '@/data-layer/types';
 import styles from '@/styles/pages/[slug].module.scss';
+import { openGraphData, twitterData } from 'app/shared-metadata';
 import profile from 'profile';
 import { rehypeSectionWrapper, remarkInsertJSXAfterHeader } from 'src/plugins';
 
@@ -37,9 +38,7 @@ const {
   almaMater,
   siteTitle,
   jobTitle,
-  siteURI,
-  username,
-  image
+  siteURI
 } = profile;
 
 const origin = `https://${siteURI}`;
@@ -112,21 +111,18 @@ export async function generateMetadata({
       }
     },
     openGraph: {
+      ...openGraphData,
       title,
       description,
       url: pageUrl,
       type: 'article',
-      siteName: siteTitle,
-      images: image,
-      locale: 'en-US'
+      siteName: siteTitle
     },
     twitter: {
-      card: 'summary',
+      ...twitterData,
       title,
       site: origin,
-      description,
-      creator: `@${username}`,
-      images: image
+      description
     }
   };
 }

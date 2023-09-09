@@ -1,6 +1,7 @@
 'use client';
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import cx from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -15,6 +16,12 @@ import profile from 'profile';
 import TitleContext from 'src/state/TitleContext';
 import styles from './Header.module.scss';
 
+const HIDE_SCROLL_PATHS = ['/', '/resume', '/projects'];
+const HEADER_PATHS = [
+  { path: '/', name: 'Blog', regex: /^\/post\/*/ },
+  { path: '/projects', name: 'Projects' },
+  { path: '/resume', name: 'Work History' }
+];
 const { firstName, lastName, siteTitle, headerImage } = profile;
 
 const stickyHeaderMotions = {
@@ -65,20 +72,36 @@ const StickyHeader = ({ show }: { show: boolean }) => {
   );
 };
 
-const StaticHeader = React.forwardRef<Element>((_, ref) => (
-  <Stack className={styles.staticBar} ref={ref} title='Back to home'>
-    <Link href='/'>
-      <Image
-        priority
-        width={2000}
-        height={836}
-        alt={siteTitle}
-        src={headerImage}
-      />
-    </Link>
-    <ThemeToggle />
-  </Stack>
-));
+const StaticHeader = React.forwardRef<Element, { pathName: string }>(
+  ({ pathName }, ref) => (
+    <Stack type='vertical'>
+      <Stack className={styles.staticBar} ref={ref}>
+        <Link href='/' title='Back to home'>
+          <Image
+            priority
+            width={2000}
+            height={836}
+            alt={siteTitle}
+            src={headerImage}
+          />
+        </Link>
+        <ThemeToggle />
+      </Stack>
+      <Stack as='nav'>
+        {HEADER_PATHS.map(({ path, name, regex }) => (
+          <Link
+            href={path}
+            key={path}
+            className={cx(
+              (pathName === path || regex?.test(pathName)) && styles.activePath
+            )}>
+            {name}
+          </Link>
+        ))}
+      </Stack>
+    </Stack>
+  )
+);
 
 const CombinedHeader = () => {
   const [headerRef, headerVisible] = useElementOnScreen({}, true);
@@ -86,8 +109,10 @@ const CombinedHeader = () => {
 
   return (
     <header className={styles.header}>
-      <StickyHeader show={!headerVisible && pathName !== '/'} />
-      <StaticHeader ref={headerRef} />
+      <StickyHeader
+        show={!headerVisible && !HIDE_SCROLL_PATHS.includes(pathName)}
+      />
+      <StaticHeader ref={headerRef} pathName={pathName} />
     </header>
   );
 };
