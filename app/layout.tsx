@@ -3,17 +3,10 @@ import React from 'react';
 import '@/styles/globals.scss';
 import { GlobalLayout } from '@/components/index';
 import profile from 'profile';
+import { openGraphData, twitterData } from './shared-metadata';
 
-const {
-  siteTitle,
-  description,
-  siteURI,
-  image,
-  username,
-  jobTitle,
-  firstName,
-  lastName
-} = profile;
+const { siteTitle, description, siteURI, jobTitle, firstName, lastName } =
+  profile;
 
 const origin = `https://${siteURI}`;
 
@@ -31,21 +24,17 @@ export const metadata: Metadata = {
     }
   },
   openGraph: {
+    ...openGraphData,
     title: siteTitle,
     description,
     url: origin,
-    siteName: siteTitle,
-    images: image,
-    locale: 'en-US',
-    type: 'website'
+    siteName: siteTitle
   },
   twitter: {
-    card: 'summary',
+    ...twitterData,
     title: siteTitle,
     site: origin,
-    description,
-    creator: `@${username}`,
-    images: image
+    description
   }
 };
 
