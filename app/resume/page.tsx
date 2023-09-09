@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     ...openGraphData,
     title: pageTitle,
     description: pageDescription,
-    url: '/projects'
+    url: '/resume'
   },
   twitter: {
     ...twitterData,
