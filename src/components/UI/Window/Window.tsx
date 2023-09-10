@@ -33,7 +33,7 @@ const Window = React.forwardRef<Element, WindowProps>((props, ref) => {
             <div />
             <div />
           </Stack>
-          {title || ''}
+          <p>{title || ''}</p>
         </Stack>
       )}
       <div className={contentClassName}>{children}</div>

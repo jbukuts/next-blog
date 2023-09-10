@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnection from '@/data-layer/db-connection';
 
-const { GIT_API_KEY, GIT_USER_NAME, REVALIDATE_SECRET } = process.env;
+const { GIT_API_KEY, GIT_USER_NAME, CRON_SECRET } = process.env;
 
 interface RepositoryData {
   html_url: string;
@@ -41,15 +41,17 @@ function gitHubApiCall(url: string) {
   });
 }
 
+export const dynamic = 'force-dynamic';
+
 // eslint-disable-next-line import/prefer-default-export
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    const { token } = await request.json();
+    const { headers } = request;
+    const authToken = headers.get('authorization')?.replace('Bearer ', '');
 
-    if (!REVALIDATE_SECRET)
-      return sendError(500, 'No secret available. Cannot authenticate');
-
-    if (token !== REVALIDATE_SECRET) return sendError(401, 'Invalid token');
+    if (!CRON_SECRET) return sendError(500, 'No server token.');
+    if (!authToken) return sendError(401, 'Missing authorization token');
+    if (authToken !== CRON_SECRET) return sendError(401, 'Invalid token');
 
     const projectRows = await dbConnection
       .selectFrom('personal_projects')

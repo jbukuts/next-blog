@@ -1,4 +1,5 @@
 $border-style: 1px solid get-color('outline');
+$button-size: 10px;
 
 .windowWrapper {
   border: $border-style;
@@ -20,6 +21,13 @@ $border-style: 1px solid get-color('outline');
   height: auto;
   border-bottom: $border-style;
 
+  & p {
+    max-width: calc(100% - (2 * 5 * ($button-size)));
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
   &::after {
     content: '';
     width: 100%;
@@ -40,8 +48,8 @@ $border-style: 1px solid get-color('outline');
     left: 0.5rem;
 
     & > div {
-      width: 10px;
-      height: 10px;
+      width: $button-size;
+      height: $button-size;
       border-radius: 100%;
       border: 1px solid rgba(0, 0, 0, 0.25);
 
